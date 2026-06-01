@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -23,6 +24,7 @@ type Redemption = {
 };
 
 export default function RedemptionsPage() {
+  const { theme } = useTheme();
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
   const [children, setChildren] = useState<Child[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
@@ -124,7 +126,7 @@ export default function RedemptionsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-6 text-white">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} p-6`}>
       <div className="mx-auto max-w-4xl">
         <h1 className="mb-6 text-3xl font-bold">Pending Reward Requests</h1>
 
@@ -134,7 +136,10 @@ export default function RedemptionsPage() {
             const reward = rewards.find((r) => r.id === redemption.reward_id);
 
             return (
-              <div key={redemption.id} className="rounded-2xl bg-slate-900 p-5">
+              <div
+  key={redemption.id}
+  className={`rounded-2xl border ${theme.navCard} p-5`}
+>
                 <p className="text-lg font-bold">
                   {child?.name || "Unknown child"} requested{" "}
                   {reward?.title || "Unknown reward"}
@@ -174,7 +179,7 @@ export default function RedemptionsPage() {
           })}
 
           {redemptions.length === 0 && (
-            <p className="text-slate-400">No redemption requests yet.</p>
+            <p className="text-white/70">No redemption requests yet.</p>
           )}
         </div>
       </div>

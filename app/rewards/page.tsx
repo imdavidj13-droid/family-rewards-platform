@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -16,6 +17,7 @@ type Reward = {
 };
 
 export default function RewardsPage() {
+  const { theme } = useTheme();
   const [children, setChildren] = useState<Child[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [title, setTitle] = useState("");
@@ -106,11 +108,11 @@ fetchChildren();
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-6 text-white">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} p-6`}>
       <div className="mx-auto max-w-4xl">
         <h1 className="mb-6 text-3xl font-bold">Rewards Shop</h1>
 
-        <div className="mb-8 rounded-2xl bg-slate-900 p-5">
+        <div className={`mb-8 rounded-2xl border ${theme.activityCard} p-5`}>
           <h2 className="mb-4 text-xl font-semibold">Create reward</h2>
 
           <div className="space-y-4">
@@ -155,7 +157,7 @@ fetchChildren();
 
         <div className="grid gap-4 md:grid-cols-2">
           {rewards.map((reward) => (
-            <div key={reward.id} className="rounded-2xl bg-slate-900 p-5">
+            <div key={reward.id} className={`rounded-2xl border ${theme.navCard} p-5`}>
               <h2 className="mb-2 text-xl font-bold">{reward.title}</h2>
 
               <p className="mb-4 text-green-300">
@@ -171,7 +173,7 @@ className="rounded-xl bg-green-600 px-4 py-2 font-bold text-white hover:bg-green
           ))}
 
           {rewards.length === 0 && (
-            <p className="text-slate-400">No rewards yet.</p>
+            <p className="text-white/70">No rewards yet.</p>
           )}
         </div>
       </div>
