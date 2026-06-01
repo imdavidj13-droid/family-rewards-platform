@@ -4,11 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
+type Child = {
+  id: string;
+  name: string;
+  points: number;
+};
+
 export default function DashboardPage() {
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
+  const [topChild, setTopChild] = useState<Child | null>(null);
 
   useEffect(() => {
     fetchStats();
@@ -31,6 +38,14 @@ export default function DashboardPage() {
       .from("redemptions")
       .select("*", { count: "exact", head: true })
       .eq("status", "pending");
+      const { data: topChildData } = await supabase
+  .from("children")
+  .select("id, name, points")
+  .order("points", { ascending: false })
+  .limit(1)
+  .single();
+
+setTopChild(topChildData || null);
 
     setChildrenCount(children || 0);
     setTasksCount(tasks || 0);
@@ -74,6 +89,20 @@ export default function DashboardPage() {
             <h2 className="text-4xl font-black">{pendingCount}</h2>
           </div>
         </div>
+
+        {topChild && (
+  <div className="mb-10 rounded-3xl bg-slate-900 p-6">
+    <p className="mb-2 text-slate-400">⭐ Top Child</p>
+
+    <h2 className="text-3xl font-black">
+      {topChild.name}
+    </h2>
+
+    <p className="mt-2 text-xl font-bold text-yellow-300">
+      {Number(topChild.points || 0)} points
+    </p>
+  </div>
+)}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Link
