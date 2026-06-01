@@ -25,32 +25,34 @@ export default function RedemptionsPage() {
     fetchRedemptions();
   }, []);
 
-  async function fetchRedemptions() {
-    const { data, error } = await supabase
-      .from("redemptions")
-      .select(`
-        id,
-        status,
-        child_id,
-        reward_id,
-        children:child_id (
-          name,
-          points
-        ),
-        rewards:reward_id (
-          title,
-          cost
-        )
-      `)
-      .order("created_at", { ascending: false });
+async function fetchRedemptions() {
+  const { data, error } = await supabase
+    .from("redemptions")
+    .select(`
+      id,
+      status,
+      child_id,
+      reward_id,
+      children!redemptions_child_id_fkey (
+        name,
+        points
+      ),
+      rewards!redemptions_reward_id_fkey (
+        title,
+        cost
+      )
+    `)
+    .order("created_at", { ascending: false });
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
-console.log(data);
-    setRedemptions((data || []) as Redemption[]);
+  if (error) {
+    alert(error.message);
+    return;
   }
+
+  console.log(data);
+
+  setRedemptions((data || []) as Redemption[]);
+}
 
   async function approveRedemption(redemption: Redemption) {
     const currentPoints = Number(redemption.children[0]?.points ?? 0);
