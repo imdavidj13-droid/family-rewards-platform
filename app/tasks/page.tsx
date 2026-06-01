@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -18,6 +19,7 @@ type Task = {
 };
 
 export default function TasksPage() {
+  const { theme } = useTheme();
   const [children, setChildren] = useState<Child[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
@@ -122,11 +124,11 @@ export default function TasksPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-6 text-white">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} p-6`}>
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-6 text-3xl font-bold">Tasks</h1>
 
-        <div className="mb-8 rounded-2xl bg-slate-900 p-5">
+        <div className={`mb-8 rounded-2xl border ${theme.activityCard} p-5`}>
           <h2 className="mb-4 text-xl font-semibold">Create task</h2>
 
           <div className="space-y-4">
@@ -172,7 +174,10 @@ export default function TasksPage() {
             const child = children.find((c) => c.id === task.child_id);
 
             return (
-              <div key={task.id} className="rounded-2xl bg-slate-900 p-4">
+              <div
+  key={task.id}
+  className={`rounded-2xl border ${theme.navCard} p-4`}
+>
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-bold">{task.title}</p>
@@ -200,7 +205,7 @@ export default function TasksPage() {
           })}
 
           {tasks.length === 0 && (
-            <p className="text-slate-400">No tasks yet.</p>
+            <p className={theme.pageText}>No tasks yet.</p>
           )}
         </div>
       </div>
