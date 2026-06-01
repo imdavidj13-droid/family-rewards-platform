@@ -184,7 +184,7 @@ export default function TasksPage() {
 
                     <button
                       onClick={() => approveTask(task)}
-                      disabled={task.completed}
+                     disabled={task.completed === true}
                       className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold hover:bg-green-500 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
                     >
                       {task.completed ? "Completed" : "Approve"}
