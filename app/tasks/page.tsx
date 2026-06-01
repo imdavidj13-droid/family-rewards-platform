@@ -80,7 +80,6 @@ export default function TasksPage() {
   }
 
   async function approveTask(task: Task) {
-  alert(`Approving ${task.title}`);
 
   const child = children.find((c) => c.id === task.child_id);
 
@@ -110,8 +109,6 @@ export default function TasksPage() {
     alert(`Task update error: ${taskError.message}`);
     return;
   }
-
-  alert("Success!");
 
   fetchChildren();
   fetchTasks();
