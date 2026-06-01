@@ -80,46 +80,42 @@ export default function TasksPage() {
   }
 
   async function approveTask(task: Task) {
-     console.log("Running approveTask", task);
-    if (task.completed === true) {
-  alert("This task is already completed");
-  return;
-}
+  alert(`Approving ${task.title}`);
 
-    const child = children.find((c) => c.id === task.child_id);
+  const child = children.find((c) => c.id === task.child_id);
 
-    if (!child) {
-      alert("Child not found");
-      return;
-    }
-
-    const newPoints = child.points + task.points;
-
-    const { error: childError } = await supabase
-      .from("children")
-      .update({ points: newPoints })
-      .eq("id", task.child_id);
-
-    if (childError) {
-      console.error(childError);
-      alert(childError.message);
-      return;
-    }
-
-    const { error: taskError } = await supabase
-      .from("tasks")
-      .update({ completed: true })
-      .eq("id", task.id);
-
-    if (taskError) {
-      console.error(taskError);
-      alert(taskError.message);
-      return;
-    }
-
-    fetchChildren();
-    fetchTasks();
+  if (!child) {
+    alert("Child not found");
+    return;
   }
+
+  const newPoints = child.points + task.points;
+
+  const { error: childError } = await supabase
+    .from("children")
+    .update({ points: newPoints })
+    .eq("id", task.child_id);
+
+  if (childError) {
+    alert(`Child update error: ${childError.message}`);
+    return;
+  }
+
+  const { error: taskError } = await supabase
+    .from("tasks")
+    .update({ completed: true })
+    .eq("id", task.id);
+
+  if (taskError) {
+    alert(`Task update error: ${taskError.message}`);
+    return;
+  }
+
+  alert("Success!");
+
+  fetchChildren();
+  fetchTasks();
+}
 
   return (
     <main className="min-h-screen bg-slate-950 p-6 text-white">
