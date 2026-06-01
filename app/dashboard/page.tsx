@@ -92,7 +92,7 @@ setTopChild(topChildData || null);
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-6 text-white">
+    <main className="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black p-6 text-white">
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-2 text-4xl font-black">
           Family Rewards Dashboard
@@ -103,25 +103,25 @@ setTopChild(topChildData || null);
         </p>
 
         <div className="mb-10 grid gap-4 md:grid-cols-4">
-          <div className="rounded-3xl bg-slate-900 p-6">
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
             <div className="text-4xl">👦</div>
             <p className="mt-2 text-slate-400">Children</p>
             <h2 className="text-4xl font-black">{childrenCount}</h2>
           </div>
 
-          <div className="rounded-3xl bg-slate-900 p-6">
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
             <div className="text-4xl">📋</div>
             <p className="mt-2 text-slate-400">Tasks</p>
             <h2 className="text-4xl font-black">{tasksCount}</h2>
           </div>
 
-          <div className="rounded-3xl bg-slate-900 p-6">
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
             <div className="text-4xl">🎁</div>
             <p className="mt-2 text-slate-400">Rewards</p>
             <h2 className="text-4xl font-black">{rewardsCount}</h2>
           </div>
 
-          <div className="rounded-3xl bg-slate-900 p-6">
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
             <div className="text-4xl">⏳</div>
             <p className="mt-2 text-slate-400">Pending</p>
             <h2 className="text-4xl font-black">{pendingCount}</h2>
@@ -129,8 +129,8 @@ setTopChild(topChildData || null);
         </div>
 
         {topChild && (
-  <div className="mb-10 rounded-3xl bg-slate-900 p-6">
-    <p className="mb-2 text-slate-400">⭐ Top Child</p>
+<div className="mb-10 rounded-3xl border border-yellow-400/30 bg-yellow-400/10 p-6 shadow-xl">
+    <p className="mb-2 text-slate-400">⭐ Champion Child</p>
 
     <h2 className="text-3xl font-black">
       {topChild.name}
@@ -142,7 +142,7 @@ setTopChild(topChildData || null);
   </div>
 )}
 
-<div className="mb-10 rounded-3xl bg-slate-900 p-6">
+<div className="mb-10 rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
   <p className="mb-4 text-xl font-bold">🔥 Recent Activity</p>
 
   <div className="space-y-3">
