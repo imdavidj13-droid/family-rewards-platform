@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { themes } from "@/lib/themes";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -21,22 +22,7 @@ type Activity = {
 };
 
 export default function DashboardPage() {
-const [selectedTheme, setSelectedTheme] = useState<keyof typeof themes>("trophyGold");
-
-useEffect(() => {
-  const savedTheme = localStorage.getItem("family-theme") as keyof typeof themes | null;
-
-  if (savedTheme && themes[savedTheme]) {
-    setSelectedTheme(savedTheme);
-  }
-}, []);
-
-function changeTheme(themeName: keyof typeof themes) {
-  setSelectedTheme(themeName);
-  localStorage.setItem("family-theme", themeName);
-}
-
-const theme = themes[selectedTheme];
+const { theme, selectedTheme, changeTheme } = useTheme();
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);

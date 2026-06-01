@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -10,6 +11,7 @@ type Child = {
 };
 
 export default function ChildrenPage() {
+  const { theme } = useTheme();
   const [children, setChildren] = useState<Child[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +36,7 @@ export default function ChildrenPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-black px-6 py-20 text-white">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-4 text-4xl font-black">Children</h1>
 
@@ -54,7 +56,7 @@ export default function ChildrenPage() {
           {children.map((child) => (
             <div
               key={child.id}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6"
+              className={`rounded-3xl border ${theme.navCard} p-6`}
             >
               <div className="mb-4 text-5xl">👦</div>
 
