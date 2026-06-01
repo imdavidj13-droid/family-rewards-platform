@@ -10,12 +10,20 @@ type Child = {
   points: number;
 };
 
+type Activity = {
+  id: string;
+  status: string;
+  child_id: string;
+  reward_id: string;
+};
+
 export default function DashboardPage() {
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [topChild, setTopChild] = useState<Child | null>(null);
+  const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
     fetchStats();
@@ -44,6 +52,14 @@ export default function DashboardPage() {
   .order("points", { ascending: false })
   .limit(1)
   .single();
+
+  const { data: activityData } = await supabase
+  .from("redemptions")
+  .select("id, status, child_id, reward_id")
+  .order("created_at", { ascending: false })
+  .limit(5);
+
+setActivities(activityData || []);
 
 setTopChild(topChildData || null);
 
@@ -103,6 +119,25 @@ setTopChild(topChildData || null);
     </p>
   </div>
 )}
+
+<div className="mb-10 rounded-3xl bg-slate-900 p-6">
+  <p className="mb-4 text-xl font-bold">🔥 Recent Activity</p>
+
+  <div className="space-y-3">
+    {activities.map((activity) => (
+      <div
+        key={activity.id}
+        className="rounded-2xl bg-slate-800 p-4 text-slate-300"
+      >
+        Reward request - {activity.status}
+      </div>
+    ))}
+
+    {activities.length === 0 && (
+      <p className="text-slate-400">No recent activity yet.</p>
+    )}
+  </div>
+</div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Link
