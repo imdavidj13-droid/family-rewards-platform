@@ -21,7 +21,7 @@ type Activity = {
 };
 
 export default function DashboardPage() {
-    const theme = themes.classic;
+const theme = themes.trophyGold;
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
@@ -131,7 +131,7 @@ setTopChild(topChildData || null);
         </div>
 
         {topChild && (
-<div className="mb-10 rounded-3xl border border-yellow-400/30 bg-yellow-400/10 p-6 shadow-xl">
+<div className={`mb-10 rounded-3xl border ${theme.championCard} p-6 shadow-xl`}>
     <p className="mb-2 text-slate-400">⭐ Champion Child</p>
 
     <h2 className="text-3xl font-black">
@@ -144,7 +144,7 @@ setTopChild(topChildData || null);
   </div>
 )}
 
-<div className="mb-10 rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
+<div className={`mb-10 rounded-3xl border ${theme.championCard} p-6 shadow-xl`}></div><div className={`mb-10 rounded-3xl border ${theme.activityCard} p-6 shadow-xl`}>
   <p className="mb-4 text-xl font-bold">🔥 Recent Activity</p>
 
   <div className="space-y-3">
@@ -169,7 +169,7 @@ setTopChild(topChildData || null);
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/children"
-            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
+            className={`rounded-3xl border ${theme.navCard} p-6 shadow-xl transition`}
           >
             <div className="mb-4 text-5xl">👦</div>
             <h2 className="text-2xl font-bold">Children</h2>
@@ -177,7 +177,7 @@ setTopChild(topChildData || null);
 
           <Link
             href="/tasks"
-            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
+            className={`rounded-3xl border ${theme.navCard} p-6 shadow-xl transition`}
           >
             <div className="mb-4 text-5xl">📋</div>
             <h2 className="text-2xl font-bold">Tasks</h2>
@@ -185,7 +185,7 @@ setTopChild(topChildData || null);
 
           <Link
             href="/rewards"
-            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
+            className={`rounded-3xl border ${theme.navCard} p-6 shadow-xl transition`}
           >
             <div className="mb-4 text-5xl">🎁</div>
             <h2 className="text-2xl font-bold">Rewards</h2>
@@ -193,7 +193,7 @@ setTopChild(topChildData || null);
 
           <Link
             href="/redemptions"
-            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
+            className={`rounded-3xl border ${theme.navCard} p-6 shadow-xl transition`}
           >
             <div className="mb-4 text-5xl">✅</div>
             <h2 className="text-2xl font-bold">Approvals</h2>
