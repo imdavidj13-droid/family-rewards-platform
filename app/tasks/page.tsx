@@ -30,10 +30,10 @@ export default function TasksPage() {
   }, []);
 
   async function fetchChildren() {
-    const { data, error } = await supabase
-      .from("children")
-      .select("id, name, points")
-      .order("created_at", { ascending: false });
+  const { data, error } = await supabase
+    .from("children")
+    .select("id, name, points")
+    .order("created_at", { ascending: false });
 
     if (error) {
       console.error(error);
@@ -88,7 +88,9 @@ export default function TasksPage() {
     return;
   }
 
-  const newPoints = child.points + task.points;
+  const currentPoints = Number(child.points || 0);
+const taskPoints = Number(task.points || 0);
+const newPoints = currentPoints + taskPoints;
 
   const { error: childError } = await supabase
     .from("children")
