@@ -88,22 +88,21 @@ export default function RewardsPage() {
       alert(`${child.name} does not have enough points`);
       return;
     }
+const { error } = await supabase.from("redemptions").insert({
+  child_id: child.id,
+  reward_id: reward.id,
+  status: "pending",
+});
 
-    const newPoints = child.points - reward.cost;
+if (error) {
+  alert(error.message);
+  return;
+}
 
-    const { error } = await supabase
-      .from("children")
-      .update({ points: newPoints })
-      .eq("id", child.id);
+alert(`${child.name} requested ${reward.title}!`);
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert(`${child.name} redeemed ${reward.title}!`);
-
-    fetchChildren();
+fetchChildren();
+    
   }
 
   return (
