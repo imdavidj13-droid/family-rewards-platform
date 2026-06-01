@@ -144,7 +144,7 @@ setTopChild(topChildData || null);
   </div>
 )}
 
-<div className={`mb-10 rounded-3xl border ${theme.championCard} p-6 shadow-xl`}></div><div className={`mb-10 rounded-3xl border ${theme.activityCard} p-6 shadow-xl`}>
+<div className={`mb-10 rounded-3xl border ${theme.activityCard} p-6 shadow-xl`}>
   <p className="mb-4 text-xl font-bold">🔥 Recent Activity</p>
 
   <div className="space-y-3">
