@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function CreateChildPage() {
+  const { theme } = useTheme();
   const [name, setName] = useState("");
   const [points, setPoints] = useState(0);
   const [message, setMessage] = useState("");
@@ -25,8 +27,8 @@ export default function CreateChildPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-black px-6 py-20 text-white">
-      <div className="mx-auto max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
+      <div className={`mx-auto max-w-xl rounded-3xl border ${theme.navCard} p-8`}>
         <h1 className="mb-6 text-3xl font-black">
           Add Child
         </h1>
