@@ -32,10 +32,11 @@ export default function RedemptionsPage() {
   }, []);
 
   async function fetchData() {
-    const { data: redemptionData, error: redemptionError } = await supabase
-      .from("redemptions")
-      .select("id, status, child_id, reward_id")
-      .order("created_at", { ascending: false });
+   const { data: redemptionData, error: redemptionError } = await supabase
+  .from("redemptions")
+  .select("id, status, child_id, reward_id")
+  .eq("status", "pending")
+  .order("created_at", { ascending: false });
 
     if (redemptionError) {
       alert(redemptionError.message);
@@ -125,7 +126,7 @@ export default function RedemptionsPage() {
   return (
     <main className="min-h-screen bg-slate-950 p-6 text-white">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-6 text-3xl font-bold">Redemption Queue</h1>
+        <h1 className="mb-6 text-3xl font-bold">Pending Reward Requests</h1>
 
         <div className="space-y-4">
           {redemptions.map((redemption) => {
