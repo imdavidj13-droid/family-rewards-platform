@@ -1,8 +1,43 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 export default function DashboardPage() {
+  const [childrenCount, setChildrenCount] = useState(0);
+  const [tasksCount, setTasksCount] = useState(0);
+  const [rewardsCount, setRewardsCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  async function fetchStats() {
+    const { count: children } = await supabase
+      .from("children")
+      .select("*", { count: "exact", head: true });
+
+    const { count: tasks } = await supabase
+      .from("tasks")
+      .select("*", { count: "exact", head: true });
+
+    const { count: rewards } = await supabase
+      .from("rewards")
+      .select("*", { count: "exact", head: true });
+
+    const { count: pending } = await supabase
+      .from("redemptions")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "pending");
+
+    setChildrenCount(children || 0);
+    setTasksCount(tasks || 0);
+    setRewardsCount(rewards || 0);
+    setPendingCount(pending || 0);
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 p-6 text-white">
       <div className="mx-auto max-w-6xl">
@@ -10,53 +45,67 @@ export default function DashboardPage() {
           Family Rewards Dashboard
         </h1>
 
-        <p className="mb-10 text-slate-400">
-          Manage children, tasks, rewards and approvals.
+        <p className="mb-8 text-slate-400">
+          Manage your family rewards platform.
         </p>
+
+        <div className="mb-10 grid gap-4 md:grid-cols-4">
+          <div className="rounded-3xl bg-slate-900 p-6">
+            <div className="text-4xl">👦</div>
+            <p className="mt-2 text-slate-400">Children</p>
+            <h2 className="text-4xl font-black">{childrenCount}</h2>
+          </div>
+
+          <div className="rounded-3xl bg-slate-900 p-6">
+            <div className="text-4xl">📋</div>
+            <p className="mt-2 text-slate-400">Tasks</p>
+            <h2 className="text-4xl font-black">{tasksCount}</h2>
+          </div>
+
+          <div className="rounded-3xl bg-slate-900 p-6">
+            <div className="text-4xl">🎁</div>
+            <p className="mt-2 text-slate-400">Rewards</p>
+            <h2 className="text-4xl font-black">{rewardsCount}</h2>
+          </div>
+
+          <div className="rounded-3xl bg-slate-900 p-6">
+            <div className="text-4xl">⏳</div>
+            <p className="mt-2 text-slate-400">Pending</p>
+            <h2 className="text-4xl font-black">{pendingCount}</h2>
+          </div>
+        </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/children"
-            className="rounded-3xl bg-slate-900 p-6 transition hover:bg-slate-800"
+            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
           >
             <div className="mb-4 text-5xl">👦</div>
             <h2 className="text-2xl font-bold">Children</h2>
-            <p className="mt-2 text-slate-400">
-              View and manage children.
-            </p>
           </Link>
 
           <Link
             href="/tasks"
-            className="rounded-3xl bg-slate-900 p-6 transition hover:bg-slate-800"
+            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
           >
             <div className="mb-4 text-5xl">📋</div>
             <h2 className="text-2xl font-bold">Tasks</h2>
-            <p className="mt-2 text-slate-400">
-              Create and approve tasks.
-            </p>
           </Link>
 
           <Link
             href="/rewards"
-            className="rounded-3xl bg-slate-900 p-6 transition hover:bg-slate-800"
+            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
           >
             <div className="mb-4 text-5xl">🎁</div>
             <h2 className="text-2xl font-bold">Rewards</h2>
-            <p className="mt-2 text-slate-400">
-              Create and manage rewards.
-            </p>
           </Link>
 
           <Link
             href="/redemptions"
-            className="rounded-3xl bg-slate-900 p-6 transition hover:bg-slate-800"
+            className="rounded-3xl bg-slate-900 p-6 hover:bg-slate-800"
           >
             <div className="mb-4 text-5xl">✅</div>
             <h2 className="text-2xl font-bold">Approvals</h2>
-            <p className="mt-2 text-slate-400">
-              Review reward requests.
-            </p>
           </Link>
         </div>
       </div>
