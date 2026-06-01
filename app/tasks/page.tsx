@@ -30,13 +30,13 @@ export default function TasksPage() {
   }, []);
 
   async function fetchChildren() {
-  const { data, error } = await supabase
-    .from("children")
-    .select("id, name, points")
-    .order("created_at", { ascending: false });
+    const { data, error } = await supabase
+      .from("children")
+      .select("id, name, points")
+      .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
+      alert(error.message);
       return;
     }
 
@@ -50,7 +50,7 @@ export default function TasksPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
+      alert(error.message);
       return;
     }
 
@@ -58,7 +58,10 @@ export default function TasksPage() {
   }
 
   async function createTask() {
-    if (!title || !points || !childId) return;
+    if (!title || !points || !childId) {
+      alert("Please fill in all fields");
+      return;
+    }
 
     const { error } = await supabase.from("tasks").insert({
       title,
@@ -68,7 +71,6 @@ export default function TasksPage() {
     });
 
     if (error) {
-      console.error(error);
       alert(error.message);
       return;
     }
@@ -80,41 +82,44 @@ export default function TasksPage() {
   }
 
   async function approveTask(task: Task) {
+    alert("Approve button clicked");
 
-  const child = children.find((c) => c.id === task.child_id);
+    const child = children.find((c) => c.id === task.child_id);
 
-  if (!child) {
-    alert("Child not found");
-    return;
+    if (!child) {
+      alert("Child not found");
+      return;
+    }
+
+    const currentPoints = Number(child.points || 0);
+    const taskPoints = Number(task.points || 0);
+    const newPoints = currentPoints + taskPoints;
+
+    const { error: childError } = await supabase
+      .from("children")
+      .update({ points: newPoints })
+      .eq("id", task.child_id);
+
+    if (childError) {
+      alert("Child points error: " + childError.message);
+      return;
+    }
+
+    const { error: taskError } = await supabase
+      .from("tasks")
+      .update({ completed: true })
+      .eq("id", task.id);
+
+    if (taskError) {
+      alert("Task completed error: " + taskError.message);
+      return;
+    }
+
+    alert("Task approved and points added!");
+
+    fetchChildren();
+    fetchTasks();
   }
-
-  const currentPoints = Number(child.points || 0);
-const taskPoints = Number(task.points || 0);
-const newPoints = currentPoints + taskPoints;
-
-  const { error: childError } = await supabase
-    .from("children")
-    .update({ points: newPoints })
-    .eq("id", task.child_id);
-
-  if (childError) {
-    alert(`Child update error: ${childError.message}`);
-    return;
-  }
-
-  const { error: taskError } = await supabase
-    .from("tasks")
-    .update({ completed: true })
-    .eq("id", task.id);
-
-  if (taskError) {
-    alert(`Task update error: ${taskError.message}`);
-    return;
-  }
-
-  fetchChildren();
-  fetchTasks();
-}
 
   return (
     <main className="min-h-screen bg-slate-950 p-6 text-white">
@@ -168,7 +173,7 @@ const newPoints = currentPoints + taskPoints;
 
             return (
               <div key={task.id} className="rounded-2xl bg-slate-900 p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-bold">{task.title}</p>
                     <p className="text-sm text-slate-400">
@@ -180,16 +185,14 @@ const newPoints = currentPoints + taskPoints;
                     <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-bold text-green-300">
                       {task.points} pts
                     </span>
-<button
-  onClick={() => {
-    console.log("Approve clicked", task);
-    approveTask(task);
-  }}
-  className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold text-white hover:bg-green-500"
->
-  {task.completed === true ? "Completed" : "Approve"}
-</button>
-                    
+
+                    <button
+                      type="button"
+                      onClick={() => approveTask(task)}
+                      className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold text-white hover:bg-green-500"
+                    >
+                      {task.completed === true ? "Completed" : "Approve"}
+                    </button>
                   </div>
                 </div>
               </div>
