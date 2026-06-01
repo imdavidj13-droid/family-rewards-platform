@@ -15,6 +15,8 @@ type Activity = {
   status: string;
   child_id: string;
   reward_id: string;
+  childName?: string;
+  rewardTitle?: string;
 };
 
 export default function DashboardPage() {
@@ -59,7 +61,27 @@ export default function DashboardPage() {
   .order("created_at", { ascending: false })
   .limit(5);
 
-setActivities(activityData || []);
+const { data: childrenData } = await supabase
+  .from("children")
+  .select("id, name");
+
+const { data: rewardsData } = await supabase
+  .from("rewards")
+  .select("id, title");
+
+const enrichedActivities =
+  activityData?.map((activity) => {
+    const child = childrenData?.find((c) => c.id === activity.child_id);
+    const reward = rewardsData?.find((r) => r.id === activity.reward_id);
+
+    return {
+      ...activity,
+      childName: child?.name || "Someone",
+      rewardTitle: reward?.title || "a reward",
+    };
+  }) || [];
+
+setActivities(enrichedActivities);
 
 setTopChild(topChildData || null);
 
@@ -129,7 +151,10 @@ setTopChild(topChildData || null);
         key={activity.id}
         className="rounded-2xl bg-slate-800 p-4 text-slate-300"
       >
-        Reward request - {activity.status}
+        {activity.status === "approved" && "✅"}
+{activity.status === "rejected" && "❌"}
+{activity.status === "pending" && "🎁"}{" "}
+{activity.childName} requested {activity.rewardTitle} - {activity.status}
       </div>
     ))}
 
