@@ -150,9 +150,9 @@ setTopChild(topChildData || null);
   <div className="space-y-3">
     {activities.map((activity) => (
       <div
-        key={activity.id}
-        className="rounded-2xl bg-slate-800 p-4 text-slate-300"
-      >
+  key={activity.id}
+  className="rounded-2xl border border-yellow-400/20 bg-yellow-500/10 p-4 text-yellow-100"
+>
         {activity.status === "approved" && "✅"}
 {activity.status === "rejected" && "❌"}
 {activity.status === "pending" && "🎁"}{" "}
