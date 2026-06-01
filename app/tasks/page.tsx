@@ -80,7 +80,10 @@ export default function TasksPage() {
   }
 
   async function approveTask(task: Task) {
-    if (task.completed) return;
+    if (task.completed === true) {
+  alert("This task is already completed");
+  return;
+}
 
     const child = children.find((c) => c.id === task.child_id);
 
@@ -183,12 +186,11 @@ export default function TasksPage() {
                     </span>
 
                     <button
-                      onClick={() => approveTask(task)}
-                     disabled={task.completed === true}
-                      className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold hover:bg-green-500 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
-                    >
-                      {task.completed ? "Completed" : "Approve"}
-                    </button>
+  onClick={() => approveTask(task)}
+  className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold hover:bg-green-500"
+>
+  {task.completed === true ? "Completed" : "Approve"}
+</button>
                   </div>
                 </div>
               </div>
