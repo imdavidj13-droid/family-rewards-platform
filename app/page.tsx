@@ -1,5 +1,9 @@
+import Navbar from "@/components/Navbar";
 export default function Home() {
   return (
+    <>
+      <Navbar />
+
     <main className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-black text-white">
       <div className="mx-auto max-w-6xl px-6 py-24">
         {/* Hero */}
@@ -96,5 +100,6 @@ export default function Home() {
         </div>
       </div>
     </main>
+    </>
   );
 }
