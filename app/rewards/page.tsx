@@ -165,8 +165,7 @@ export default function RewardsPage() {
 
               <button
                 onClick={() => redeemReward(reward)}
-                className="rounded-xl bg-purple-600 px-4 py-2 font-bold hover:bg-purple-500"
-              >
+className="rounded-xl bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-500"              >
                 Redeem
               </button>
             </div>
