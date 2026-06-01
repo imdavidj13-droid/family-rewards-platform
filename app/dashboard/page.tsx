@@ -55,7 +55,7 @@ export default function DashboardPage() {
             <div className="mb-4 text-5xl">✅</div>
             <h2 className="text-2xl font-bold">Approvals</h2>
             <p className="mt-2 text-slate-400">
-              Review reward requests
+              Review reward requests.
             </p>
           </Link>
         </div>
