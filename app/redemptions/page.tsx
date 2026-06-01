@@ -48,7 +48,7 @@ export default function RedemptionsPage() {
       alert(error.message);
       return;
     }
-
+console.log(data);
     setRedemptions((data || []) as Redemption[]);
   }
 
