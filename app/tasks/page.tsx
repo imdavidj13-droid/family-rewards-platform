@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 type Child = {
   id: string;
   name: string;
+  points: number;
 };
 
 type Task = {
@@ -13,6 +14,7 @@ type Task = {
   title: string;
   points: number;
   child_id: string;
+  completed: boolean;
 };
 
 export default function TasksPage() {
@@ -30,7 +32,7 @@ export default function TasksPage() {
   async function fetchChildren() {
     const { data, error } = await supabase
       .from("children")
-      .select("id, name")
+      .select("id, name, points")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -44,7 +46,7 @@ export default function TasksPage() {
   async function fetchTasks() {
     const { data, error } = await supabase
       .from("tasks")
-      .select("id, title, points, child_id")
+      .select("id, title, points, child_id, completed")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -62,6 +64,7 @@ export default function TasksPage() {
       title,
       points: Number(points),
       child_id: childId,
+      completed: false,
     });
 
     if (error) {
@@ -73,6 +76,44 @@ export default function TasksPage() {
     setTitle("");
     setPoints("");
     setChildId("");
+    fetchTasks();
+  }
+
+  async function approveTask(task: Task) {
+    if (task.completed) return;
+
+    const child = children.find((c) => c.id === task.child_id);
+
+    if (!child) {
+      alert("Child not found");
+      return;
+    }
+
+    const newPoints = child.points + task.points;
+
+    const { error: childError } = await supabase
+      .from("children")
+      .update({ points: newPoints })
+      .eq("id", task.child_id);
+
+    if (childError) {
+      console.error(childError);
+      alert(childError.message);
+      return;
+    }
+
+    const { error: taskError } = await supabase
+      .from("tasks")
+      .update({ completed: true })
+      .eq("id", task.id);
+
+    if (taskError) {
+      console.error(taskError);
+      alert(taskError.message);
+      return;
+    }
+
+    fetchChildren();
     fetchTasks();
   }
 
@@ -127,10 +168,7 @@ export default function TasksPage() {
             const child = children.find((c) => c.id === task.child_id);
 
             return (
-              <div
-                key={task.id}
-                className="rounded-2xl bg-slate-900 p-4"
-              >
+              <div key={task.id} className="rounded-2xl bg-slate-900 p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-bold">{task.title}</p>
@@ -139,9 +177,19 @@ export default function TasksPage() {
                     </p>
                   </div>
 
-                  <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-bold text-green-300">
-                    {task.points} pts
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-bold text-green-300">
+                      {task.points} pts
+                    </span>
+
+                    <button
+                      onClick={() => approveTask(task)}
+                      disabled={task.completed}
+                      className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold hover:bg-green-500 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+                    >
+                      {task.completed ? "Completed" : "Approve"}
+                    </button>
+                  </div>
                 </div>
               </div>
             );
