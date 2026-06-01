@@ -184,13 +184,13 @@ export default function TasksPage() {
                     <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-bold text-green-300">
                       {task.points} pts
                     </span>
-
-                    <button
-  onClick={() => approveTask(task)}
-  className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold hover:bg-green-500"
+<button
+  onClick={() => alert("Button clicked")}
+  className="rounded-xl bg-red-600 px-4 py-2 text-sm font-bold text-white hover:bg-red-500"
 >
-  {task.completed === true ? "Completed" : "Approve"}
+  TEST CLICK
 </button>
+                    
                   </div>
                 </div>
               </div>
