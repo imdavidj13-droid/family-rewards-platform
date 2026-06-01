@@ -4,7 +4,7 @@ const themes = {
     pageText: "text-white",
 
     statChildren: "border-blue-400/30 bg-blue-500/15",
-    statTasks: "border-red-400/30 bg-red-500/15",
+    statTasks: "border-red-400/30 bg-amber-500/15",
     statRewards: "border-yellow-400/30 bg-yellow-500/15",
     statPending: "border-orange-400/30 bg-orange-500/15",
 
@@ -18,7 +18,7 @@ const themes = {
     pageText: "text-white",
 
     statChildren: "border-yellow-400/30 bg-yellow-500/15",
-    statTasks: "border-red-400/30 bg-red-500/15",
+    statTasks: "border-red-400/30 bg-amber-500/15",
     statRewards: "border-amber-300/40 bg-amber-500/20",
     statPending: "border-orange-400/30 bg-orange-500/15",
 
