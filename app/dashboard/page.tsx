@@ -21,7 +21,22 @@ type Activity = {
 };
 
 export default function DashboardPage() {
-const theme = themes.trophyGold;
+const [selectedTheme, setSelectedTheme] = useState<keyof typeof themes>("trophyGold");
+
+useEffect(() => {
+  const savedTheme = localStorage.getItem("family-theme") as keyof typeof themes | null;
+
+  if (savedTheme && themes[savedTheme]) {
+    setSelectedTheme(savedTheme);
+  }
+}, []);
+
+function changeTheme(themeName: keyof typeof themes) {
+  setSelectedTheme(themeName);
+  localStorage.setItem("family-theme", themeName);
+}
+
+const theme = themes[selectedTheme];
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
@@ -103,6 +118,22 @@ setTopChild(topChildData || null);
         <p className="mb-8 text-slate-400">
           Manage your family rewards platform.
         </p>
+
+        <div className="mb-8 flex flex-wrap gap-3">
+  {Object.keys(themes).map((themeName) => (
+    <button
+      key={themeName}
+      onClick={() => changeTheme(themeName as keyof typeof themes)}
+      className={`rounded-xl px-4 py-2 font-bold transition ${
+        selectedTheme === themeName
+          ? "bg-white text-black"
+          : "bg-white/10 text-white hover:bg-white/20"
+      }`}
+    >
+      {themeName}
+    </button>
+  ))}
+</div>
 
         <div className="mb-10 grid gap-4 md:grid-cols-4">
           <div className={`rounded-3xl border ${theme.statChildren} p-6 shadow-xl`}>
