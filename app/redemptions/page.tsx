@@ -52,54 +52,61 @@ export default function RedemptionsPage() {
     setRedemptions(data || []);
   }
 
-  async function approveRedemption(redemption: Redemption) {
-    const newPoints =
-      redemption.children[0]?.points - redemption.rewards[0]?.cost;
+async function approveRedemption(redemption: Redemption) {
+  const currentPoints = Number(redemption.children[0]?.points ?? 0);
+  const rewardCost = Number(redemption.rewards[0]?.cost ?? 0);
 
-    if (newPoints < 0) {
-      alert("Not enough points anymore");
-      return;
-    }
-
-    const { error: childError } = await supabase
-      .from("children")
-      .update({ points: newPoints })
-      .eq("id", redemption.child_id);
-
-    if (childError) {
-      alert(childError.message);
-      return;
-    }
-
-    const { error: redemptionError } = await supabase
-      .from("redemptions")
-      .update({ status: "approved" })
-      .eq("id", redemption.id);
-
-    if (redemptionError) {
-      alert(redemptionError.message);
-      return;
-    }
-
-    alert("Reward approved!");
-    fetchRedemptions();
+  if (!Number.isFinite(currentPoints) || !Number.isFinite(rewardCost)) {
+    alert("Could not calculate points");
+    return;
   }
 
-  async function rejectRedemption(redemption: Redemption) {
-    const { error } = await supabase
-      .from("redemptions")
-      .update({ status: "rejected" })
-      .eq("id", redemption.id);
+  const newPoints = currentPoints - rewardCost;
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Reward rejected");
-    fetchRedemptions();
+  if (newPoints < 0) {
+    alert("Not enough points anymore");
+    return;
   }
 
+  const { error: childError } = await supabase
+    .from("children")
+    .update({ points: newPoints })
+    .eq("id", redemption.child_id);
+
+  if (childError) {
+    alert(childError.message);
+    return;
+  }
+
+  const { error: redemptionError } = await supabase
+    .from("redemptions")
+    .update({ status: "approved" })
+    .eq("id", redemption.id);
+
+  if (redemptionError) {
+    alert(redemptionError.message);
+    return;
+  }
+
+  alert("Reward approved!");
+  fetchRedemptions();
+}
+
+async function rejectRedemption(redemption: Redemption) {
+  const { error } = await supabase
+    .from("redemptions")
+    .update({ status: "rejected" })
+    .eq("id", redemption.id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Reward rejected");
+  fetchRedemptions();
+}
+  
   return (
     <main className="min-h-screen bg-slate-950 p-6 text-white">
       <div className="mx-auto max-w-4xl">
@@ -122,7 +129,7 @@ export default function RedemptionsPage() {
               </p>
 
               <p className="mt-1 text-sm text-slate-400">
-                Current points: {redemption.children[0]?.points}
+                Current points: {Number(redemption.children[0]?.points || 0)}
               </p>
 
               <p className="mt-2 text-sm font-bold">
