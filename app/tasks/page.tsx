@@ -80,6 +80,7 @@ export default function TasksPage() {
   }
 
   async function approveTask(task: Task) {
+     console.log("Running approveTask", task);
     if (task.completed === true) {
   alert("This task is already completed");
   return;
@@ -185,10 +186,13 @@ export default function TasksPage() {
                       {task.points} pts
                     </span>
 <button
-  onClick={() => alert("Button clicked")}
-  className="rounded-xl bg-red-600 px-4 py-2 text-sm font-bold text-white hover:bg-red-500"
+  onClick={() => {
+    console.log("Approve clicked", task);
+    approveTask(task);
+  }}
+  className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold text-white hover:bg-green-500"
 >
-  TEST CLICK
+  {task.completed === true ? "Completed" : "Approve"}
 </button>
                     
                   </div>
