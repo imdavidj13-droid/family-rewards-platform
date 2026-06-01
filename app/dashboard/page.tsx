@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { themes } from "@/lib/themes";
 
 type Child = {
   id: string;
@@ -20,6 +21,7 @@ type Activity = {
 };
 
 export default function DashboardPage() {
+    const theme = themes.classic;
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
@@ -92,7 +94,7 @@ setTopChild(topChildData || null);
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black p-6 text-white">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} p-6`}>
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-2 text-4xl font-black">
           Family Rewards Dashboard
@@ -103,25 +105,25 @@ setTopChild(topChildData || null);
         </p>
 
         <div className="mb-10 grid gap-4 md:grid-cols-4">
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
+          <div className={`rounded-3xl border ${theme.statChildren} p-6 shadow-xl`}>
             <div className="text-4xl">👦</div>
             <p className="mt-2 text-slate-400">Children</p>
             <h2 className="text-4xl font-black">{childrenCount}</h2>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
+          <div className={`rounded-3xl border ${theme.statTasks} p-6 shadow-xl`}>
             <div className="text-4xl">📋</div>
             <p className="mt-2 text-slate-400">Tasks</p>
             <h2 className="text-4xl font-black">{tasksCount}</h2>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
+          <div className={`rounded-3xl border ${theme.statRewards} p-6 shadow-xl`}>
             <div className="text-4xl">🎁</div>
             <p className="mt-2 text-slate-400">Rewards</p>
             <h2 className="text-4xl font-black">{rewardsCount}</h2>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl">
+         <div className={`rounded-3xl border ${theme.statPending} p-6 shadow-xl`}>
             <div className="text-4xl">⏳</div>
             <p className="mt-2 text-slate-400">Pending</p>
             <h2 className="text-4xl font-black">{pendingCount}</h2>
