@@ -61,7 +61,7 @@ export default function ChildrenPage() {
               <h2 className="mb-2 text-2xl font-black">{child.name}</h2>
 
               <p className="rounded-xl bg-blue-600/20 p-4 text-xl font-bold text-blue-200">
-                ⭐ {child.points} Points
+                ⭐ {Number(child.points || 0)} Points
               </p>
             </div>
           ))}
