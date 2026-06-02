@@ -11,13 +11,36 @@ export default function LoginPage() {
   async function login() {
     setMessage("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
       setMessage(error.message);
+      return;
+    }
+
+    const user = data.user;
+
+    if (!user) {
+      setMessage("Login failed. Please try again.");
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("user_id", user.id)
+      .single();
+
+    if (profileError) {
+      setMessage(profileError.message);
+      return;
+    }
+
+    if (profile?.role === "child") {
+      window.location.href = "/child";
       return;
     }
 
@@ -51,11 +74,7 @@ export default function LoginPage() {
           Login
         </button>
 
-        {message && (
-          <p className="mt-4 text-center font-bold">
-            {message}
-          </p>
-        )}
+        {message && <p className="mt-4 text-center font-bold">{message}</p>}
       </div>
     </main>
   );
