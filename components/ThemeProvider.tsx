@@ -1,9 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { themes } from "@/lib/themes";
-
-type ThemeName = keyof typeof themes;
+import { themes, type ThemeName } from "@/lib/themes";
 
 type ThemeContextType = {
   theme: (typeof themes)[ThemeName];
@@ -13,13 +11,9 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
-export function ThemeProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [selectedTheme, setSelectedTheme] =
-    useState<ThemeName>("trophyGold");
+    useState<ThemeName>("classicRed");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(

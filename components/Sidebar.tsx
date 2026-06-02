@@ -1,12 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function Sidebar() {
+  const { theme } = useTheme();
+
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-gray-200 bg-white p-5 md:flex md:min-h-screen md:flex-col">
-      <div className="mb-8 flex items-center gap-3 text-xl font-black text-red-600">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-red-600 text-white">
+    <aside
+      className={`hidden w-64 shrink-0 border-r ${theme.border} ${theme.sidebarBg} p-5 md:flex md:min-h-screen md:flex-col`}
+    >
+      <div
+        className={`mb-8 flex items-center gap-3 text-xl font-black ${theme.primaryText}`}
+      >
+        <div
+          className={`flex h-10 w-10 items-center justify-center rounded-2xl ${theme.primaryBg} text-white`}
+        >
           ★
         </div>
+
         Family Rewards
       </div>
 
@@ -22,9 +34,14 @@ export default function Sidebar() {
         <NavItem href="/settings" icon="⚙️" label="Settings" />
       </nav>
 
-      <div className="mt-auto rounded-3xl border border-gray-200 bg-gray-50 p-4">
-        <p className="font-black text-gray-900">Parent Account</p>
-        <p className="text-sm text-gray-500">Family admin</p>
+      <div
+        className={`mt-auto rounded-3xl border ${theme.border} ${theme.softBg} p-4`}
+      >
+        <p className={`font-black ${theme.text}`}>Parent Account</p>
+
+        <p className={`text-sm ${theme.mutedText}`}>
+          Family admin
+        </p>
       </div>
     </aside>
   );
@@ -39,10 +56,12 @@ function NavItem({
   icon: string;
   label: string;
 }) {
+  const { theme } = useTheme();
+
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-2xl px-4 py-3 font-bold text-gray-500 transition hover:bg-gray-100 hover:text-red-600"
+      className={`flex items-center gap-3 rounded-2xl px-4 py-3 font-bold ${theme.mutedText} transition hover:${theme.softAccentBg} hover:${theme.primaryText}`}
     >
       <span>{icon}</span>
       <span>{label}</span>

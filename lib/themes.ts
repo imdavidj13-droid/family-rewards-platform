@@ -1,72 +1,172 @@
 const themes = {
-  classic: {
-    background: "bg-gradient-to-br from-blue-950 via-blue-900 to-slate-950",
-    pageText: "text-white",
+  classicRed: {
+    name: "Classic Red",
 
-    statChildren: "border-blue-400/30 bg-blue-500/15",
-    statTasks: "border-red-400/30 bg-amber-500/15",
-    statRewards: "border-yellow-400/30 bg-yellow-500/15",
-    statPending: "border-orange-400/30 bg-orange-500/15",
+    pageBg: "bg-[#F9FAFB]",
+    sidebarBg: "bg-white",
+    cardBg: "bg-white",
+    softBg: "bg-gray-50",
+    iconBg: "bg-gray-100",
+    border: "border-gray-200",
 
-    championCard: "border-yellow-400/30 bg-yellow-400/10",
-    activityCard: "border-white/10 bg-white/10",
-    navCard: "border-white/10 bg-white/10 hover:bg-white/15",
+    text: "text-gray-900",
+    mutedText: "text-gray-500",
+
+    primaryBg: "bg-red-600",
+    primaryHover: "hover:bg-red-700",
+    primaryText: "text-red-600",
+    primaryBorder: "border-red-600",
+    softAccentBg: "bg-gray-100",
+
+    successBg: "bg-green-100",
+    successText: "text-green-700",
+
+    warningBg: "bg-orange-100",
+    warningText: "text-orange-700",
+
+    button: "bg-red-600 hover:bg-red-700 text-white",
+    outlineButton:
+      "border-2 border-red-600 bg-white text-red-600 hover:bg-gray-100",
+
+    progress: "bg-red-600",
+    focusBorder: "focus:border-red-600",
+    hoverBorder: "hover:border-red-200",
+  },
+
+  oceanBlue: {
+    name: "Ocean Blue",
+
+    pageBg: "bg-[#F8FAFC]",
+    sidebarBg: "bg-white",
+    cardBg: "bg-white",
+    softBg: "bg-gray-50",
+    iconBg: "bg-gray-100",
+    border: "border-gray-200",
+
+    text: "text-gray-900",
+    mutedText: "text-gray-500",
+
+    primaryBg: "bg-blue-600",
+    primaryHover: "hover:bg-blue-700",
+    primaryText: "text-blue-600",
+    primaryBorder: "border-blue-600",
+    softAccentBg: "bg-gray-100",
+
+    successBg: "bg-green-100",
+    successText: "text-green-700",
+
+    warningBg: "bg-orange-100",
+    warningText: "text-orange-700",
+
+    button: "bg-blue-600 hover:bg-blue-700 text-white",
+    outlineButton:
+      "border-2 border-blue-600 bg-white text-blue-600 hover:bg-gray-100",
+
+    progress: "bg-blue-600",
+    focusBorder: "focus:border-blue-600",
+    hoverBorder: "hover:border-blue-200",
   },
 
   trophyGold: {
-    background: "bg-gradient-to-br from-black via-yellow-950 to-slate-950",
-    pageText: "text-white",
+    name: "Trophy Gold",
 
-    statChildren: "border-yellow-400/30 bg-yellow-500/15",
-    statTasks: "border-red-400/30 bg-amber-500/15",
-    statRewards: "border-amber-300/40 bg-amber-500/20",
-    statPending: "border-orange-400/30 bg-orange-500/15",
+    pageBg: "bg-[#FAFAF9]",
+    sidebarBg: "bg-white",
+    cardBg: "bg-white",
+    softBg: "bg-stone-50",
+    iconBg: "bg-stone-100",
+    border: "border-stone-200",
 
-    championCard: "border-amber-300/50 bg-amber-400/15",
-    activityCard: "border-yellow-400/20 bg-yellow-500/10",
-    navCard: "border-yellow-400/20 bg-yellow-500/10 hover:bg-yellow-500/15",
+    text: "text-stone-900",
+    mutedText: "text-stone-500",
+
+    primaryBg: "bg-amber-600",
+    primaryHover: "hover:bg-amber-700",
+    primaryText: "text-amber-700",
+    primaryBorder: "border-amber-600",
+    softAccentBg: "bg-stone-100",
+
+    successBg: "bg-green-100",
+    successText: "text-green-700",
+
+    warningBg: "bg-orange-100",
+    warningText: "text-orange-700",
+
+    button: "bg-amber-600 hover:bg-amber-700 text-white",
+    outlineButton:
+      "border-2 border-amber-600 bg-white text-amber-700 hover:bg-stone-100",
+
+    progress: "bg-amber-600",
+    focusBorder: "focus:border-amber-600",
+    hoverBorder: "hover:border-amber-200",
   },
 
-  electricBlue: {
-    background: "bg-gradient-to-br from-blue-950 via-cyan-900 to-black",
-    pageText: "text-white",
+  forestGreen: {
+    name: "Forest Green",
 
-    statChildren: "border-cyan-400/30 bg-cyan-500/15",
-    statTasks: "border-blue-400/30 bg-blue-500/15",
-    statRewards: "border-sky-400/30 bg-sky-500/15",
-    statPending: "border-white/20 bg-white/10",
+    pageBg: "bg-[#F8FAF9]",
+    sidebarBg: "bg-white",
+    cardBg: "bg-white",
+    softBg: "bg-gray-50",
+    iconBg: "bg-gray-100",
+    border: "border-gray-200",
 
-    championCard: "border-cyan-400/40 bg-cyan-500/10",
-    activityCard: "border-cyan-400/20 bg-cyan-500/10",
-    navCard: "border-cyan-400/20 bg-cyan-500/10 hover:bg-cyan-500/15",
+    text: "text-gray-900",
+    mutedText: "text-gray-500",
+
+    primaryBg: "bg-emerald-600",
+    primaryHover: "hover:bg-emerald-700",
+    primaryText: "text-emerald-600",
+    primaryBorder: "border-emerald-600",
+    softAccentBg: "bg-gray-100",
+
+    successBg: "bg-green-100",
+    successText: "text-green-700",
+
+    warningBg: "bg-orange-100",
+    warningText: "text-orange-700",
+
+    button: "bg-emerald-600 hover:bg-emerald-700 text-white",
+    outlineButton:
+      "border-2 border-emerald-600 bg-white text-emerald-600 hover:bg-gray-100",
+
+    progress: "bg-emerald-600",
+    focusBorder: "focus:border-emerald-600",
+    hoverBorder: "hover:border-emerald-200",
   },
 
-  fire: {
-    background: "bg-gradient-to-br from-red-950 via-orange-950 to-black",
-    pageText: "text-white",
+  darkMode: {
+    name: "Dark Mode",
 
-    statChildren: "border-red-400/30 bg-red-500/15",
-    statTasks: "border-orange-400/30 bg-orange-500/15",
-    statRewards: "border-yellow-400/30 bg-yellow-500/15",
-    statPending: "border-red-500/30 bg-red-600/15",
+    pageBg: "bg-slate-950",
+    sidebarBg: "bg-slate-900",
+    cardBg: "bg-slate-900",
+    softBg: "bg-slate-800",
+    iconBg: "bg-slate-800",
+    border: "border-slate-700",
 
-    championCard: "border-yellow-400/40 bg-yellow-500/10",
-    activityCard: "border-orange-400/20 bg-orange-500/10",
-    navCard: "border-orange-400/20 bg-orange-500/10 hover:bg-orange-500/15",
-  },
+    text: "text-white",
+    mutedText: "text-slate-400",
 
-  football: {
-    background: "bg-gradient-to-br from-green-950 via-green-900 to-black",
-    pageText: "text-white",
+    primaryBg: "bg-red-600",
+    primaryHover: "hover:bg-red-700",
+    primaryText: "text-red-400",
+    primaryBorder: "border-red-500",
+    softAccentBg: "bg-slate-800",
 
-    statChildren: "border-green-400/30 bg-green-500/15",
-    statTasks: "border-lime-400/30 bg-lime-500/15",
-    statRewards: "border-yellow-400/30 bg-yellow-500/15",
-    statPending: "border-white/20 bg-white/10",
+    successBg: "bg-green-900/40",
+    successText: "text-green-300",
 
-    championCard: "border-yellow-400/40 bg-yellow-500/10",
-    activityCard: "border-green-400/20 bg-green-500/10",
-    navCard: "border-green-400/20 bg-green-500/10 hover:bg-green-500/15",
+    warningBg: "bg-orange-900/40",
+    warningText: "text-orange-300",
+
+    button: "bg-red-600 hover:bg-red-700 text-white",
+    outlineButton:
+      "border-2 border-red-500 bg-transparent text-red-400 hover:bg-slate-800",
+
+    progress: "bg-red-500",
+    focusBorder: "focus:border-red-500",
+    hoverBorder: "hover:border-red-500",
   },
 };
 
