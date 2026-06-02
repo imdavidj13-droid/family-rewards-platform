@@ -20,8 +20,6 @@ type Reward = {
 };
 
 export default function RewardsPage() {
-  useRealtime("rewards", fetchRewards);
-useRealtime("children", fetchChildren);
   const { theme } = useTheme();
 
   const [children, setChildren] = useState<Child[]>([]);
@@ -33,6 +31,9 @@ useRealtime("children", fetchChildren);
   type: "success" | "error" | "info";
   message: string;
 } | null>(null);
+
+ useRealtime("rewards", fetchRewards);
+useRealtime("children", fetchChildren);
 
   useEffect(() => {
     fetchChildren();
