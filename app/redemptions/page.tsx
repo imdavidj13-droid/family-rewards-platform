@@ -138,7 +138,7 @@ export default function RedemptionsPage() {
       return;
     }
 
-    showToast("Reward rejected.");
+    showToast("Reward rejected.", "error");
     fetchData();
   }
 
