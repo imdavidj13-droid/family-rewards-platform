@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
+import Toast from "@/components/Toast";
 
 type Child = {
   id: string;
@@ -27,6 +28,10 @@ export default function TasksPage() {
   const [title, setTitle] = useState("");
   const [points, setPoints] = useState("");
   const [childId, setChildId] = useState("");
+  const [toast, setToast] = useState<{
+  type: "success" | "error" | "info";
+  message: string;
+} | null>(null);
 
   useEffect(() => {
     fetchChildren();
@@ -40,7 +45,10 @@ export default function TasksPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -54,7 +62,10 @@ export default function TasksPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -63,7 +74,10 @@ export default function TasksPage() {
 
   async function createTask() {
     if (!title || !points || !childId) {
-      alert("Please fill in all fields");
+      setToast({
+  type: "error",
+  message: "Please fill in all fields",
+});
       return;
     }
 
@@ -75,7 +89,10 @@ export default function TasksPage() {
     });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -89,12 +106,18 @@ export default function TasksPage() {
     const child = children.find((c) => c.id === task.child_id);
 
     if (!child) {
-      alert("Child not found");
+      setToast({
+  type: "error",
+  message: "Child not found",
+});
       return;
     }
 
     if (task.completed) {
-      alert("This task is already completed");
+      setToast({
+  type: "error",
+  message: "This task is already completed",
+});
       return;
     }
 
@@ -108,7 +131,10 @@ export default function TasksPage() {
       .eq("id", task.child_id);
 
     if (childError) {
-      alert("Child points error: " + childError.message);
+      setToast({
+  type: "error",
+  message: "Child points error: " + childError.message,
+});
       return;
     }
 
@@ -118,7 +144,10 @@ export default function TasksPage() {
       .eq("id", task.id);
 
     if (taskError) {
-      alert("Task completed error: " + taskError.message);
+      setToast({
+  type: "error",
+  message: "Task completed error: " + taskError.message,
+});
       return;
     }
 
@@ -135,6 +164,13 @@ export default function TasksPage() {
         <Sidebar />
 
         <section className="flex-1 p-6 md:p-8">
+          {toast && (
+  <Toast
+    type={toast.type}
+    message={toast.message}
+    onClose={() => setToast(null)}
+  />
+)}
           <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
             <div>
               <h1 className="text-3xl font-black md:text-4xl">
