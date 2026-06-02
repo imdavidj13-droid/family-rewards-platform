@@ -1,17 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 
 type TableName = "children" | "tasks" | "rewards" | "redemptions";
 
 export function useRealtime(table: TableName, callback: () => void) {
+  const callbackRef = useRef(callback);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
   useEffect(() => {
     const channel = supabase
-      .channel(`${table}-changes`)
+      .channel(`realtime-${table}`)
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table },
+        {
+          event: "*",
+          schema: "public",
+          table,
+        },
         () => {
-          callback();
+          callbackRef.current();
         }
       )
       .subscribe();
@@ -19,5 +29,5 @@ export function useRealtime(table: TableName, callback: () => void) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [table, callback]);
+  }, [table]);
 }
