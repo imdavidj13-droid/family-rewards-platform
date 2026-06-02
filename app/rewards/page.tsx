@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
+import Toast from "@/components/Toast";
 
 type Child = {
   id: string;
@@ -25,6 +26,10 @@ export default function RewardsPage() {
   const [title, setTitle] = useState("");
   const [cost, setCost] = useState("");
   const [selectedChildId, setSelectedChildId] = useState("");
+  const [toast, setToast] = useState<{
+  type: "success" | "error" | "info";
+  message: string;
+} | null>(null);
 
   useEffect(() => {
     fetchChildren();
@@ -38,7 +43,10 @@ export default function RewardsPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -52,7 +60,10 @@ export default function RewardsPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -61,7 +72,10 @@ export default function RewardsPage() {
 
   async function createReward() {
     if (!title || !cost) {
-      alert("Please fill in all fields");
+      setToast({
+  type: "error",
+  message: "Please fill in all fields",
+});
       return;
     }
 
@@ -71,7 +85,10 @@ export default function RewardsPage() {
     });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
@@ -84,12 +101,18 @@ export default function RewardsPage() {
     const child = children.find((c) => c.id === selectedChildId);
 
     if (!child) {
-      alert("Choose a child first");
+      setToast({
+  type: "error",
+  message: "Choose a child first",
+});
       return;
     }
 
     if (child.points < reward.cost) {
-      alert(`${child.name} does not have enough points`);
+      setToast({
+  type: "error",
+  message: `${child.name} does not have enough points`,
+});
       return;
     }
 
@@ -100,11 +123,17 @@ export default function RewardsPage() {
     });
 
     if (error) {
-      alert(error.message);
+      setToast({
+  type: "error",
+  message: error.message,
+});
       return;
     }
 
-    alert(`${child.name} requested ${reward.title}!`);
+    setToast({
+  type: "success",
+  message: `${child.name} requested ${reward.title}!`,
+});
     fetchChildren();
   }
 
