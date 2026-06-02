@@ -45,7 +45,10 @@ export default function RequireRole({ allowedRole, children }: RequireRoleProps)
   }
 
   if (!allowed) {
-  return null;
+  return (
+    <main className="min-h-screen bg-[#F8FAFC]" />
+  );
+}
 }
 
   return <>{children}</>;
