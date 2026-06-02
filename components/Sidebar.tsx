@@ -10,6 +10,8 @@ type Role = "parent" | "child" | null;
 export default function Sidebar() {
   const { theme } = useTheme();
   const [role, setRole] = useState<Role>(null);
+  const [name, setName] = useState("");
+const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     loadRole();
@@ -24,11 +26,13 @@ export default function Sidebar() {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role")
+      .select("role, name, avatar_url")
       .eq("user_id", user.id)
       .single();
 
     setRole(profile?.role || null);
+    setName(profile?.name || "");
+setAvatarUrl(profile?.avatar_url || null);
   }
 
   const navItems =
@@ -73,16 +77,38 @@ export default function Sidebar() {
         ))}
       </nav>
 
+       <div
+  className={`mt-auto rounded-3xl border ${theme.border} ${theme.softBg} p-4`}
+>
+  <div className="flex items-center gap-3">
+    {avatarUrl ? (
+      <img
+        src={avatarUrl}
+        alt={name || "Avatar"}
+        className="h-12 w-12 rounded-full object-cover"
+      />
+    ) : (
       <div
-        className={`mt-auto rounded-3xl border ${theme.border} ${theme.softBg} p-4`}
+        className={`flex h-12 w-12 items-center justify-center rounded-full ${theme.primaryBg} text-lg font-black text-white`}
       >
-        <p className={`font-black ${theme.text}`}>
-          {role === "child" ? "Child Account" : "Parent Account"}
-        </p>
+        {(name || role || "U")[0].toUpperCase()}
+      </div>
+    )}
 
-        <p className={`text-sm ${theme.mutedText}`}>
-          {role === "child" ? "Reward earner" : "Family admin"}
-        </p>
+    <div>
+      <p className={`text-xs font-black uppercase ${theme.mutedText}`}>
+        {role === "child" ? "Child" : "Parent"}
+      </p>
+
+      <p className={`font-black ${theme.text}`}>
+        {name || "User"}
+      </p>
+
+      <p className={`text-sm ${theme.mutedText}`}>
+        {role === "child" ? "Reward earner" : "Family admin"}
+      </p>
+    </div>
+  </div>
       </div>
     </aside>
   );
