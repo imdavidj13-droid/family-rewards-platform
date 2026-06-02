@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
 import { supabase } from "@/lib/supabase";
 import Toast from "@/components/Toast";
+import { useRealtime } from "@/hooks/useRealtime";
 
 export default function ChildPage() {
   const { theme } = useTheme();
@@ -17,6 +18,10 @@ export default function ChildPage() {
     type: "success" | "error" | "info";
     message: string;
   } | null>(null);
+  
+  useRealtime("children", loadChildPortal);
+useRealtime("redemptions", loadChildPortal);
+useRealtime("rewards", loadChildPortal);
 
   useEffect(() => {
     loadChildPortal();
