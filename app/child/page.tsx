@@ -1,10 +1,41 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
+import { supabase } from "@/lib/supabase";
 
 export default function ChildPage() {
   const { theme } = useTheme();
+
+  const [child, setChild] = useState<any>(null);
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [rewards, setRewards] = useState<any[]>([]);
+
+  useEffect(() => {
+    loadChildPortal();
+  }, []);
+
+  async function loadChildPortal() {
+    const { data: childData } = await supabase
+      .from("children")
+      .select("*")
+      .limit(1)
+      .single();
+
+    if (childData) setChild(childData);
+
+    const { data: taskData } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("completed", false);
+
+    setTasks(taskData || []);
+
+    const { data: rewardData } = await supabase.from("rewards").select("*");
+
+    setRewards(rewardData || []);
+  }
 
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
@@ -32,7 +63,7 @@ export default function ChildPage() {
                 </p>
 
                 <h2 className="mt-1 text-4xl font-black">
-                  Jenson 👋
+                  {child?.name || "Child"} 👋
                 </h2>
 
                 <p className={`mt-2 ${theme.mutedText}`}>
@@ -41,7 +72,11 @@ export default function ChildPage() {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                <MiniStat icon="⭐" label="Points" value="125" />
+                <MiniStat
+                  icon="⭐"
+                  label="Points"
+                  value={String(child?.points || 0)}
+                />
                 <MiniStat icon="🔥" label="Streak" value="3 Days" />
                 <MiniStat icon="🏆" label="Rank" value="#1" />
               </div>
@@ -50,11 +85,18 @@ export default function ChildPage() {
             <div className="mt-8">
               <div className="mb-2 flex justify-between text-sm font-bold">
                 <span>Next reward progress</span>
-                <span className={theme.primaryText}>125 / 200</span>
+                <span className={theme.primaryText}>
+                  {child?.points || 0} / 200
+                </span>
               </div>
 
               <div className={`h-4 overflow-hidden rounded-full ${theme.softBg}`}>
-                <div className={`h-full w-[62%] rounded-full ${theme.progress}`} />
+                <div
+                  className={`h-full rounded-full ${theme.progress}`}
+                  style={{
+                    width: `${Math.min(((child?.points || 0) / 200) * 100, 100)}%`,
+                  }}
+                />
               </div>
             </div>
 
@@ -74,9 +116,13 @@ export default function ChildPage() {
               <h2 className="mb-4 text-2xl font-black">Tasks 📋</h2>
 
               <div className="space-y-3">
-                <TaskCard title="Make Bed" points={5} />
-                <TaskCard title="Brush Teeth" points={2} />
-                <TaskCard title="Tidy Room" points={10} />
+                {tasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    title={task.title}
+                    points={task.points}
+                  />
+                ))}
               </div>
             </div>
 
@@ -86,9 +132,14 @@ export default function ChildPage() {
               <h2 className="mb-4 text-2xl font-black">Rewards Shop 🎁</h2>
 
               <div className="space-y-3">
-                <RewardCard title="Pick a Sweet" cost={20} icon="🍬" />
-                <RewardCard title="30 Minutes Gaming" cost={50} icon="🎮" />
-                <RewardCard title="Bowling With Dad" cost={500} icon="🎳" />
+                {rewards.map((reward) => (
+                  <RewardCard
+                    key={reward.id}
+                    title={reward.title}
+                    cost={reward.cost}
+                    icon="🎁"
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -152,7 +203,9 @@ function RewardCard({
     <div className={`rounded-2xl ${theme.softBg} p-4`}>
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${theme.iconBg} text-2xl`}>
+          <div
+            className={`flex h-12 w-12 items-center justify-center rounded-xl ${theme.iconBg} text-2xl`}
+          >
             {icon}
           </div>
 
