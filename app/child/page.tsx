@@ -109,7 +109,7 @@ export default function ChildPage() {
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid items-start gap-6 lg:grid-cols-2">
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
