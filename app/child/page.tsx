@@ -28,11 +28,34 @@ useRealtime("rewards", loadChildPortal);
   }, []);
 
   async function loadChildPortal() {
-    const { data: childData } = await supabase
-      .from("children")
-      .select("*")
-      .limit(1)
-      .single();
+    const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  window.location.href = "/login";
+  return;
+}
+
+const { data: profile, error: profileError } = await supabase
+  .from("profiles")
+  .select("child_id")
+  .eq("user_id", user.id)
+  .single();
+
+if (profileError || !profile?.child_id) {
+  setToast({
+    type: "error",
+    message: "No child profile is linked to this account.",
+  });
+  return;
+}
+
+const { data: childData } = await supabase
+  .from("children")
+  .select("*")
+  .eq("id", profile.child_id)
+  .single();
 
     if (childData) setChild(childData);
 
