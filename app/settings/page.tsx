@@ -174,15 +174,21 @@ export default function SettingsPage() {
                   <label className={`mb-2 block text-sm font-bold ${theme.mutedText}`}>
                     Upload avatar
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) uploadAvatar(file);
-                    }}
-                    className={`w-full rounded-2xl border ${theme.border} ${theme.softBg} p-4 font-bold ${theme.text}`}
-                  />
+                  <label
+  className={`flex cursor-pointer items-center justify-center rounded-2xl px-5 py-4 font-black transition ${theme.button}`}
+>
+  📷 Browse Image
+
+  <input
+    type="file"
+    accept="image/*"
+    className="hidden"
+    onChange={(e) => {
+      const file = e.target.files?.[0];
+      if (file) uploadAvatar(file);
+    }}
+  />
+</label>
                 </div>
 
                 <button
