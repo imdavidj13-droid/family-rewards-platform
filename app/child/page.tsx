@@ -196,17 +196,31 @@ async function redeemReward(rewardId: string) {
             >
               <h2 className="mb-4 text-2xl font-black">Tasks 📋</h2>
 
-              <div className="space-y-3">
-                {tasks.map((task) => (
-                  <TaskCard
-  key={task.id}
-  id={task.id}
-  title={task.title}
-  points={task.points}
-  onComplete={completeTask}
-/>
-                ))}
-              </div>
+              {tasks.length === 0 ? (
+  <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
+    <div className="text-5xl">🎉</div>
+
+    <h3 className="mt-3 text-xl font-black">
+      All tasks complete!
+    </h3>
+
+    <p className={`mt-2 ${theme.mutedText}`}>
+      Great job. Check back later for more tasks.
+    </p>
+  </div>
+) : (
+  <div className="space-y-3">
+    {tasks.map((task) => (
+      <TaskCard
+        key={task.id}
+        id={task.id}
+        title={task.title}
+        points={task.points}
+        onComplete={completeTask}
+      />
+    ))}
+  </div>
+)}
             </div>
 
             <div
