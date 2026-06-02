@@ -85,24 +85,24 @@ setAvatarUrl(profile?.avatar_url || null);
       <img
         src={avatarUrl}
         alt={name || "Avatar"}
-        className="h-12 w-12 rounded-full object-cover"
+        className="h-14 w-14 items-center justify-center rounded-full"
       />
     ) : (
       <div
-        className={`flex h-12 w-12 items-center justify-center rounded-full ${theme.primaryBg} text-lg font-black text-white`}
+        className={`flex h-14 w-14 items-center justify-center rounded-full ${theme.primaryBg} text-lg font-black text-white`}
       >
         {(name || role || "U")[0].toUpperCase()}
       </div>
     )}
 
     <div>
-      <p className={`text-xs font-black uppercase ${theme.mutedText}`}>
-        {role === "child" ? "Child" : "Parent"}
-      </p>
-
       <p className={`font-black ${theme.text}`}>
-        {name || "User"}
-      </p>
+  {name || "User"}
+</p>
+
+<p className={`text-xs font-black uppercase ${theme.mutedText}`}>
+  {role === "child" ? "Child" : "Parent"}
+</p>
 
       <p className={`text-sm ${theme.mutedText}`}>
         {role === "child" ? "Reward earner" : "Family admin"}
