@@ -288,16 +288,23 @@ if (childData) {
               <h2 className="mb-4 text-2xl font-black">Rewards Shop 🎁</h2>
 
               <div className="space-y-3">
-                {rewards.map((reward) => (
-                  <RewardCard
-                    key={reward.id}
-                    id={reward.id}
-                    title={reward.title}
-                    cost={reward.cost}
-                    icon="🎁"
-                    onRedeem={redeemReward}
-                  />
-                ))}
+                {rewards.map((reward) => {
+  const isPending = pendingRewards.some(
+    (request) => request.reward_id === reward.id
+  );
+
+  return (
+    <RewardCard
+      key={reward.id}
+      id={reward.id}
+      title={reward.title}
+      cost={reward.cost}
+      icon="🎁"
+      isPending={isPending}
+      onRedeem={redeemReward}
+    />
+  );
+})}
               </div>
             </div>
 
@@ -415,12 +422,14 @@ function RewardCard({
   title,
   cost,
   icon,
+  isPending,
   onRedeem,
 }: {
   id: string;
   title: string;
   cost: number;
   icon: string;
+  isPending: boolean;
   onRedeem: (id: string) => Promise<void>;
 }) {
   const { theme } = useTheme();
@@ -442,11 +451,16 @@ function RewardCard({
         </div>
 
         <button
-          onClick={() => onRedeem(id)}
-          className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}
-        >
-          🎁 Redeem
-        </button>
+  onClick={() => onRedeem(id)}
+  disabled={isPending}
+  className={`rounded-xl px-5 py-3 text-sm font-black ${
+    isPending
+      ? "cursor-not-allowed bg-gray-200 text-gray-500"
+      : theme.button
+  }`}
+>
+  {isPending ? "Requested ⏳" : "🎁 Redeem"}
+</button>
       </div>
     </div>
   );
