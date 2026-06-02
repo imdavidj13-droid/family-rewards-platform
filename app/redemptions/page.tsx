@@ -128,7 +128,7 @@ export default function RedemptionsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F9FAFB] text-gray-900">
+    <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
         <Sidebar />
 
@@ -144,7 +144,7 @@ export default function RedemptionsPage() {
               </p>
             </div>
 
-            <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-500 shadow-sm">
+            <div className={`rounded-xl border ${theme.border} ${theme.cardBg} px-4 py-2 text-sm font-bold ${theme.mutedText} shadow-sm`}>
               {redemptions.length} Pending
             </div>
           </div>
@@ -156,8 +156,8 @@ export default function RedemptionsPage() {
           </div>
 
           {redemptions.length === 0 && (
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-3xl">
+            <div className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-8 text-center shadow-sm`}>
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-3xl">
                 ✅
               </div>
 
@@ -179,10 +179,10 @@ export default function RedemptionsPage() {
               return (
                 <div
                   key={redemption.id}
-                  className={`rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md ${theme.text}`}
+                  className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm transition hover:-translate-y-1 ${theme.hoverBorder} hover:shadow-md`}
                 >
                   <div className="mb-5 flex items-start justify-between">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-4xl">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-4xl">
                       🎁
                     </div>
 
@@ -197,11 +197,11 @@ export default function RedemptionsPage() {
 
                   <p className="mt-2 text-gray-500">Requested by</p>
 
-                  <p className="font-black text-red-600">
+                  <p className={`font-black ${theme.primaryText}`}>
                     {child?.name || "Unknown Child"}
                   </p>
 
-                  <div className="mt-5 space-y-3 rounded-2xl bg-gray-50 p-4">
+                  <div className={`mt-5 space-y-3 rounded-2xl ${theme.softBg} p-4`}>
                     <div className="flex justify-between">
                       <span className="font-bold text-gray-500">Cost</span>
 
@@ -257,19 +257,23 @@ function StatCard({
   value: number;
   orange?: boolean;
 }) {
+  const { theme } = useTheme();
+
   return (
-    <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+    <div
+      className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-5 shadow-sm`}
+    >
       <div
         className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? "bg-orange-100" : "bg-gray-100"
+          orange ? "bg-orange-100" : "${theme.iconBg}"
         }`}
       >
         {icon}
       </div>
 
-      <p className="text-sm font-bold text-gray-500">{label}</p>
+      <p className={`text-sm font-bold ${theme.mutedText}`}>{label}</p>
 
-      <h2 className="mt-2 text-3xl font-black text-gray-900">{value}</h2>
+      <h2 className="mt-2 text-3xl font-black">{value}</h2>
     </div>
   );
 }
