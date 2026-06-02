@@ -55,6 +55,18 @@ export default function ChildPage() {
   loadChildPortal();
 }
 
+async function redeemReward(rewardId: string) {
+  if (!child) return;
+
+  await supabase.from("redemptions").insert({
+    child_id: child.id,
+    reward_id: rewardId,
+    status: "pending",
+  });
+
+  loadChildPortal();
+}
+
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
@@ -154,11 +166,13 @@ export default function ChildPage() {
               <div className="space-y-3">
                 {rewards.map((reward) => (
                   <RewardCard
-                    key={reward.id}
-                    title={reward.title}
-                    cost={reward.cost}
-                    icon="🎁"
-                  />
+  key={reward.id}
+  id={reward.id}
+  title={reward.title}
+  cost={reward.cost}
+  icon="🎁"
+  onRedeem={redeemReward}
+/>
                 ))}
               </div>
             </div>
@@ -222,13 +236,17 @@ function TaskCard({
 }
 
 function RewardCard({
+  id,
   title,
   cost,
   icon,
+  onRedeem,
 }: {
+  id: string;
   title: string;
   cost: number;
   icon: string;
+  onRedeem: (id: string) => Promise<void>;
 }) {
   const { theme } = useTheme();
 
@@ -248,7 +266,10 @@ function RewardCard({
           </div>
         </div>
 
-        <button className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}>
+        <button
+          onClick={() => onRedeem(id)}
+          className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}
+        >
           🎁 Redeem
         </button>
       </div>
