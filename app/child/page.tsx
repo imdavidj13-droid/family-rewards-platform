@@ -56,14 +56,23 @@ export default function ChildPage() {
 }
 
 async function redeemReward(rewardId: string) {
-  if (!child) return;
+  if (!child) {
+    alert("No child found");
+    return;
+  }
 
-  await supabase.from("redemptions").insert({
+  const { error } = await supabase.from("redemptions").insert({
     child_id: child.id,
     reward_id: rewardId,
     status: "pending",
   });
 
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Reward requested!");
   loadChildPortal();
 }
 
