@@ -168,7 +168,7 @@ export default function RedemptionsPage() {
 
                     <button
                       onClick={() => rejectRedemption(redemption)}
-                      className="rounded-xl bg-red-600 px-4 py-2 font-bold hover:bg-red-500"
+                      className="rounded-xl bg-red-600 px-4 py-2 font-bold hover:bg-gray-1000"
                     >
                       Reject
                     </button>

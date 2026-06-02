@@ -167,7 +167,7 @@ export default function ChildrenPage() {
                     </div>
                   </div>
 
-                  <button className="mt-5 w-full rounded-2xl border-2 border-red-600 bg-white px-4 py-3 font-black text-red-600 transition hover:bg-red-50">
+                  <button className="mt-5 w-full rounded-2xl border-2 border-red-600 bg-white px-4 py-3 font-black text-red-600 transition hover:bg-gray-100">
                     View Profile →
                   </button>
                 </div>
