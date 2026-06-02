@@ -4,12 +4,42 @@ import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
 
 const achievements = [
-  { icon: "🏆", title: "First Task", description: "Complete your first task.", status: "Unlocked" },
-  { icon: "⭐", title: "100 Points Club", description: "Reach 100 total points.", status: "Unlocked" },
-  { icon: "🔥", title: "7 Day Streak", description: "Earn points 7 days in a row.", status: "Locked" },
-  { icon: "🎁", title: "First Reward", description: "Request your first reward.", status: "Unlocked" },
-  { icon: "💪", title: "Task Champion", description: "Complete 10 tasks.", status: "Locked" },
-  { icon: "👑", title: "Family Champion", description: "Have the most points in the family.", status: "Locked" },
+  {
+    icon: "🏆",
+    title: "First Task",
+    description: "Complete your first task.",
+    status: "Unlocked",
+  },
+  {
+    icon: "⭐",
+    title: "100 Points Club",
+    description: "Reach 100 total points.",
+    status: "Unlocked",
+  },
+  {
+    icon: "🔥",
+    title: "7 Day Streak",
+    description: "Earn points 7 days in a row.",
+    status: "Locked",
+  },
+  {
+    icon: "🎁",
+    title: "First Reward",
+    description: "Request your first reward.",
+    status: "Unlocked",
+  },
+  {
+    icon: "💪",
+    title: "Task Champion",
+    description: "Complete 10 tasks.",
+    status: "Locked",
+  },
+  {
+    icon: "👑",
+    title: "Family Champion",
+    description: "Have the most points in the family.",
+    status: "Locked",
+  },
 ];
 
 export default function AchievementsPage() {
@@ -18,6 +48,8 @@ export default function AchievementsPage() {
   const unlockedCount = achievements.filter(
     (achievement) => achievement.status === "Unlocked"
   ).length;
+
+  const lockedCount = achievements.length - unlockedCount;
 
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
@@ -44,14 +76,15 @@ export default function AchievementsPage() {
           </div>
 
           <div className="mb-8 grid gap-4 md:grid-cols-3">
-            <StatCard icon="🏆" label="Achievements" value={achievements.length} />
-            <StatCard icon="✅" label="Unlocked" value={unlockedCount} />
             <StatCard
-              icon="🔒"
-              label="Locked"
-              value={achievements.length - unlockedCount}
-              orange
+              icon="🏆"
+              label="Achievements"
+              value={achievements.length}
             />
+
+            <StatCard icon="✅" label="Unlocked" value={unlockedCount} />
+
+            <StatCard icon="🔒" label="Locked" value={lockedCount} />
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -71,11 +104,7 @@ export default function AchievementsPage() {
                     </div>
 
                     <div
-                      className={`rounded-full px-3 py-1 text-xs font-black ${
-                        unlocked
-  ? `${theme.softAccentBg} ${theme.primaryText}`
-  : `${theme.warningBg} ${theme.warningText}`
-                      }`}
+                      className={`rounded-full px-3 py-1 text-xs font-black ${theme.softAccentBg} ${theme.primaryText}`}
                     >
                       {achievement.status}
                     </div>
@@ -95,9 +124,7 @@ export default function AchievementsPage() {
                     </p>
 
                     <p
-                      className={`mt-1 text-2xl font-black ${
-                        unlocked ? theme.primaryText : theme.warningText
-                      }`}
+                      className={`mt-1 text-2xl font-black ${theme.primaryText}`}
                     >
                       {unlocked ? "Complete" : "In Progress"}
                     </p>
@@ -116,21 +143,19 @@ function StatCard({
   icon,
   label,
   value,
-  orange = false,
 }: {
   icon: string;
   label: string;
   value: number;
-  orange?: boolean;
 }) {
   const { theme } = useTheme();
 
   return (
-    <div className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-5 shadow-sm`}>
+    <div
+      className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-5 shadow-sm`}
+    >
       <div
-        className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? theme.warningBg : theme.iconBg
-        }`}
+        className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl ${theme.iconBg} text-2xl`}
       >
         {icon}
       </div>
