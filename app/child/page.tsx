@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
 import { supabase } from "@/lib/supabase";
+import Toast from "@/components/Toast";
 
 export default function ChildPage() {
   const { theme } = useTheme();
@@ -11,6 +12,10 @@ export default function ChildPage() {
   const [child, setChild] = useState<any>(null);
   const [tasks, setTasks] = useState<any[]>([]);
   const [rewards, setRewards] = useState<any[]>([]);
+  const [toast, setToast] = useState<{
+  type: "success" | "error" | "info";
+  message: string;
+} | null>(null);
 
   useEffect(() => {
     loadChildPortal();
@@ -37,27 +42,45 @@ export default function ChildPage() {
     setRewards(rewardData || []);
   }
 
-  async function completeTask(taskId: string, points: number) {
-  if (!child) return;
+ async function completeTask(taskId: string, points: number) {
+  if (!child) {
+    setToast({ type: "error", message: "No child found." });
+    return;
+  }
 
-  await supabase
+  const { error: taskError } = await supabase
     .from("tasks")
     .update({ completed: true })
     .eq("id", taskId);
 
-  await supabase
+  if (taskError) {
+    setToast({ type: "error", message: taskError.message });
+    return;
+  }
+
+  const { error: childError } = await supabase
     .from("children")
     .update({
       points: child.points + points,
     })
     .eq("id", child.id);
 
+  if (childError) {
+    setToast({ type: "error", message: childError.message });
+    return;
+  }
+
+  setToast({
+    type: "success",
+    message: `Task completed! +${points} points`,
+  });
+
   loadChildPortal();
 }
 
 async function redeemReward(rewardId: string) {
   if (!child) {
-    alert("No child found");
+    setToast({ type: "error", message: "No child found." });
     return;
   }
 
@@ -68,11 +91,15 @@ async function redeemReward(rewardId: string) {
   });
 
   if (error) {
-    alert(error.message);
+    setToast({ type: "error", message: error.message });
     return;
   }
 
-  alert("Reward requested!");
+  setToast({
+    type: "success",
+    message: "Reward requested successfully!",
+  });
+
   loadChildPortal();
 }
 
@@ -188,6 +215,13 @@ async function redeemReward(rewardId: string) {
           </div>
         </section>
       </div>
+      {toast && (
+  <Toast
+    type={toast.type}
+    message={toast.message}
+    onClose={() => setToast(null)}
+  />
+)}
     </main>
   );
 }
