@@ -37,6 +37,24 @@ export default function ChildPage() {
     setRewards(rewardData || []);
   }
 
+  async function completeTask(taskId: string, points: number) {
+  if (!child) return;
+
+  await supabase
+    .from("tasks")
+    .update({ completed: true })
+    .eq("id", taskId);
+
+  await supabase
+    .from("children")
+    .update({
+      points: child.points + points,
+    })
+    .eq("id", child.id);
+
+  loadChildPortal();
+}
+
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
@@ -118,10 +136,12 @@ export default function ChildPage() {
               <div className="space-y-3">
                 {tasks.map((task) => (
                   <TaskCard
-                    key={task.id}
-                    title={task.title}
-                    points={task.points}
-                  />
+  key={task.id}
+  id={task.id}
+  title={task.title}
+  points={task.points}
+  onComplete={completeTask}
+/>
                 ))}
               </div>
             </div>
@@ -169,7 +189,17 @@ function MiniStat({
   );
 }
 
-function TaskCard({ title, points }: { title: string; points: number }) {
+function TaskCard({
+  id,
+  title,
+  points,
+  onComplete,
+}: {
+  id: string;
+  title: string;
+  points: number;
+  onComplete: (id: string, points: number) => void;
+}) {
   const { theme } = useTheme();
 
   return (
@@ -180,9 +210,12 @@ function TaskCard({ title, points }: { title: string; points: number }) {
           <p className={theme.mutedText}>+{points} points</p>
         </div>
 
-        <button className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}>
-          ✅ Complete
-        </button>
+       <button
+  onClick={() => onComplete(id, points)}
+  className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}
+>
+  ✅ Complete
+</button>
       </div>
     </div>
   );
