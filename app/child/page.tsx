@@ -88,6 +88,7 @@ if (childData) {
         id,
         status,
         created_at,
+          reward_id,
         rewards (
           title,
           cost
@@ -137,29 +138,41 @@ if (childData) {
   }
 
   async function redeemReward(rewardId: string) {
-    if (!child) {
-      setToast({ type: "error", message: "No child found." });
-      return;
-    }
-
-    const { error } = await supabase.from("redemptions").insert({
-      child_id: child.id,
-      reward_id: rewardId,
-      status: "pending",
-    });
-
-    if (error) {
-      setToast({ type: "error", message: error.message });
-      return;
-    }
-
-    setToast({
-      type: "success",
-      message: "Reward requested successfully!",
-    });
-
-    loadChildPortal();
+  if (!child) {
+    setToast({ type: "error", message: "No child found." });
+    return;
   }
+
+  const alreadyPending = pendingRewards.some(
+    (request) => request.rewards && request.reward_id === rewardId
+  );
+
+  if (alreadyPending) {
+    setToast({
+      type: "info",
+      message: "You've already requested this reward.",
+    });
+    return;
+  }
+
+  const { error } = await supabase.from("redemptions").insert({
+    child_id: child.id,
+    reward_id: rewardId,
+    status: "pending",
+  });
+
+  if (error) {
+    setToast({ type: "error", message: error.message });
+    return;
+  }
+
+  setToast({
+    type: "success",
+    message: "Reward requested successfully!",
+  });
+
+  loadChildPortal();
+}
 
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
