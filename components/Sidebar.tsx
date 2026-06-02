@@ -42,7 +42,7 @@ function NavItem({
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 rounded-2xl px-4 py-3 font-bold text-gray-500 transition hover:bg-red-50 hover:text-red-600"
+      className="flex items-center gap-3 rounded-2xl px-4 py-3 font-bold text-gray-500 transition hover:bg-gray-100 hover:text-red-600"
     >
       <span>{icon}</span>
       <span>{label}</span>
