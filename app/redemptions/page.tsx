@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
+import { useRealtime } from "@/hooks/useRealtime";
 
 type Child = {
   id: string;
@@ -34,6 +35,10 @@ export default function RedemptionsPage() {
   message: string;
   type: "success" | "error";
 } | null>(null);
+
+useRealtime("redemptions", fetchData);
+useRealtime("children", fetchData);
+useRealtime("rewards", fetchData);
 
   useEffect(() => {
     fetchData();
