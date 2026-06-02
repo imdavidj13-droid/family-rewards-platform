@@ -30,6 +30,10 @@ export default function RedemptionsPage() {
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
   const [children, setChildren] = useState<Child[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
+  const [toast, setToast] = useState<{
+  message: string;
+  type: "success" | "error";
+} | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -43,7 +47,7 @@ export default function RedemptionsPage() {
       .order("created_at", { ascending: false });
 
     if (redemptionError) {
-      alert(redemptionError.message);
+      showToast(redemptionError.message, "error");
       return;
     }
 
@@ -52,7 +56,7 @@ export default function RedemptionsPage() {
       .select("id, name, points");
 
     if (childrenError) {
-      alert(childrenError.message);
+      showToast(childrenError.message, "error");
       return;
     }
 
@@ -61,7 +65,7 @@ export default function RedemptionsPage() {
       .select("id, title, cost");
 
     if (rewardsError) {
-      alert(rewardsError.message);
+      showToast(rewardsError.message, "error");
       return;
     }
 
@@ -70,12 +74,23 @@ export default function RedemptionsPage() {
     setRewards(rewardsData || []);
   }
 
+  function showToast(
+  message: string,
+  type: "success" | "error" = "success"
+) {
+  setToast({ message, type });
+
+  setTimeout(() => {
+    setToast(null);
+  }, 3000);
+}
+
   async function approveRedemption(redemption: Redemption) {
     const child = children.find((c) => c.id === redemption.child_id);
     const reward = rewards.find((r) => r.id === redemption.reward_id);
 
     if (!child || !reward) {
-      alert("Could not find child or reward");
+      showToast("Could not find child or reward.", "error");
       return;
     }
 
@@ -84,7 +99,7 @@ export default function RedemptionsPage() {
     const newPoints = currentPoints - rewardCost;
 
     if (newPoints < 0) {
-      alert("Not enough points anymore");
+      showToast("Not enough points available.", "error");
       return;
     }
 
@@ -94,7 +109,7 @@ export default function RedemptionsPage() {
       .eq("id", child.id);
 
     if (childError) {
-      alert(childError.message);
+      showToast(childError.message, "error");
       return;
     }
 
@@ -104,11 +119,11 @@ export default function RedemptionsPage() {
       .eq("id", redemption.id);
 
     if (redemptionError) {
-      alert(redemptionError.message);
+      showToast(redemptionError.message, "error");
       return;
     }
 
-    alert("Reward approved!");
+    showToast("Reward approved successfully!");
     fetchData();
   }
 
@@ -119,11 +134,11 @@ export default function RedemptionsPage() {
       .eq("id", redemption.id);
 
     if (error) {
-      alert(error.message);
+      showToast(error.message, "error");
       return;
     }
 
-    alert("Reward rejected");
+    showToast("Reward rejected.");
     fetchData();
   }
 
@@ -133,6 +148,18 @@ export default function RedemptionsPage() {
         <Sidebar />
 
         <section className="flex-1 p-6 md:p-8">
+          {toast && (
+  <div
+    className={`fixed right-6 top-6 z-50 rounded-2xl px-5 py-3 font-bold shadow-xl backdrop-blur
+      ${
+        toast.type === "success"
+          ? "border border-green-400/30 bg-green-500/20 text-green-100"
+          : "border border-red-400/30 bg-red-500/20 text-red-100"
+      }`}
+  >
+    {toast.message}
+  </div>
+)}
           <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
             <div>
               <h1 className="text-3xl font-black md:text-4xl">
@@ -157,7 +184,9 @@ export default function RedemptionsPage() {
 
           {redemptions.length === 0 && (
             <div className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-8 text-center shadow-sm`}>
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-3xl">
+              <div
+  className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-3xl`}
+>
                 ✅
               </div>
 
@@ -182,7 +211,9 @@ export default function RedemptionsPage() {
                   className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm transition hover:-translate-y-1 ${theme.hoverBorder} hover:shadow-md`}
                 >
                   <div className="mb-5 flex items-start justify-between">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-4xl">
+                    <div
+  className={`flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-4xl`}
+>
                       🎁
                     </div>
 
@@ -265,7 +296,7 @@ function StatCard({
     >
       <div
         className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? "bg-orange-100" : "${theme.iconBg}"
+          orange ? "bg-orange-100" : theme.iconBg
         }`}
       >
         {icon}
