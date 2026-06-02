@@ -56,7 +56,7 @@ export default function SettingsPage() {
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <InfoCard icon="👤" label="Role" value="Parent" />
-              <InfoCard icon="👦" label="Children" value="Managed" />
+              <InfoCard icon="👦" label="Children." value="Managed" />
               <InfoCard icon="🎁" label="Rewards" value="Enabled" />
             </div>
           </div>
