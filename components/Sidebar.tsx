@@ -1,10 +1,50 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
+import { supabase } from "@/lib/supabase";
+
+type Role = "parent" | "child" | null;
 
 export default function Sidebar() {
   const { theme } = useTheme();
+  const [role, setRole] = useState<Role>(null);
+
+  useEffect(() => {
+    loadRole();
+  }, []);
+
+  async function loadRole() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("user_id", user.id)
+      .single();
+
+    setRole(profile?.role || null);
+  }
+
+  const navItems =
+    role === "child"
+      ? [{ href: "/child", icon: "⭐", label: "My Portal" }]
+      : [
+          { href: "/dashboard", icon: "📊", label: "Dashboard" },
+          { href: "/children", icon: "👦", label: "Children" },
+          { href: "/tasks", icon: "📋", label: "Tasks" },
+          { href: "/rewards", icon: "🎁", label: "Rewards" },
+          { href: "/redemptions", icon: "✅", label: "Redemptions" },
+          { href: "/reports", icon: "📈", label: "Reports" },
+          { href: "/achievements", icon: "🏆", label: "Achievements" },
+          { href: "/family-feed", icon: "📰", label: "Family Feed" },
+          { href: "/settings", icon: "⚙️", label: "Settings" },
+        ];
 
   return (
     <aside
@@ -23,24 +63,25 @@ export default function Sidebar() {
       </div>
 
       <nav className="space-y-2">
-        <NavItem href="/dashboard" icon="📊" label="Dashboard" />
-        <NavItem href="/children" icon="👦" label="Children" />
-        <NavItem href="/tasks" icon="📋" label="Tasks" />
-        <NavItem href="/rewards" icon="🎁" label="Rewards" />
-        <NavItem href="/redemptions" icon="✅" label="Redemptions" />
-        <NavItem href="/reports" icon="📈" label="Reports" />
-        <NavItem href="/achievements" icon="🏆" label="Achievements" />
-        <NavItem href="/family-feed" icon="📰" label="Family Feed" />
-        <NavItem href="/settings" icon="⚙️" label="Settings" />
+        {navItems.map((item) => (
+          <NavItem
+            key={item.href}
+            href={item.href}
+            icon={item.icon}
+            label={item.label}
+          />
+        ))}
       </nav>
 
       <div
         className={`mt-auto rounded-3xl border ${theme.border} ${theme.softBg} p-4`}
       >
-        <p className={`font-black ${theme.text}`}>Parent Account</p>
+        <p className={`font-black ${theme.text}`}>
+          {role === "child" ? "Child Account" : "Parent Account"}
+        </p>
 
         <p className={`text-sm ${theme.mutedText}`}>
-          Family admin
+          {role === "child" ? "Reward earner" : "Family admin"}
         </p>
       </div>
     </aside>
