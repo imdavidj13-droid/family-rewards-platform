@@ -61,9 +61,7 @@ export default function AchievementsPage() {
               return (
                 <div
                   key={achievement.title}
-                  className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${
-                    unlocked ? theme.hoverBorder : "opacity-70"
-                  }`}
+                  className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">
                     <div
