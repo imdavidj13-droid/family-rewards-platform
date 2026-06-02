@@ -6,6 +6,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
 import Toast from "@/components/Toast";
 import { useRealtime } from "@/hooks/useRealtime";
+import RequireRole from "@/components/RequireRole";
 
 
 type Child = {
@@ -163,6 +164,7 @@ useRealtime("children", fetchChildren);
   const pendingTasks = tasks.filter((task) => !task.completed).length;
 
   return (
+     <RequireRole allowedRole="parent">
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
         <Sidebar />
@@ -391,8 +393,9 @@ useRealtime("children", fetchChildren);
             })}
           </div>
         </section>
-      </div>
+            </div>
     </main>
+  </RequireRole>
   );
 }
 
