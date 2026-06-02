@@ -22,6 +22,21 @@ export default function SignupPage() {
       return;
     }
 
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert({
+          user_id: data.user.id,
+          name,
+          role: "parent",
+        });
+
+      if (profileError) {
+        setMessage(profileError.message);
+        return;
+      }
+    }
+
     setMessage("Account created successfully!");
   }
 
@@ -59,11 +74,7 @@ export default function SignupPage() {
           Sign Up
         </button>
 
-        {message && (
-          <p className="mt-4 text-center font-bold">
-            {message}
-          </p>
-        )}
+        {message && <p className="mt-4 text-center font-bold">{message}</p>}
       </div>
     </main>
   );
