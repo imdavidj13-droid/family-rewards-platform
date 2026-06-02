@@ -147,6 +147,13 @@ useRealtime("children", fetchChildren);
         <Sidebar />
 
         <section className="flex-1 p-6 md:p-8">
+          {toast && (
+  <Toast
+    type={toast.type}
+    message={toast.message}
+    onClose={() => setToast(null)}
+  />
+)}
           <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
             <div>
               <h1 className="text-3xl font-black md:text-4xl">
