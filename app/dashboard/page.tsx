@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -21,6 +22,7 @@ type Activity = {
 };
 
 export default function DashboardPage() {
+   const { theme } = useTheme();
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);
   const [rewardsCount, setRewardsCount] = useState(0);
@@ -130,14 +132,14 @@ export default function DashboardPage() {
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
                             <p className="font-black">{child.name}</p>
-                            <p className="text-sm font-black text-red-600">
+                            <p className={`text-sm font-black ${theme.primaryText}`}>
                               {Number(child.points || 0)} pts
                             </p>
                           </div>
 
                           <div className="mt-2 h-2 overflow-hidden rounded-full bg-gray-100">
                             <div
-                              className="h-full rounded-full bg-red-600"
+                              className={`h-full rounded-full ${theme.progress}`}
                               style={{
                                 width: `${Math.min(Number(child.points || 0), 100)}%`,
                               }}
@@ -201,17 +203,20 @@ export default function DashboardPage() {
               <h2 className="mb-4 text-xl font-black">Quick Actions</h2>
 
               <div className="space-y-3 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
-                <Link href="/tasks" className="block rounded-2xl bg-red-600 px-4 py-3 text-center font-black text-white hover:bg-red-700">
+                <Link href="/tasks" className={`block rounded-2xl border-2 ${theme.primaryBorder} px-4 py-3 text-center font-black ${theme.primaryText} transition`}>
                   ＋ Add Task
                 </Link>
 
-                <Link href="/rewards" className="block rounded-2xl bg-red-600 px-4 py-3 text-center font-black text-white hover:bg-red-700">
+                <Link href="/rewards" className={`block rounded-2xl border-2 ${theme.primaryBorder} px-4 py-3 text-center font-black ${theme.primaryText} transition`}>
                   ＋ Add Reward
                 </Link>
 
-                <Link href="/redemptions" className="block rounded-2xl border-2 border-red-600 bg-white px-4 py-3 text-center font-black text-red-600 hover:bg-gray-100">
-                  ✅ Approvals
-                </Link>
+                <Link
+  href="/redemptions"
+  className={`block rounded-2xl border-2 ${theme.primaryBorder} px-4 py-3 text-center font-black ${theme.primaryText} transition`}
+>
+  ✅ Approvals
+</Link>
               </div>
             </div>
           </div>
