@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
 import Toast from "@/components/Toast";
+import { useRealtime } from "@/hooks/useRealtime";
+
 
 type Child = {
   id: string;
@@ -25,6 +27,8 @@ export default function TasksPage() {
 
   const [children, setChildren] = useState<Child[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
+  useRealtime("tasks", fetchTasks);
+useRealtime("children", fetchChildren);
   const [title, setTitle] = useState("");
   const [points, setPoints] = useState("");
   const [childId, setChildId] = useState("");

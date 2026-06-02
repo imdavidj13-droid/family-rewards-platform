@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
+import { useRealtime } from "@/hooks/useRealtime";
 
 type Child = {
   id: string;
@@ -22,6 +23,9 @@ type Activity = {
 };
 
 export default function DashboardPage() {
+ useRealtime("children", fetchStats);
+useRealtime("tasks", fetchStats);
+useRealtime("redemptions", fetchStats);
    const { theme } = useTheme();
   const [childrenCount, setChildrenCount] = useState(0);
   const [tasksCount, setTasksCount] = useState(0);

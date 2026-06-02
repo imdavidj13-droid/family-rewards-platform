@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
 import Toast from "@/components/Toast";
+import { useRealtime } from "@/hooks/useRealtime";
 
 type Child = {
   id: string;
@@ -19,6 +20,8 @@ type Reward = {
 };
 
 export default function RewardsPage() {
+  useRealtime("rewards", fetchRewards);
+useRealtime("children", fetchChildren);
   const { theme } = useTheme();
 
   const [children, setChildren] = useState<Child[]>([]);
