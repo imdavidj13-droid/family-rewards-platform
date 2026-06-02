@@ -14,9 +14,9 @@ export default function ChildPage() {
   const [rewards, setRewards] = useState<any[]>([]);
   const [pendingRewards, setPendingRewards] = useState<any[]>([]);
   const [toast, setToast] = useState<{
-  type: "success" | "error" | "info";
-  message: string;
-} | null>(null);
+    type: "success" | "error" | "info";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     loadChildPortal();
@@ -43,80 +43,83 @@ export default function ChildPage() {
     setRewards(rewardData || []);
 
     const { data: pendingData } = await supabase
-  .from("redemptions")
-  .select(`
-    id,
-    status,
-    rewards (
-      title,
-      cost
-    )
-  `)
-  .eq("status", "pending");
+      .from("redemptions")
+      .select(`
+        id,
+        status,
+        created_at,
+        rewards (
+          title,
+          cost
+        )
+      `)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false })
+      .limit(5);
 
-setPendingRewards(pendingData || []);
+    setPendingRewards(pendingData || []);
   }
 
- async function completeTask(taskId: string, points: number) {
-  if (!child) {
-    setToast({ type: "error", message: "No child found." });
-    return;
+  async function completeTask(taskId: string, points: number) {
+    if (!child) {
+      setToast({ type: "error", message: "No child found." });
+      return;
+    }
+
+    const { error: taskError } = await supabase
+      .from("tasks")
+      .update({ completed: true })
+      .eq("id", taskId);
+
+    if (taskError) {
+      setToast({ type: "error", message: taskError.message });
+      return;
+    }
+
+    const { error: childError } = await supabase
+      .from("children")
+      .update({
+        points: child.points + points,
+      })
+      .eq("id", child.id);
+
+    if (childError) {
+      setToast({ type: "error", message: childError.message });
+      return;
+    }
+
+    setToast({
+      type: "success",
+      message: `Task completed! +${points} points`,
+    });
+
+    loadChildPortal();
   }
 
-  const { error: taskError } = await supabase
-    .from("tasks")
-    .update({ completed: true })
-    .eq("id", taskId);
+  async function redeemReward(rewardId: string) {
+    if (!child) {
+      setToast({ type: "error", message: "No child found." });
+      return;
+    }
 
-  if (taskError) {
-    setToast({ type: "error", message: taskError.message });
-    return;
+    const { error } = await supabase.from("redemptions").insert({
+      child_id: child.id,
+      reward_id: rewardId,
+      status: "pending",
+    });
+
+    if (error) {
+      setToast({ type: "error", message: error.message });
+      return;
+    }
+
+    setToast({
+      type: "success",
+      message: "Reward requested successfully!",
+    });
+
+    loadChildPortal();
   }
-
-  const { error: childError } = await supabase
-    .from("children")
-    .update({
-      points: child.points + points,
-    })
-    .eq("id", child.id);
-
-  if (childError) {
-    setToast({ type: "error", message: childError.message });
-    return;
-  }
-
-  setToast({
-    type: "success",
-    message: `Task completed! +${points} points`,
-  });
-
-  loadChildPortal();
-}
-
-async function redeemReward(rewardId: string) {
-  if (!child) {
-    setToast({ type: "error", message: "No child found." });
-    return;
-  }
-
-  const { error } = await supabase.from("redemptions").insert({
-    child_id: child.id,
-    reward_id: rewardId,
-    status: "pending",
-  });
-
-  if (error) {
-    setToast({ type: "error", message: error.message });
-    return;
-  }
-
-  setToast({
-    type: "success",
-    message: "Reward requested successfully!",
-  });
-
-  loadChildPortal();
-}
 
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
@@ -175,7 +178,10 @@ async function redeemReward(rewardId: string) {
                 <div
                   className={`h-full rounded-full ${theme.progress}`}
                   style={{
-                    width: `${Math.min(((child?.points || 0) / 200) * 100, 100)}%`,
+                    width: `${Math.min(
+                      ((child?.points || 0) / 200) * 100,
+                      100
+                    )}%`,
                   }}
                 />
               </div>
@@ -197,30 +203,30 @@ async function redeemReward(rewardId: string) {
               <h2 className="mb-4 text-2xl font-black">Tasks 📋</h2>
 
               {tasks.length === 0 ? (
-  <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
-    <div className="text-5xl">🎉</div>
+                <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
+                  <div className="text-5xl">🎉</div>
 
-    <h3 className="mt-3 text-xl font-black">
-      All tasks complete!
-    </h3>
+                  <h3 className="mt-3 text-xl font-black">
+                    All tasks complete!
+                  </h3>
 
-    <p className={`mt-2 ${theme.mutedText}`}>
-      Great job. Check back later for more tasks.
-    </p>
-  </div>
-) : (
-  <div className="space-y-3">
-    {tasks.map((task) => (
-      <TaskCard
-        key={task.id}
-        id={task.id}
-        title={task.title}
-        points={task.points}
-        onComplete={completeTask}
-      />
-    ))}
-  </div>
-)}
+                  <p className={`mt-2 ${theme.mutedText}`}>
+                    Great job. Check back later for more tasks.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {tasks.map((task) => (
+                    <TaskCard
+                      key={task.id}
+                      id={task.id}
+                      title={task.title}
+                      points={task.points}
+                      onComplete={completeTask}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             <div
@@ -231,57 +237,70 @@ async function redeemReward(rewardId: string) {
               <div className="space-y-3">
                 {rewards.map((reward) => (
                   <RewardCard
-  key={reward.id}
-  id={reward.id}
-  title={reward.title}
-  cost={reward.cost}
-  icon="🎁"
-  onRedeem={redeemReward}
-/>
+                    key={reward.id}
+                    id={reward.id}
+                    title={reward.title}
+                    cost={reward.cost}
+                    icon="🎁"
+                    onRedeem={redeemReward}
+                  />
                 ))}
               </div>
             </div>
 
             <div
-  className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
->
-  <h2 className="mb-4 text-2xl font-black">
-    Pending Rewards ⏳
-  </h2>
+              className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
+            >
+              <h2 className="mb-4 text-2xl font-black">Pending Rewards ⏳</h2>
 
-  {pendingRewards.length === 0 ? (
-    <p className={theme.mutedText}>
-      No pending rewards.
-    </p>
-  ) : (
-    <div className="space-y-3">
-      {pendingRewards.map((request) => (
-        <div
-          key={request.id}
-          className={`rounded-2xl ${theme.softBg} p-4`}
-        >
-          <h3 className="font-black">
-            🎁 {request.rewards?.title}
-          </h3>
+              {pendingRewards.length === 0 ? (
+                <p className={theme.mutedText}>No pending rewards.</p>
+              ) : (
+                <div className="space-y-3">
+                  {pendingRewards.map((request) => (
+                    <div
+                      key={request.id}
+                      className={`flex items-center justify-between gap-4 rounded-2xl ${theme.softBg} p-4`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`flex h-11 w-11 items-center justify-center rounded-xl ${theme.iconBg} text-2xl`}
+                        >
+                          🎁
+                        </div>
 
-          <p className={theme.mutedText}>
-            Waiting for approval
-          </p>
-        </div>
-      ))}
-    </div>
-  )}
-</div>
+                        <div>
+                          <h3 className="font-black">
+                            {request.rewards?.title || "Reward"}
+                          </h3>
+
+                          <p className={theme.mutedText}>
+                            Waiting for parent approval
+                          </p>
+                        </div>
+                      </div>
+
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-black ${theme.softAccentBg} ${theme.primaryText}`}
+                      >
+                        ⏳ Pending
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </div>
+
       {toast && (
-  <Toast
-    type={toast.type}
-    message={toast.message}
-    onClose={() => setToast(null)}
-  />
-)}
+        <Toast
+          type={toast.type}
+          message={toast.message}
+          onClose={() => setToast(null)}
+        />
+      )}
     </main>
   );
 }
@@ -327,12 +346,12 @@ function TaskCard({
           <p className={theme.mutedText}>+{points} points</p>
         </div>
 
-       <button
-  onClick={() => onComplete(id, points)}
-  className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}
->
-  ✅ Complete
-</button>
+        <button
+          onClick={() => onComplete(id, points)}
+          className={`rounded-xl px-5 py-3 text-sm font-black ${theme.button}`}
+        >
+          ✅ Complete
+        </button>
       </div>
     </div>
   );
