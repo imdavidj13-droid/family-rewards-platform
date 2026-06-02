@@ -98,7 +98,7 @@ if (childData) {
       .eq("child_id", childData.id)
   .eq("status", "pending")
       .order("created_at", { ascending: false })
-      .limit(5);
+     
 
     setPendingRewards(pendingData || []);
   }
