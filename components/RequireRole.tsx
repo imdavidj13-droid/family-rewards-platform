@@ -45,12 +45,8 @@ export default function RequireRole({ allowedRole, children }: RequireRoleProps)
   }
 
   if (!allowed) {
-    return (
-      <main className="flex min-h-screen items-center justify-center">
-        <p className="font-bold">Checking access...</p>
-      </main>
-    );
-  }
+  return null;
+}
 
   return <>{children}</>;
 }
