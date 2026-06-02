@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
+import { useTheme } from "@/components/ThemeProvider";
 
 type Child = {
   id: string;
@@ -17,6 +18,8 @@ type Reward = {
 };
 
 export default function RewardsPage() {
+  const { theme } = useTheme();
+
   const [children, setChildren] = useState<Child[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [title, setTitle] = useState("");
@@ -106,7 +109,7 @@ export default function RewardsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F9FAFB] text-gray-900">
+    <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
         <Sidebar />
 
@@ -117,12 +120,14 @@ export default function RewardsPage() {
                 Rewards Shop 🎁
               </h1>
 
-              <p className="mt-2 text-gray-500">
+              <p className={`mt-2 ${theme.mutedText}`}>
                 Create rewards and let children request them using their points.
               </p>
             </div>
 
-            <div className="w-fit rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-500 shadow-sm">
+            <div
+              className={`w-fit rounded-xl border ${theme.border} ${theme.cardBg} px-4 py-2 text-sm font-bold ${theme.mutedText} shadow-sm`}
+            >
               {rewards.length} Rewards
             </div>
           </div>
@@ -151,65 +156,53 @@ export default function RewardsPage() {
           </div>
 
           <div className="mb-8 grid gap-6 lg:grid-cols-[360px_1fr]">
-            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-black text-gray-900">
-                Create Reward
-              </h2>
+            <div
+              className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
+            >
+              <h2 className="text-xl font-black">Create Reward</h2>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className={`mt-1 text-sm ${theme.mutedText}`}>
                 Add something your child can request.
               </p>
 
               <div className="mt-6 space-y-4">
-                <div>
-                  <label className="mb-2 block text-sm font-bold text-gray-600">
-                    Reward name
-                  </label>
+                <input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Reward e.g. 30 mins Xbox"
+                  className={`w-full rounded-2xl border ${theme.border} ${theme.softBg} p-4 font-bold ${theme.text} outline-none ${theme.focusBorder}`}
+                />
 
-                  <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="e.g. 30 mins Xbox"
-                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 font-bold text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-red-600 focus:bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-bold text-gray-600">
-                    Cost
-                  </label>
-
-                  <input
-                    value={cost}
-                    onChange={(e) => setCost(e.target.value)}
-                    placeholder="e.g. 100"
-                    type="number"
-                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 font-bold text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-red-600 focus:bg-white"
-                  />
-                </div>
+                <input
+                  value={cost}
+                  onChange={(e) => setCost(e.target.value)}
+                  placeholder="Cost e.g. 100"
+                  type="number"
+                  className={`w-full rounded-2xl border ${theme.border} ${theme.softBg} p-4 font-bold ${theme.text} outline-none ${theme.focusBorder}`}
+                />
 
                 <button
                   onClick={createReward}
-                  className="w-full rounded-2xl bg-red-600 px-5 py-4 font-black text-white transition hover:bg-red-700"
+                  className={`w-full rounded-2xl px-5 py-4 font-black transition ${theme.button}`}
                 >
                   ＋ Add Reward
                 </button>
               </div>
             </div>
 
-            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-black text-gray-900">
-                Choose Child
-              </h2>
+            <div
+              className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
+            >
+              <h2 className="text-xl font-black">Choose Child</h2>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className={`mt-1 text-sm ${theme.mutedText}`}>
                 Select who is requesting a reward.
               </p>
 
               <select
                 value={selectedChildId}
                 onChange={(e) => setSelectedChildId(e.target.value)}
-                className="mt-6 w-full rounded-2xl border border-gray-200 bg-gray-50 p-4 font-bold text-gray-900 outline-none transition focus:border-red-600 focus:bg-white"
+                className={`mt-6 w-full rounded-2xl border ${theme.border} ${theme.softBg} p-4 font-bold ${theme.text} outline-none ${theme.focusBorder}`}
               >
                 <option value="">Choose child redeeming reward</option>
                 {children.map((child) => (
@@ -219,20 +212,19 @@ export default function RewardsPage() {
                 ))}
               </select>
 
-              <div className="mt-6 rounded-2xl bg-gray-50 p-5">
-                <p className="text-sm font-bold text-gray-500">
+              <div className={`mt-6 rounded-2xl ${theme.softBg} p-5`}>
+                <p className={`text-sm font-bold ${theme.mutedText}`}>
                   Selected Child
                 </p>
 
-                <p className="mt-2 text-2xl font-black text-gray-900">
+                <p className="mt-2 text-2xl font-black">
                   {selectedChildId
-                    ? children.find((child) => child.id === selectedChildId)
-                        ?.name
+                    ? children.find((child) => child.id === selectedChildId)?.name
                     : "None selected"}
                 </p>
 
                 {selectedChildId && (
-                  <p className="mt-1 font-bold text-red-600">
+                  <p className={`mt-1 font-bold ${theme.primaryText}`}>
                     ⭐{" "}
                     {
                       children.find((child) => child.id === selectedChildId)
@@ -245,63 +237,45 @@ export default function RewardsPage() {
             </div>
           </div>
 
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-black text-gray-900">
-              Available Rewards
-            </h2>
-          </div>
-
-          {rewards.length === 0 && (
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-3xl">
-                🎁
-              </div>
-
-              <h2 className="text-2xl font-black text-gray-900">
-                No rewards yet
-              </h2>
-
-              <p className="mt-2 text-gray-500">
-                Create your first reward to start building the shop.
-              </p>
-            </div>
-          )}
+          <h2 className="mb-4 text-xl font-black">Available Rewards</h2>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {rewards.map((reward) => (
               <div
                 key={reward.id}
-                className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md"
+                className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm transition hover:-translate-y-1 ${theme.hoverBorder} hover:shadow-md`}
               >
                 <div className="mb-5 flex items-start justify-between gap-4">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-4xl">
+                  <div
+                    className={`flex h-16 w-16 items-center justify-center rounded-full ${theme.iconBg} text-4xl`}
+                  >
                     🎁
                   </div>
 
-                  <div className="rounded-full bg-orange-100 px-3 py-1 text-xs font-black text-orange-600">
+                  <div
+                    className={`rounded-full px-3 py-1 text-xs font-black ${theme.warningBg} ${theme.warningText}`}
+                  >
                     Reward
                   </div>
                 </div>
 
-                <h2 className="text-2xl font-black text-gray-900">
-                  {reward.title}
-                </h2>
+                <h2 className="text-2xl font-black">{reward.title}</h2>
 
-                <p className="mt-1 text-sm text-gray-500">
+                <p className={`mt-1 text-sm ${theme.mutedText}`}>
                   Available in the reward shop
                 </p>
 
-                <div className="mt-5 rounded-2xl bg-gray-50 p-4">
-                  <p className="text-sm font-bold text-gray-500">Cost</p>
+                <div className={`mt-5 rounded-2xl ${theme.softBg} p-4`}>
+                  <p className={`text-sm font-bold ${theme.mutedText}`}>Cost</p>
 
-                  <p className="mt-1 text-3xl font-black text-red-600">
+                  <p className={`mt-1 text-3xl font-black ${theme.primaryText}`}>
                     ⭐ {Number(reward.cost || 0)}
                   </p>
                 </div>
 
                 <button
                   onClick={() => redeemReward(reward)}
-                  className="mt-5 w-full rounded-2xl bg-red-600 px-4 py-3 font-black text-white transition hover:bg-red-700"
+                  className={`mt-5 w-full rounded-2xl px-4 py-3 font-black transition ${theme.button}`}
                 >
                   Request Reward
                 </button>
@@ -325,19 +299,23 @@ function StatCard({
   value: number;
   orange?: boolean;
 }) {
+  const { theme } = useTheme();
+
   return (
-    <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+    <div
+      className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-5 shadow-sm`}
+    >
       <div
         className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? "bg-orange-100" : "bg-gray-100"
+          orange ? theme.warningBg : theme.iconBg
         }`}
       >
         {icon}
       </div>
 
-      <p className="text-sm font-bold text-gray-500">{label}</p>
+      <p className={`text-sm font-bold ${theme.mutedText}`}>{label}</p>
 
-      <h2 className="mt-2 text-3xl font-black text-gray-900">{value}</h2>
+      <h2 className="mt-2 text-3xl font-black">{value}</h2>
     </div>
   );
 }
