@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function CreateFamilyPage() {
+  const { theme } = useTheme();
   const [familyName, setFamilyName] = useState("");
   const [message, setMessage] = useState("");
 
@@ -22,8 +24,8 @@ export default function CreateFamilyPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-black px-6 py-20 text-white">
-      <div className="mx-auto max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8">
+    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
+      <div className={`mx-auto max-w-xl rounded-3xl border ${theme.navCard} p-8`}>
         <h1 className="mb-4 text-3xl font-black">Create Your Family</h1>
 
         <input

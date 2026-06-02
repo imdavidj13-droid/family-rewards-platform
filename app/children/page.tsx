@@ -128,8 +128,9 @@ export default function ChildrenPage() {
                     Family rewards member
                   </p>
 
-                  <div className="mt-5 rounded-2xl bg-red-50 p-4">
-                    <p className="text-sm font-bold text-red-500">
+<div className="mt-5 rounded-2xl bg-gray-50 p-4">
+
+                      <p className="text-sm font-bold text-gray-500">
                       Current Points
                     </p>
 
