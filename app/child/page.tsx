@@ -88,13 +88,15 @@ if (childData) {
         id,
         status,
         created_at,
+        child_id,
           reward_id,
         rewards (
           title,
           cost
         )
       `)
-      .eq("status", "pending")
+      .eq("child_id", childData.id)
+  .eq("status", "pending")
       .order("created_at", { ascending: false })
       .limit(5);
 
