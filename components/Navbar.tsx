@@ -15,7 +15,7 @@ export default function Navbar() {
         <nav className="hidden gap-8 text-sm font-semibold text-white/70 md:flex">
           <a href="#">Features</a>
           <a href="#">Pricing</a>
-          <a href="#">Login</a>
+          <a href="/login">Login</a>
         </nav>
 
         <button className="rounded-xl bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-500">
