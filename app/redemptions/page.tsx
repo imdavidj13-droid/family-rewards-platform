@@ -179,7 +179,7 @@ export default function RedemptionsPage() {
               return (
                 <div
                   key={redemption.id}
-                  className={`rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md ${theme.pageText}`}
+                  className={`rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md ${theme.text}`}
                 >
                   <div className="mb-5 flex items-start justify-between">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-4xl">
