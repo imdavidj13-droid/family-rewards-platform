@@ -51,11 +51,23 @@ if (profileError || !profile?.child_id) {
   return;
 }
 
-const { data: childData } = await supabase
+const { data: childData, error: childError } = await supabase
   .from("children")
   .select("*")
   .eq("id", profile.child_id)
   .single();
+
+if (childError) {
+  setToast({
+    type: "error",
+    message: childError.message,
+  });
+  return;
+}
+
+if (childData) {
+  setChild(childData);
+}
 
     if (childData) setChild(childData);
 
