@@ -75,8 +75,8 @@ export default function AchievementsPage() {
                     <div
                       className={`rounded-full px-3 py-1 text-xs font-black ${
                         unlocked
-                          ? `${theme.successBg} ${theme.successText}`
-                          : `${theme.warningBg} ${theme.warningText}`
+  ? `${theme.softAccentBg} ${theme.primaryText}`
+  : `${theme.warningBg} ${theme.warningText}`
                       }`}
                     >
                       {achievement.status}
