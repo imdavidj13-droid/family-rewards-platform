@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { useTheme } from "@/components/ThemeProvider";
+import Sidebar from "@/components/Sidebar";
 
 type Child = {
   id: string;
@@ -11,7 +12,6 @@ type Child = {
 };
 
 export default function ChildrenPage() {
-  const { theme } = useTheme();
   const [children, setChildren] = useState<Child[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,40 +35,174 @@ export default function ChildrenPage() {
     setLoading(false);
   }
 
+  const totalPoints = children.reduce(
+    (sum, child) => sum + Number(child.points || 0),
+    0
+  );
+
   return (
-    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
-      <div className="mx-auto max-w-5xl">
-        <h1 className="mb-4 text-4xl font-black">Children</h1>
+    <main className="min-h-screen bg-[#F9FAFB] text-gray-900">
+      <div className="flex min-h-screen">
+        <Sidebar />
 
-        <p className="mb-10 text-white/70">
-          View all children added to your family rewards platform.
-        </p>
+        <section className="flex-1 p-6 md:p-8">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
+            <div>
+              <h1 className="text-3xl font-black md:text-4xl">
+                Your Children 👦
+              </h1>
 
-        {loading && <p className="text-white/70">Loading children...</p>}
-
-        {!loading && children.length === 0 && (
-          <p className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/70">
-            No children added yet.
-          </p>
-        )}
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {children.map((child) => (
-            <div
-              key={child.id}
-              className={`rounded-3xl border ${theme.navCard} p-6`}
-            >
-              <div className="mb-4 text-5xl">👦</div>
-
-              <h2 className="mb-2 text-2xl font-black">{child.name}</h2>
-
-              <p className="rounded-xl bg-blue-600/20 p-4 text-xl font-bold text-blue-200">
-                ⭐ {Number(child.points || 0)} Points
+              <p className="mt-2 text-gray-500">
+                View and manage children in your family rewards platform.
               </p>
             </div>
-          ))}
-        </div>
+
+            <Link
+              href="/create-child"
+              className="w-fit rounded-2xl bg-red-600 px-5 py-3 font-black text-white shadow-sm transition hover:bg-red-700"
+            >
+              ＋ Add Child
+            </Link>
+          </div>
+
+          <div className="mb-8 grid gap-4 md:grid-cols-3">
+            <StatCard icon="👦" label="Children" value={children.length} />
+            <StatCard icon="⭐" label="Total Points" value={totalPoints} />
+            <StatCard icon="🔥" label="Top Streak" value={7} orange />
+          </div>
+
+          {loading && (
+            <div className="rounded-3xl border border-gray-200 bg-white p-6 text-gray-500 shadow-sm">
+              Loading children...
+            </div>
+          )}
+
+          {!loading && children.length === 0 && (
+            <div className="rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl">
+                👦
+              </div>
+
+              <h2 className="text-2xl font-black text-gray-900">
+                No children added yet
+              </h2>
+
+              <p className="mt-2 text-gray-500">
+                Add your first child to start tracking points and rewards.
+              </p>
+
+              <Link
+                href="/create-child"
+                className="mt-6 inline-block rounded-2xl bg-red-600 px-5 py-3 font-black text-white hover:bg-red-700"
+              >
+                Add Child
+              </Link>
+            </div>
+          )}
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {children.map((child) => {
+              const points = Number(child.points || 0);
+              const progress = Math.min(points, 100);
+
+              return (
+                <div
+                  key={child.id}
+                  className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md"
+                >
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-4xl">
+                      🧒
+                    </div>
+
+                    <div className="rounded-full bg-orange-100 px-3 py-1 text-xs font-black text-orange-600">
+                      🔥 Streak
+                    </div>
+                  </div>
+
+                  <h2 className="text-2xl font-black text-gray-900">
+                    {child.name}
+                  </h2>
+
+                  <p className="mt-1 text-sm text-gray-500">
+                    Family rewards member
+                  </p>
+
+                  <div className="mt-5 rounded-2xl bg-red-50 p-4">
+                    <p className="text-sm font-bold text-red-500">
+                      Current Points
+                    </p>
+
+                    <p className="mt-1 text-3xl font-black text-red-600">
+                      ⭐ {points}
+                    </p>
+                  </div>
+
+                  <div className="mt-5">
+                    <div className="mb-2 flex items-center justify-between text-xs font-bold text-gray-500">
+                      <span>Progress</span>
+                      <span>{points} pts</span>
+                    </div>
+
+                    <div className="h-3 overflow-hidden rounded-full bg-gray-100">
+                      <div
+                        className="h-full rounded-full bg-red-600"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl bg-gray-50 p-3 text-center">
+                      <p className="text-lg font-black text-gray-900">0</p>
+                      <p className="text-xs font-bold text-gray-500">Tasks</p>
+                    </div>
+
+                    <div className="rounded-2xl bg-gray-50 p-3 text-center">
+                      <p className="text-lg font-black text-gray-900">0</p>
+                      <p className="text-xs font-bold text-gray-500">
+                        Rewards
+                      </p>
+                    </div>
+                  </div>
+
+                  <button className="mt-5 w-full rounded-2xl border-2 border-red-600 bg-white px-4 py-3 font-black text-red-600 transition hover:bg-red-50">
+                    View Profile →
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </main>
+  );
+}
+
+function StatCard({
+  icon,
+  label,
+  value,
+  orange = false,
+}: {
+  icon: string;
+  label: string;
+  value: number;
+  orange?: boolean;
+}) {
+  return (
+    <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
+      <div
+        className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
+          orange ? "bg-orange-100" : "bg-red-100"
+        }`}
+      >
+        {icon}
+      </div>
+
+      <p className="text-sm font-bold text-gray-500">{label}</p>
+
+      <h2 className="mt-2 text-3xl font-black text-gray-900">{value}</h2>
+    </div>
   );
 }
