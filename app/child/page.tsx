@@ -12,6 +12,7 @@ export default function ChildPage() {
   const [child, setChild] = useState<any>(null);
   const [tasks, setTasks] = useState<any[]>([]);
   const [rewards, setRewards] = useState<any[]>([]);
+  const [pendingRewards, setPendingRewards] = useState<any[]>([]);
   const [toast, setToast] = useState<{
   type: "success" | "error" | "info";
   message: string;
@@ -40,6 +41,20 @@ export default function ChildPage() {
     const { data: rewardData } = await supabase.from("rewards").select("*");
 
     setRewards(rewardData || []);
+
+    const { data: pendingData } = await supabase
+  .from("redemptions")
+  .select(`
+    id,
+    status,
+    rewards (
+      title,
+      cost
+    )
+  `)
+  .eq("status", "pending");
+
+setPendingRewards(pendingData || []);
   }
 
  async function completeTask(taskId: string, points: number) {
@@ -175,7 +190,7 @@ async function redeemReward(rewardId: string) {
             </div>
           </div>
 
-          <div className="grid items-start gap-6 lg:grid-cols-2">
+          <div className="grid items-start gap-6 xl:grid-cols-3">
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
@@ -212,6 +227,37 @@ async function redeemReward(rewardId: string) {
                 ))}
               </div>
             </div>
+
+            <div
+  className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
+>
+  <h2 className="mb-4 text-2xl font-black">
+    Pending Rewards ⏳
+  </h2>
+
+  {pendingRewards.length === 0 ? (
+    <p className={theme.mutedText}>
+      No pending rewards.
+    </p>
+  ) : (
+    <div className="space-y-3">
+      {pendingRewards.map((request) => (
+        <div
+          key={request.id}
+          className={`rounded-2xl ${theme.softBg} p-4`}
+        >
+          <h3 className="font-black">
+            🎁 {request.rewards?.title}
+          </h3>
+
+          <p className={theme.mutedText}>
+            Waiting for approval
+          </p>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
           </div>
         </section>
       </div>
