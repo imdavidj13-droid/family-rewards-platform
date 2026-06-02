@@ -129,8 +129,18 @@ useRealtime("rewards", fetchData);
       return;
     }
 
-    showToast("Reward approved successfully!");
-    fetchData();
+    setRedemptions((current) =>
+  current.filter((item) => item.id !== redemption.id)
+);
+
+setChildren((current) =>
+  current.map((item) =>
+    item.id === child.id ? { ...item, points: newPoints } : item
+  )
+);
+
+showToast("Reward approved successfully!");
+fetchData();
   }
 
   async function rejectRedemption(redemption: Redemption) {
