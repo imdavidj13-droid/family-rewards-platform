@@ -123,7 +123,7 @@ export default function DashboardPage() {
                   <div className="space-y-4">
                     {children.map((child) => (
                       <div key={child.id} className="flex items-center gap-4 border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-2xl">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-2xl">
                           🧒
                         </div>
 
@@ -180,7 +180,7 @@ export default function DashboardPage() {
                             activity.status === "approved"
                               ? "bg-green-100 text-green-700"
                               : activity.status === "rejected"
-                              ? "bg-red-100 text-red-700"
+                              ? "bg-gray-100 text-red-700"
                               : "bg-orange-100 text-orange-700"
                           }`}
                         >
@@ -209,7 +209,7 @@ export default function DashboardPage() {
                   ＋ Add Reward
                 </Link>
 
-                <Link href="/redemptions" className="block rounded-2xl border-2 border-red-600 bg-white px-4 py-3 text-center font-black text-red-600 hover:bg-red-50">
+                <Link href="/redemptions" className="block rounded-2xl border-2 border-red-600 bg-white px-4 py-3 text-center font-black text-red-600 hover:bg-gray-100">
                   ✅ Approvals
                 </Link>
               </div>
@@ -236,7 +236,7 @@ function StatCard({
     <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
       <div
         className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? "bg-orange-100" : "bg-red-100"
+          orange ? "bg-orange-100" : "bg-gray-100"
         }`}
       >
         {icon}
