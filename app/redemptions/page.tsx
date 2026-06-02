@@ -148,13 +148,13 @@ export default function RedemptionsPage() {
         <Sidebar />
 
         <section className="flex-1 p-6 md:p-8">
-          {toast && (
+         {toast && (
   <div
-    className={`fixed right-6 top-6 z-50 rounded-2xl px-5 py-3 font-bold shadow-xl backdrop-blur
+    className={`fixed right-6 top-6 z-50 rounded-2xl border px-5 py-3 text-sm font-black shadow-2xl backdrop-blur
       ${
         toast.type === "success"
-          ? "border border-green-400/30 bg-green-500/20 text-green-100"
-          : "border border-red-400/30 bg-red-500/20 text-red-100"
+          ? "border-green-400/40 bg-green-600 text-white"
+          : "border-red-400/40 bg-red-600 text-white"
       }`}
   >
     {toast.message}
