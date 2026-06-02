@@ -79,7 +79,7 @@ export default function ChildrenPage() {
 
           {!loading && children.length === 0 && (
             <div className="rounded-3xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-3xl">
                 👦
               </div>
 
@@ -111,7 +111,7 @@ export default function ChildrenPage() {
                   className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md"
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-4xl">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 text-4xl">
                       🧒
                     </div>
 
@@ -195,7 +195,7 @@ function StatCard({
     <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
       <div
         className={`mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${
-          orange ? "bg-orange-100" : "bg-red-100"
+          orange ? "bg-orange-100" : "bg-gray-100"
         }`}
       >
         {icon}
