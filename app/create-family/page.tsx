@@ -24,8 +24,10 @@ export default function CreateFamilyPage() {
   }
 
   return (
-    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
-      <div className={`mx-auto max-w-xl rounded-3xl border ${theme.navCard} p-8`}>
+    <main className={`min-h-screen ${theme.pageBg} ${theme.text} px-6 py-20`}>
+      <div
+  className={`mx-auto max-w-xl rounded-3xl border ${theme.border} ${theme.cardBg} p-8 shadow-sm`}
+>
         <h1 className="mb-4 text-3xl font-black">Create Your Family</h1>
 
         <input

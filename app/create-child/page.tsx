@@ -27,8 +27,8 @@ export default function CreateChildPage() {
   }
 
   return (
-    <main className={`min-h-screen ${theme.background} ${theme.pageText} px-6 py-20`}>
-      <div className={`mx-auto max-w-xl rounded-3xl border ${theme.navCard} p-8`}>
+    <main className={`min-h-screen ${theme.pageBg} ${theme.text} px-6 py-20`}>
+      <div className={`mx-auto max-w-xl rounded-3xl border ${theme.cardBg} p-8`}>
         <h1 className="mb-6 text-3xl font-black">
           Add Child
         </h1>

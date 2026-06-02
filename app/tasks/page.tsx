@@ -124,11 +124,11 @@ export default function TasksPage() {
   }
 
   return (
-    <main className={`min-h-screen ${theme.background} ${theme.pageText} p-6`}>
+    <main className={`min-h-screen ${theme.pageBg} ${theme.text} p-6`}>
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-6 text-3xl font-bold">Tasks</h1>
 
-        <div className={`mb-8 rounded-2xl border ${theme.activityCard} p-5`}>
+        <div className={`mb-8 rounded-2xl border ${theme.border} ${theme.cardBg} p-5 shadow-sm`}>
           <h2 className="mb-4 text-xl font-semibold">Create task</h2>
 
           <div className="space-y-4">
@@ -176,7 +176,7 @@ export default function TasksPage() {
             return (
               <div
   key={task.id}
-  className={`rounded-2xl border ${theme.navCard} p-4`}
+  className={`rounded-2xl border ${theme.border} ${theme.cardBg} p-4 shadow-sm`}
 >
                 <div className="flex items-center justify-between gap-4">
                   <div>
@@ -205,7 +205,7 @@ export default function TasksPage() {
           })}
 
           {tasks.length === 0 && (
-            <p className={theme.pageText}>No tasks yet.</p>
+            <p className={theme.mutedText}>No tasks yet.</p>
           )}
         </div>
       </div>
