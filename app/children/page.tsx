@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import Sidebar from "@/components/Sidebar";
 import { useTheme } from "@/components/ThemeProvider";
+import RequireRole from "@/components/RequireRole";
 
 type Child = {
   id: string;
@@ -48,6 +49,7 @@ export default function ChildrenPage() {
   )[0];
 
   return (
+    <RequireRole allowedRole="parent">
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
         <Sidebar />
@@ -250,6 +252,7 @@ export default function ChildrenPage() {
         </section>
       </div>
     </main>
+    </RequireRole>
   );
 }
 

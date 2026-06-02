@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/components/ThemeProvider";
 import Sidebar from "@/components/Sidebar";
 import { useRealtime } from "@/hooks/useRealtime";
+import RequireRole from "@/components/RequireRole";
 
 type Child = {
   id: string;
@@ -148,6 +149,7 @@ useRealtime("rewards", fetchData);
   }
 
   return (
+  <RequireRole allowedRole="parent">
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
         <Sidebar />
@@ -278,7 +280,8 @@ useRealtime("rewards", fetchData);
           </div>
         </section>
       </div>
-    </main>
+        </main>
+  </RequireRole>
   );
 }
 
