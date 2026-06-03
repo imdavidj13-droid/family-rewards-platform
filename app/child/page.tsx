@@ -285,7 +285,7 @@ if (childData) {
   </div>
 </section>
 
-          <div className="grid items-stretch gap-6 lg:grid-cols-[320px_1fr]">
+          <div className="grid items-stretch gap-6 lg:grid-cols-[450px_1fr]">
             <div
   className={`h-full rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
 >
