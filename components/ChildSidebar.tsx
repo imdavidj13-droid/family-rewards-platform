@@ -74,7 +74,7 @@ export default function ChildSidebar({ child }: { child: any }) {
         <img
           src="/images/pirate/dashboard-plank.png"
           alt=""
-          className="absolute left-0 top-0 h-full w-full object-cover"
+          className="absolute left-1/2 top-0 h-full w-[125%] -translate-x-1/2 object-fill"
         />
       )}
 
