@@ -215,9 +215,9 @@ if (childData) {
 </div>
     </div>
 
-   <div className="hidden md:flex items-center justify-end">
+   <div className="hidden md:flex items-center justify-end -mr-8">
   <div
-    className="relative h-[320px] w-[320px] bg-contain bg-center bg-no-repeat"
+  className="relative h-[380px] w-[380px] bg-contain bg-center bg-no-repeat"
     style={{
       backgroundImage: "url('/images/pirate/treasure-sign.png')",
     }}
