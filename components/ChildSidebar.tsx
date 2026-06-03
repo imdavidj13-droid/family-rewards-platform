@@ -68,7 +68,7 @@ export default function ChildSidebar({ child }: { child: any }) {
     <Link
       key={link.label}
       href={link.href}
-      className="relative flex h-16 items-center gap-3 px-4"
+      className="relative flex h-20 w-full items-center gap-4 px-8"
     >
       {link.active && (
         <img
@@ -78,12 +78,12 @@ export default function ChildSidebar({ child }: { child: any }) {
         />
       )}
 
-      <span className="relative z-10 text-2xl">
+      <span className="relative z-10 text-3xl">
         {link.icon}
       </span>
 
       <span
-        className={`relative z-10 font-black ${
+  className={`relative z-10 text-xl font-black ${
           link.active
             ? "text-yellow-100"
             : "text-yellow-200"
