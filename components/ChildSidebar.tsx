@@ -28,7 +28,7 @@ export default function ChildSidebar({ child }: { child: any }) {
 
   return (
     <aside
-      className="flex min-h-screen w-56 shrink-0 flex-col overflow-hidden border-r-4 border-yellow-900 text-yellow-100 shadow-2xl"
+  className="flex min-h-screen w-80 shrink-0 flex-col overflow-hidden border-r-4 border-yellow-900 text-yellow-100 shadow-2xl"
       style={{
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.32)), url('/images/pirate/sidebar-bg.png')",
@@ -76,24 +76,24 @@ export default function ChildSidebar({ child }: { child: any }) {
           <Link
             key={link.label}
             href={link.href}
-            className="group relative flex h-20 w-full items-center gap-2 overflow-visible px-4 transition-transform hover:scale-[1.03]"
+            className="group relative flex h-24 w-full items-center gap-3 overflow-visible px-6 transition-transform hover:scale-[1.03]"
           >
             <img
               src="/images/pirate/dashboard-plank.png"
               alt=""
-              className={`absolute left-1/2 top-1/2 h-[72px] w-[230px] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
+              className={`absolute left-1/2 top-1/2 h-[90px] w-[300px] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
                 link.active
                   ? "opacity-100"
                   : "opacity-0 group-hover:opacity-80"
               }`}
             />
 
-            <span className="relative z-10 w-9 text-center text-2xl drop-shadow">
+            <span className="relative z-10 w-12 text-center text-3xl drop-shadow">
               {link.icon}
             </span>
 
             <span
-              className={`relative z-10 text-lg font-black leading-tight drop-shadow ${
+              className={`relative z-10 text-2xl font-black leading-tight drop-shadow ${
                 link.active ? "text-white" : "text-yellow-200"
               }`}
             >
