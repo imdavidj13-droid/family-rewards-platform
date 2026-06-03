@@ -182,111 +182,98 @@ if (childData) {
         <ChildSidebar child={child} />
 
         <section className="flex-1 p-6 md:p-8">
-          <div className="mb-8">
-  <div
-    className={`overflow-hidden rounded-3xl border ${theme.border} ${theme.cardBg}`}
-  >
-    <div className="grid gap-6 p-8 lg:grid-cols-[120px_1fr_280px]">
-      <div className="flex items-center justify-center">
-        <div className="flex h-28 w-28 items-center justify-center rounded-full bg-blue-500/20 text-5xl">
-          👦
-        </div>
-      </div>
+       {/* Adventure Hero */}
+<section className="mb-6 overflow-hidden rounded-[2rem] border-4 border-yellow-800 bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-400 shadow-2xl">
+  <div className="grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
+    <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/95 p-6 text-slate-950 shadow-xl">
+      <p className="text-xl font-black text-amber-900">Ahoy there,</p>
 
+      <h1 className="mt-1 text-5xl font-black uppercase tracking-tight md:text-6xl">
+        {child?.name || "Explorer"}!
+      </h1>
+
+      <p className="mt-4 max-w-xl text-base font-bold text-slate-700">
+        You&apos;re doing great, Captain! Keep up the good work! 🏴‍☠️
+      </p>
+    </div>
+
+    <div className="flex items-center justify-center rounded-3xl border-4 border-sky-900 bg-sky-950/80 p-6 text-center text-white shadow-xl">
       <div>
-        <p className={`font-bold ${theme.mutedText}`}>
-          Welcome Back
+        <div className="text-7xl"> pirate ship</div>
+        <p className="mt-3 text-sm font-black uppercase tracking-wide text-yellow-300">
+          Adventure Awaits
         </p>
-
-        <h1 className="mt-2 text-5xl font-black">
-          {child?.name || "Explorer"}!
-        </h1>
-
-        <p className={`mt-3 text-lg ${theme.mutedText}`}>
-          Ready for another adventure today?
-        </p>
-      </div>
-
-      <div className="flex items-center justify-center rounded-2xl bg-blue-500/10">
-        <div className="text-center">
-          <div className="text-5xl">🏴‍☠️</div>
-          <p className="mt-2 font-bold">
-            Adventure Artwork
-          </p>
-        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-          <div
-            className={`mb-8 rounded-3xl border ${theme.border} ${theme.cardBg} p-8 shadow-sm`}
-          >
-            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
-              <div>
-                <p className={`text-sm font-bold ${theme.mutedText}`}>
-                  Welcome back
-                </p>
+{/* Adventure Stats */}
+<section className="mb-8 grid gap-5 md:grid-cols-3">
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-slate-950 shadow-xl">
+    <p className="text-center text-xs font-black uppercase tracking-wide text-amber-900">
+      Captain Level
+    </p>
 
-                <h2 className="mt-1 text-4xl font-black">
-                  {child?.name || "Child"} 👋
-                </h2>
+    <div className="mt-3 flex items-center gap-4">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-red-900 bg-red-700 text-5xl shadow">
+        ⚓
+      </div>
 
-                <p className={`mt-2 ${theme.mutedText}`}>
-                  You are doing amazing. Keep going!
-                </p>
-              </div>
+      <div>
+        <h2 className="text-4xl font-black">Level 7</h2>
+        <p className="font-black text-slate-700">First Mate</p>
+      </div>
+    </div>
 
-<div className="grid gap-4 md:grid-cols-3">
-  <MiniStat
-    icon="🏆"
-    label="Level"
-    value="7"
-  />
+    <div className="mt-5 h-3 overflow-hidden rounded-full bg-yellow-300">
+      <div
+        className="h-full rounded-full bg-red-600"
+        style={{
+          width: `${Math.min(((child?.points || 0) / 100) * 100, 100)}%`,
+        }}
+      />
+    </div>
 
-  <MiniStat
-    icon="⭐"
-    label="XP"
-    value={String(child?.points || 0)}
-  />
+    <p className="mt-2 text-center text-xs font-black text-slate-700">
+      {100 - ((child?.points || 0) % 100)} XP until Level 8
+    </p>
+  </div>
 
-  <MiniStat
-    icon="🔥"
-    label="Streak"
-    value="3 Days"
-  />
-</div>
-            </div>
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
+    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+      Your Treasure
+    </p>
 
-            <div className="mt-8">
-              <div className="mb-2 flex justify-between text-sm font-bold">
-                <span>XP Progress</span>
-                <span className={theme.primaryText}>
-                  {child?.points || 0} / 500 XP
-                </span>
-              </div>
+    <div className="mt-4 text-6xl">🪙</div>
 
-              <div className={`h-4 overflow-hidden rounded-full ${theme.softBg}`}>
-                <div
-                  className={`h-full rounded-full ${theme.progress}`}
-                  style={{
-                    width: `${Math.min(
-                      ((child?.points || 0) / 200) * 100,
-                      100
-                    )}%`,
-                  }}
-                />
-              </div>
-            </div>
+    <h2 className="mt-3 text-5xl font-black">
+      {child?.points || 0}
+    </h2>
 
-            <div className="mt-6 flex gap-3 text-3xl">
-              <span>🏆</span>
-              <span>⭐</span>
-              <span>🎁</span>
-              <span className="opacity-40">🔥</span>
-              <span className="opacity-40">👑</span>
-            </div>
-          </div>
+    <p className="font-black text-slate-700">Gold Doubloons</p>
+  </div>
+
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
+    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+      Daily Streak
+    </p>
+
+    <div className="mt-4 text-6xl">🔥</div>
+
+    <h2 className="mt-3 text-5xl font-black">3</h2>
+
+    <p className="font-black text-slate-700">Days in a row!</p>
+
+    <div className="mt-4 flex justify-center gap-2">
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-yellow-300" />
+      <span className="h-4 w-4 rounded-full bg-yellow-300" />
+    </div>
+  </div>
+</section>
 
           <div className="grid items-start gap-6 xl:grid-cols-3">
             <div
