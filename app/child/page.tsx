@@ -232,7 +232,7 @@ if (childData) {
 </section>
 
 
-          <div className="grid items-stretch gap-6 pt-6 lg:grid-cols-[450px_1fr]">
+          <div className="-mt-6 grid items-stretch gap-6 lg:grid-cols-[450px_1fr]">
             <div
   className={`h-full rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
 >
