@@ -81,7 +81,7 @@ export default function ChildSidebar({ child }: { child: any }) {
             <img
               src="/images/pirate/dashboard-plank.png"
               alt=""
-              className={`absolute left-0 top-1/2 h-[220px] w-full -translate-y-1/2 scale-x-[1.15] object-fill transition-opacity ${
+              className={`absolute left-0 top-1/2 h-[260px] w-[90%] -translate-y-1/2 scale-x-[1.15] object-fill transition-opacity ${
                 link.active
                   ? "opacity-100"
                   : "opacity-0 group-hover:opacity-80"
