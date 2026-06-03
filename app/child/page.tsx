@@ -195,12 +195,12 @@ if (childData) {
   <div className="relative z-10 grid min-h-[260px] gap-6 p-8 md:grid-cols-[1fr_260px]">
     <div className="p-8 text-white">
       <div
-  className="relative h-[320px] bg-contain bg-left bg-no-repeat"
+  className="relative h-[420px] w-[800px] bg-contain bg-left bg-no-repeat"
   style={{
     backgroundImage: "url('/images/pirate/hero-scroll.png')",
   }}
 >
-  <div className="absolute left-10 top-8 flex items-center gap-6">
+  <div className="absolute left-16 top-12 flex items-center gap-6">
     <div className="flex h-40 w-40 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
       🧒
     </div>
