@@ -186,15 +186,25 @@ if (childData) {
 <section className="mb-6 overflow-hidden rounded-[2rem] border-4 border-yellow-800 bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-400 shadow-2xl">
   <div className="grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
     <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/95 p-6 text-slate-950 shadow-xl">
-      <p className="text-xl font-black text-amber-900">Ahoy there,</p>
+      <div className="flex items-center gap-6">
+  <div className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
+    🧒
+  </div>
 
-      <h1 className="mt-1 text-5xl font-black uppercase tracking-tight md:text-6xl">
-        {child?.name || "Explorer"}!
-      </h1>
+  <div>
+    <p className="text-xl font-black text-amber-900">
+      Ahoy there,
+    </p>
 
-      <p className="mt-4 max-w-xl text-base font-bold text-slate-700">
-        You&apos;re doing great, Captain! Keep up the good work! 🏴‍☠️
-      </p>
+    <h1 className="mt-1 text-6xl font-black uppercase tracking-tight md:text-7xl">
+      {child?.name || "Explorer"}!
+    </h1>
+
+    <p className="mt-4 max-w-xl text-lg font-bold text-slate-700">
+      You&apos;re doing great, Captain! Keep up the good work! 🏴‍☠️
+    </p>
+  </div>
+</div>
     </div>
 
     <div className="flex items-center justify-center rounded-3xl border-4 border-sky-900 bg-sky-950/80 p-6 text-center text-white shadow-xl">
