@@ -279,14 +279,28 @@ if (childData) {
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
-              <h2 className="mb-4 text-2xl font-black">Today's Quests 📜</h2>
+              <h2 className="mb-4 text-2xl font-black">📜 Quest Board</h2>
 
               {tasks.length === 0 ? (
                 <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
                   <div className="text-5xl">🎉</div>
 
                   <h3 className="mt-3 text-xl font-black">
-                    All tasks complete!
+                    <div className="rounded-2xl border-2 border-yellow-800 bg-yellow-50 p-6 text-center">
+  <div className="text-6xl">🏴‍☠️</div>
+
+  <h3 className="mt-4 text-2xl font-black text-amber-900">
+    Quest Complete!
+  </h3>
+
+  <p className="mt-2 font-medium text-slate-700">
+    You've finished every quest for today.
+  </p>
+
+  <div className="mt-4 inline-block rounded-full bg-green-600 px-4 py-2 font-black text-white">
+    + Adventure Bonus
+  </div>
+</div>
                   </h3>
 
                   <p className={`mt-2 ${theme.mutedText}`}>
@@ -337,44 +351,65 @@ if (childData) {
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
-              <h2 className="mb-4 text-2xl font-black">Pending Rewards ⏳</h2>
+              <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-6 shadow-xl">
+  <h2 className="mb-4 text-center text-2xl font-black text-amber-900">
+    🗺️ Your Adventure
+  </h2>
 
-              {pendingRewards.length === 0 ? (
-                <p className={theme.mutedText}>No pending rewards.</p>
-              ) : (
-                <div className="space-y-3">
-                  {pendingRewards.map((request) => (
-                    <div
-                      key={request.id}
-                      className={`flex items-center justify-between gap-4 rounded-2xl ${theme.softBg} p-4`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`flex h-11 w-11 items-center justify-center rounded-xl ${theme.iconBg} text-2xl`}
-                        >
-                          🎁
-                        </div>
+  <div className="rounded-2xl border-2 border-yellow-700 bg-sky-200 p-8">
+    <div className="text-center text-7xl">
+      ⛵
+    </div>
 
-                        <div>
-                          <h3 className="font-black">
-                            {request.rewards?.title || "Reward"}
-                          </h3>
+    <div className="mt-8 flex items-center justify-between">
+      <div className="text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white">
+          ⚓
+        </div>
+        <p className="mt-2 text-sm font-black">
+          Level 5
+        </p>
+      </div>
 
-                          <p className={theme.mutedText}>
-                            Waiting for parent approval
-                          </p>
-                        </div>
-                      </div>
+      <div className="h-1 flex-1 bg-yellow-600" />
 
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-black ${theme.softAccentBg} ${theme.primaryText}`}
-                      >
-                        ⏳ Pending
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
+      <div className="text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white">
+          ⚓
+        </div>
+        <p className="mt-2 text-sm font-black">
+          Level 6
+        </p>
+      </div>
+
+      <div className="h-1 flex-1 bg-yellow-600" />
+
+      <div className="text-center">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border-4 border-yellow-400 bg-red-600 text-white">
+          ⭐
+        </div>
+        <p className="mt-2 text-sm font-black">
+          Level 7
+        </p>
+      </div>
+
+      <div className="h-1 flex-1 bg-gray-400" />
+
+      <div className="text-center opacity-50">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-500 text-white">
+          🔒
+        </div>
+        <p className="mt-2 text-sm font-black">
+          Level 8
+        </p>
+      </div>
+    </div>
+
+    <div className="mt-6 rounded-xl bg-yellow-200 p-3 text-center font-black text-amber-900">
+      You're on a roll, Captain! 🏴‍☠️
+    </div>
+  </div>
+</div>
             </div>
           </div>
         </section>
