@@ -401,30 +401,41 @@ if (childData) {
   </h2>
 
   <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-    {rewards.slice(0, 4).map((reward) => (
+  {rewards.slice(0, 4).map((reward) => {
+    const isPending = pendingRewards.some(
+      (request) => request.reward_id === reward.id
+    );
+
+    return (
       <div
         key={reward.id}
-        className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-4 text-center"
+        className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-5 text-center shadow"
       >
-        <div className="text-5xl">🎁</div>
+        <div className="text-6xl">🎁</div>
 
-        <h3 className="mt-3 font-black">
+        <h3 className="mt-3 text-lg font-black text-slate-950">
           {reward.title}
         </h3>
 
-        <p className="mt-2 text-sm font-bold text-amber-900">
-          🪙 {reward.cost}
+        <p className="mt-2 text-sm font-black text-amber-900">
+          🪙 {reward.cost} Doubloons
         </p>
 
         <button
           onClick={() => redeemReward(reward.id)}
-          className="mt-3 rounded-xl bg-red-600 px-4 py-2 font-black text-white"
+          disabled={isPending}
+          className={`mt-4 rounded-xl px-5 py-3 text-sm font-black text-white ${
+            isPending
+              ? "cursor-not-allowed bg-gray-400"
+              : "bg-red-600 hover:bg-red-700"
+          }`}
         >
-          Redeem
+          {isPending ? "Requested ⏳" : "Redeem"}
         </button>
       </div>
-    ))}
-  </div>
+    );
+  })}
+</div>
 </div>
             </div>
           </div>
