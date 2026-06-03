@@ -275,7 +275,7 @@ if (childData) {
   </div>
 </section>
 
-          <div className="grid items-start gap-6 xl:grid-cols-3">
+          <div className="grid items-start gap-6 lg:grid-cols-[320px_1fr]">
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
@@ -322,31 +322,6 @@ if (childData) {
               )}
             </div>
 
-            <div
-              className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
-            >
-              <h2 className="mb-4 text-2xl font-black">Reward Shop 🎁</h2>
-
-              <div className="space-y-3">
-                {rewards.map((reward) => {
-  const isPending = pendingRewards.some(
-    (request) => request.reward_id === reward.id
-  );
-
-  return (
-    <RewardCard
-      key={reward.id}
-      id={reward.id}
-      title={reward.title}
-      cost={reward.cost}
-      icon="🎁"
-      isPending={isPending}
-      onRedeem={redeemReward}
-    />
-  );
-})}
-              </div>
-            </div>
 
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
