@@ -63,12 +63,12 @@ export default function ChildSidebar({ child }: { child: any }) {
         </p>
       </div>
 
-      <nav className="space-y-2 p-3">
+      <nav className="space-y-4 py-4">
   {links.map((link) => (
     <Link
       key={link.label}
       href={link.href}
-      className="relative flex h-28 w-full items-center justify-center"
+     className="relative flex h-28 w-full items-center justify-center overflow-hidden"
     >
       {link.active && (
         <img
