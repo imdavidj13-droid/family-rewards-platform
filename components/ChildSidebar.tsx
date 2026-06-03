@@ -76,12 +76,12 @@ export default function ChildSidebar({ child }: { child: any }) {
           <Link
             key={link.label}
             href={link.href}
-            className="group relative flex h-40 w-full items-center justify-center gap-3 overflow-visible px-0 transition-transform hover:scale-[1.03]"
+            className="group relative flex h-44 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"
           >
             <img
               src="/images/pirate/dashboard-plank.png"
               alt=""
-              className={`absolute left-1/2 top-1/2 h-[190px] w-[400px] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
+              className={`absolute left-0 top-1/2 h-[170px] w-full -translate-y-1/2 scale-x-[1.15] object-fill transition-opacity ${
                 link.active
                   ? "opacity-100"
                   : "opacity-0 group-hover:opacity-80"
