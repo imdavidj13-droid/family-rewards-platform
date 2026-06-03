@@ -184,7 +184,7 @@ if (childData) {
         <section className="flex-1 p-6 md:p-8">
        {/* Adventure Hero */}
 <section
-  className="relative mb-6 overflow-hidden rounded-[2rem] border-4 border-yellow-800 shadow-2xl"
+  className="relative mb-6 min-h-[420px] overflow-hidden rounded-[2rem] border-4 border-yellow-800 shadow-2xl"
   style={{
     backgroundImage: "url('/images/pirate/hero-bg.jpg')",
     backgroundSize: "cover",
@@ -192,8 +192,8 @@ if (childData) {
   }}
 >
   <div className="absolute inset-0 bg-black/35" />
-  <div className="relative z-10 grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
-    <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/90 backdrop-blur-sm p-6 text-slate-950 shadow-xl">
+  <div className="relative z-10 grid min-h-[420px] gap-6 p-10 md:grid-cols-[1fr_260px]">
+    <div className="p-8 text-white">
       <div className="flex items-center gap-6">
   <div className="flex h-56 w-56 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
     🧒
@@ -204,11 +204,11 @@ if (childData) {
       Ahoy there,
     </p>
 
-    <h1 className="mt-1 text-6xl font-black uppercase tracking-tight md:text-7xl">
+    <h1 className="mt-1 text-7xl font-black uppercase tracking-tight text-white drop-shadow-2xl">
       {child?.name || "Explorer"}!
     </h1>
 
-    <p className="mt-4 max-w-xl text-lg font-bold text-slate-700">
+    <p className="mt-4 max-w-xl text-xl font-bold text-white drop-shadow-xl">
       You&apos;re doing great, Captain! Keep up the good work! 🏴‍☠️
     </p>
   </div>
