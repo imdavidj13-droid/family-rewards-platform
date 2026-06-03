@@ -215,7 +215,7 @@ if (childData) {
 </div>
     </div>
 
-   <div className="hidden md:flex items-center justify-end -mr-26">
+   <div className="hidden md:flex items-center justify-end -mr-22">
   <div
   className="relative h-[380px] w-[380px] bg-contain bg-center bg-no-repeat"
     style={{
