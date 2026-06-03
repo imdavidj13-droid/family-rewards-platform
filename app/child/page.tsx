@@ -207,14 +207,19 @@ if (childData) {
 </div>
     </div>
 
-    <div className="flex items-center justify-center rounded-3xl border-4 border-sky-900 bg-sky-950/80 p-6 text-center text-white shadow-xl">
-      <div>
-        <div className="text-7xl"> pirate ship</div>
-        <p className="mt-3 text-sm font-black uppercase tracking-wide text-yellow-300">
-          Adventure Awaits
-        </p>
-      </div>
-    </div>
+   <div className="flex items-center justify-center rounded-3xl border-4 border-yellow-600 bg-gradient-to-br from-sky-800 via-cyan-700 to-blue-950 p-6 text-center text-white shadow-xl">
+  <div>
+    <div className="text-8xl">⛵</div>
+
+    <p className="mt-3 text-lg font-black uppercase tracking-wide text-yellow-300">
+      Captain&apos;s Ship
+    </p>
+
+    <p className="mt-1 text-xs font-black uppercase tracking-wide text-cyan-100">
+      Adventure Awaits
+    </p>
+  </div>
+</div>
   </div>
 </section>
 
