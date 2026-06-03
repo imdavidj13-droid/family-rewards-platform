@@ -183,9 +183,17 @@ if (childData) {
 
         <section className="flex-1 p-6 md:p-8">
        {/* Adventure Hero */}
-<section className="mb-6 overflow-hidden rounded-[2rem] border-4 border-yellow-800 bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-400 shadow-2xl">
-  <div className="grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
-    <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/95 p-6 text-slate-950 shadow-xl">
+<section
+  className="relative mb-6 overflow-hidden rounded-[2rem] border-4 border-yellow-800 shadow-2xl"
+  style={{
+    backgroundImage: "url('/images/pirate/hero-bg.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div className="absolute inset-0 bg-black/35" />
+  <div className="relative z-10 grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
+    <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/90 backdrop-blur-sm p-6 text-slate-950 shadow-xl">
       <div className="flex items-center gap-6">
   <div className="flex h-56 w-56 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
     🧒
@@ -223,131 +231,6 @@ if (childData) {
   </div>
 </section>
 
-{/* Adventure Stats */}
-<section className="mb-8 grid gap-5 md:grid-cols-3">
-  <div className="grid grid-cols-3 gap-5">
-  <div className="rounded-2xl border-4 border-[#7a3b0c] bg-gradient-to-b from-[#f8e5ad] via-[#f2d693] to-[#e7bd73] p-6 shadow-xl">
-    <p className="text-xs font-black uppercase text-[#6b2d08]">
-      Captain Level
-    </p>
-
-    <div className="mt-3 flex items-center gap-5">
-      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-[#9b4a10] bg-[#7b1f16] text-5xl shadow-inner">
-        ⚓
-      </div>
-
-      <div>
-        <h2 className="text-4xl font-black text-slate-950">Level 7</h2>
-        <p className="text-xl font-black text-slate-900">First Mate</p>
-      </div>
-    </div>
-
-    <div className="mt-5 h-5 overflow-hidden rounded-full border-2 border-[#7a3b0c] bg-[#4a2a16]">
-      <div className="h-full w-[65%] rounded-full bg-gradient-to-r from-red-600 to-orange-400" />
-    </div>
-
-    <p className="mt-2 text-center text-sm font-black text-[#5b2608]">
-      865 XP until Level 8
-    </p>
-  </div>
-
-  <div className="rounded-2xl border-4 border-[#7a3b0c] bg-gradient-to-b from-[#f8e5ad] via-[#f2d693] to-[#e7bd73] p-6 text-center shadow-xl">
-    <p className="text-xs font-black uppercase text-[#6b2d08]">
-      Your Treasure
-    </p>
-
-    <div className="mt-4 text-6xl">🪙</div>
-
-    <h2 className="mt-2 text-5xl font-black text-slate-950">4,135</h2>
-    <p className="text-xl font-black text-slate-900">Gold Doubloons</p>
-  </div>
-
-  <div className="rounded-2xl border-4 border-[#7a3b0c] bg-gradient-to-b from-[#f8e5ad] via-[#f2d693] to-[#e7bd73] p-6 text-center shadow-xl">
-    <p className="text-xs font-black uppercase text-[#6b2d08]">
-      Daily Streak
-    </p>
-
-    <div className="mt-4 text-6xl">🔥</div>
-
-    <h2 className="mt-2 text-5xl font-black text-slate-950">3</h2>
-    <p className="text-xl font-black text-slate-900">Days in a row!</p>
-
-    <div className="mt-4 flex justify-center gap-2">
-      {[1, 2, 3, 4, 5, 6].map((dot) => (
-        <span
-          key={dot}
-          className={`h-4 w-4 rounded-full border border-[#8a4b12] ${
-            dot <= 3 ? "bg-orange-400" : "bg-[#8d6b35]"
-          }`}
-        />
-      ))}
-    </div>
-  </div>
-</div>
-  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-slate-950 shadow-xl">
-    <p className="text-center text-xs font-black uppercase tracking-wide text-amber-900">
-      Captain Level
-    </p>
-
-    <div className="mt-3 flex items-center gap-4">
-      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-red-900 bg-red-700 text-5xl shadow">
-        ⚓
-      </div>
-
-      <div>
-        <h2 className="text-4xl font-black">Level 7</h2>
-        <p className="font-black text-slate-700">First Mate</p>
-      </div>
-    </div>
-
-    <div className="mt-5 h-3 overflow-hidden rounded-full bg-yellow-300">
-      <div
-        className="h-full rounded-full bg-red-600"
-        style={{
-          width: `${Math.min(((child?.points || 0) / 100) * 100, 100)}%`,
-        }}
-      />
-    </div>
-
-    <p className="mt-2 text-center text-xs font-black text-slate-700">
-      {100 - ((child?.points || 0) % 100)} XP until Level 8
-    </p>
-  </div>
-
-  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
-    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
-      Your Treasure
-    </p>
-
-    <div className="mt-4 text-6xl">🪙</div>
-
-    <h2 className="mt-3 text-5xl font-black">
-      {child?.points || 0}
-    </h2>
-
-    <p className="font-black text-slate-700">Gold Doubloons</p>
-  </div>
-
-  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
-    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
-      Daily Streak
-    </p>
-
-    <div className="mt-4 text-6xl">🔥</div>
-
-    <h2 className="mt-3 text-5xl font-black">3</h2>
-
-    <p className="font-black text-slate-700">Days in a row!</p>
-
-    <div className="mt-4 flex justify-center gap-2">
-      <span className="h-4 w-4 rounded-full bg-orange-500" />
-      <span className="h-4 w-4 rounded-full bg-orange-500" />
-      <span className="h-4 w-4 rounded-full bg-orange-500" />
-      <span className="h-4 w-4 rounded-full bg-yellow-300" />
-      <span className="h-4 w-4 rounded-full bg-yellow-300" />
-    </div>
-  </div>
-</section>
 
           <div className="grid items-stretch gap-6 lg:grid-cols-[450px_1fr]">
             <div
