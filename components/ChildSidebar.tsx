@@ -22,7 +22,7 @@ export default function ChildSidebar({ child }: { child: any }) {
   { href: "/child#quests", label: "Quests", icon: "/images/pirate/icons/map.png" },
   { href: "/child#shop", label: "Reward Shop", icon: "/images/pirate/icons/treasure-chest.png" },
   { href: "/achievements", label: "Achievements", icon: "/images/pirate/icons/trophy.png" },
-  { href: "/children", label: "My Crew", icon: "👨‍👩/images/pirate/icons/crew.png" },
+  { href: "/children", label: "My Crew", icon: "/images/pirate/icons/crew.png" },
   { href: "/settings", label: "Settings", icon: "/images/pirate/icons/settings.png" },
 ];
 
