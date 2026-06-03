@@ -92,7 +92,7 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
     <img
       src={link.icon}
       alt=""
-      className="h-8 w-8 object-contain"
+      className="h-12 w-12 object-contain"
     />
   ) : (
     <span className="text-3xl drop-shadow">
