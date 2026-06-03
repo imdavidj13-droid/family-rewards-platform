@@ -72,7 +72,7 @@ export default function ChildSidebar({ child }: { child: any }) {
     >
       {link.active && (
         <img
-          src="/images/dashboard-plank.png"
+          src="/images/pirate/dashboard-plank.png"
           alt=""
           className="absolute inset-0 h-full w-full object-fill"
         />
