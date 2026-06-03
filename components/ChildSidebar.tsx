@@ -18,13 +18,13 @@ export default function ChildSidebar({ child }: { child: any }) {
   const rank = ranks[Math.min(level - 1, ranks.length - 1)];
 
   const links = [
-    { href: "/child", label: "Dashboard", icon: "🏠" },
-    { href: "/child", label: "Quests", icon: "🗺️" },
-    { href: "/child", label: "Reward Shop", icon: "🎁" },
-    { href: "/achievements", label: "Achievements", icon: "🏆" },
-    { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
-    { href: "/settings", label: "Settings", icon: "⚙️" },
-  ];
+  { href: "/child", label: "Dashboard", icon: "🏠", active: true },
+  { href: "/child", label: "Quests", icon: "🗺️" },
+  { href: "/child", label: "Reward Shop", icon: "🎁" },
+  { href: "/achievements", label: "Achievements", icon: "🏆" },
+  { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
+  { href: "/settings", label: "Settings", icon: "⚙️" },
+];
 
   return (
     <aside className="min-h-screen w-56 shrink-0 overflow-hidden border-r-4 border-yellow-900 bg-gradient-to-b from-slate-950 via-sky-950 to-slate-950 text-yellow-100 shadow-2xl">
@@ -68,17 +68,28 @@ export default function ChildSidebar({ child }: { child: any }) {
     <Link
       key={link.label}
       href={link.href}
-      className="relative flex h-14 items-center justify-center overflow-hidden rounded-xl"
+      className="relative flex h-16 items-center gap-3 px-4"
     >
-      <img
-        src="/images/pirate/dashboard-plank.png"
-        alt=""
-        className="absolute inset-0 h-full w-full object-fill"
-      />
+      {link.active && (
+        <img
+          src="/images/dashboard-plank.png"
+          alt=""
+          className="absolute inset-0 h-full w-full object-fill"
+        />
+      )}
 
-      <span className="relative z-10 flex items-center gap-2 text-sm font-black text-yellow-100 drop-shadow">
-        <span className="text-xl">{link.icon}</span>
-        <span>{link.label}</span>
+      <span className="relative z-10 text-2xl">
+        {link.icon}
+      </span>
+
+      <span
+        className={`relative z-10 font-black ${
+          link.active
+            ? "text-yellow-100"
+            : "text-yellow-200"
+        }`}
+      >
+        {link.label}
       </span>
     </Link>
   ))}
