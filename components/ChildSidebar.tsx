@@ -71,22 +71,24 @@ export default function ChildSidebar({ child }: { child: any }) {
         </p>
       </div>
 
-      <nav className="flex-1 py-3">
+      <nav className="flex-1 py-2">
         {links.map((link) => (
           <Link
             key={link.label}
             href={link.href}
-            className="group relative flex h-56 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"
+            className="group relative flex h-24 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"
           >
             <img
-              src="/images/pirate/dashboard-plank.png"
-              alt=""
-              className={`absolute left-1/2 top-1/2 h-[260px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
-                link.active
-                  ? "opacity-100"
-                  : "opacity-0 group-hover:opacity-80"
-              }`}
-            />
+  src={
+    link.active
+      ? "/images/pirate/dashboard-plank.png"
+      : "/images/pirate/dashboard-plank-dark.png"
+  }
+  alt=""
+  className={`absolute left-1/2 top-1/2 h-[260px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
+    link.active ? "opacity-100" : "opacity-95 group-hover:opacity-100"
+  }`}
+/>
 
             <span className="relative z-10 w-12 text-center text-3xl drop-shadow">
               {link.icon}
