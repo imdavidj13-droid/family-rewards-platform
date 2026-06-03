@@ -183,14 +183,41 @@ if (childData) {
 
         <section className="flex-1 p-6 md:p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-black md:text-4xl">
-              Child Portal 👦
-            </h1>
+  <div
+    className={`overflow-hidden rounded-3xl border ${theme.border} ${theme.cardBg}`}
+  >
+    <div className="grid gap-6 p-8 lg:grid-cols-[120px_1fr_280px]">
+      <div className="flex items-center justify-center">
+        <div className="flex h-28 w-28 items-center justify-center rounded-full bg-blue-500/20 text-5xl">
+          👦
+        </div>
+      </div>
 
-            <p className={`mt-2 ${theme.mutedText}`}>
-              Complete tasks, earn points and claim rewards.
-            </p>
-          </div>
+      <div>
+        <p className={`font-bold ${theme.mutedText}`}>
+          Welcome Back
+        </p>
+
+        <h1 className="mt-2 text-5xl font-black">
+          {child?.name || "Explorer"}!
+        </h1>
+
+        <p className={`mt-3 text-lg ${theme.mutedText}`}>
+          Ready for another adventure today?
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center rounded-2xl bg-blue-500/10">
+        <div className="text-center">
+          <div className="text-5xl">🏴‍☠️</div>
+          <p className="mt-2 font-bold">
+            Adventure Artwork
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
           <div
             className={`mb-8 rounded-3xl border ${theme.border} ${theme.cardBg} p-8 shadow-sm`}
@@ -210,22 +237,32 @@ if (childData) {
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                <MiniStat
-                  icon="⭐"
-                  label="Points"
-                  value={String(child?.points || 0)}
-                />
-                <MiniStat icon="🔥" label="Streak" value="3 Days" />
-                <MiniStat icon="🏆" label="Rank" value="#1" />
-              </div>
+<div className="grid gap-4 md:grid-cols-3">
+  <MiniStat
+    icon="🏆"
+    label="Level"
+    value="7"
+  />
+
+  <MiniStat
+    icon="⭐"
+    label="XP"
+    value={String(child?.points || 0)}
+  />
+
+  <MiniStat
+    icon="🔥"
+    label="Streak"
+    value="3 Days"
+  />
+</div>
             </div>
 
             <div className="mt-8">
               <div className="mb-2 flex justify-between text-sm font-bold">
-                <span>Next reward progress</span>
+                <span>XP Progress</span>
                 <span className={theme.primaryText}>
-                  {child?.points || 0} / 200
+                  {child?.points || 0} / 500 XP
                 </span>
               </div>
 
@@ -255,7 +292,7 @@ if (childData) {
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
-              <h2 className="mb-4 text-2xl font-black">Tasks 📋</h2>
+              <h2 className="mb-4 text-2xl font-black">Today's Quests 📜</h2>
 
               {tasks.length === 0 ? (
                 <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
@@ -287,7 +324,7 @@ if (childData) {
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
-              <h2 className="mb-4 text-2xl font-black">Rewards Shop 🎁</h2>
+              <h2 className="mb-4 text-2xl font-black">Reward Shop 🎁</h2>
 
               <div className="space-y-3">
                 {rewards.map((reward) => {
