@@ -40,7 +40,7 @@ export default function ChildSidebar({ child }: { child: any }) {
       </div>
 
       <div className="border-y-4 border-yellow-900/70 bg-slate-900/70 px-4 py-5 text-center">
-        <div className="mx-auto flex h-40 w-40 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-6xl shadow-xl">
+        <div className="mx-auto flex h-64 w-64 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-6xl shadow-xl">
           🧒
         </div>
 
