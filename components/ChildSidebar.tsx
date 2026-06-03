@@ -76,7 +76,7 @@ export default function ChildSidebar({ child }: { child: any }) {
           <Link
             key={link.label}
             href={link.href}
-            className="group relative flex h-24 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"
+            className="group relative flex h-28 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"
           >
             <img
   src={
