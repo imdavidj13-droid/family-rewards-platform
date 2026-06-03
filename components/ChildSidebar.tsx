@@ -97,7 +97,7 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
 
 
             <span
-  className={`relative z-10 ml-3 text-2xl font-black leading-tight drop-shadow ${
+  className={`relative z-10 ml-3 text-xl font-black leading-tight drop-shadow ${
     link.active ? "text-white" : "text-yellow-200"
   }`}
 >
