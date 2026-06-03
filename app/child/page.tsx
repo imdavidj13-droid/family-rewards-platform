@@ -411,9 +411,11 @@ if (childData) {
         key={reward.id}
         className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-5 text-center shadow"
       >
-        <div className="text-6xl">🎁</div>
+        <div className="text-8xl">
+  {getRewardIcon(reward.title)}
+</div>
 
-        <h3 className="mt-3 text-lg font-black text-slate-950">
+        <h3 className="mt-4 text-xl font-black text-slate-950">
           {reward.title}
         </h3>
 
@@ -503,6 +505,26 @@ function TaskCard({
       </div>
     </div>
   );
+}
+
+function getRewardIcon(title: string) {
+  const name = title.toLowerCase();
+
+  if (name.includes("ps5")) return "🎮";
+  if (name.includes("xbox")) return "🎮";
+  if (name.includes("game")) return "🎮";
+  if (name.includes("pizza")) return "🍕";
+  if (name.includes("movie")) return "🎬";
+  if (name.includes("cinema")) return "🎬";
+  if (name.includes("sweet")) return "🍬";
+  if (name.includes("ice cream")) return "🍦";
+  if (name.includes("hot dog")) return "🌭";
+  if (name.includes("being good")) return "⭐";
+  if (name.includes("robux")) return "💎";
+  if (name.includes("v-bucks")) return "🪙";
+  if (name.includes("football")) return "⚽";
+
+  return "🎁";
 }
 
 function RewardCard({
