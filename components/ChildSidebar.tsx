@@ -76,7 +76,7 @@ export default function ChildSidebar({ child }: { child: any }) {
           <Link
             key={link.label}
             href={link.href}
-className="group relative flex h-24 w-full items-center justify-center overflow-visible transition-transform hover:scale-[1.03]"          >
+className="group relative flex h-24 w-full items-center justify-center gap-4 overflow-visible transition-transform hover:scale-[1.03]"          >
             <img
   src={
     link.active
@@ -87,7 +87,7 @@ className="group relative flex h-24 w-full items-center justify-center overflow-
 className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
 
-            <div className="relative z-10 flex w-12 justify-center">
+            <div className="relative z-10 flex w-16 shrink-0 justify-center">
   <img
     src={link.icon}
     alt=""
