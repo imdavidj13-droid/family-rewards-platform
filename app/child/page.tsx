@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Sidebar from "@/components/Sidebar";
+import ChildSidebar from "@/components/ChildSidebar";
 import { useTheme } from "@/components/ThemeProvider";
 import { supabase } from "@/lib/supabase";
 import Toast from "@/components/Toast";
@@ -179,7 +179,7 @@ if (childData) {
   return (
     <main className={`min-h-screen ${theme.pageBg} ${theme.text}`}>
       <div className="flex min-h-screen">
-        <Sidebar />
+        <ChildSidebar child={child} />
 
         <section className="flex-1 p-6 md:p-8">
           <div className="mb-8">
