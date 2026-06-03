@@ -68,22 +68,22 @@ export default function ChildSidebar({ child }: { child: any }) {
     <Link
       key={link.label}
       href={link.href}
-      className="relative flex h-20 w-full items-center gap-4 px-8"
+      className="relative flex h-28 w-full items-center justify-center"
     >
       {link.active && (
         <img
           src="/images/pirate/dashboard-plank.png"
           alt=""
-          className="absolute inset-0 h-full w-full object-fill"
+          className="absolute left-0 top-0 h-full w-full object-cover"
         />
       )}
 
-      <span className="relative z-10 text-3xl">
+      <span className="relative z-10 text-4xl">
         {link.icon}
       </span>
 
       <span
-  className={`relative z-10 text-xl font-black ${
+  className={`relative z-10 text-2xl font-black ${
           link.active
             ? "text-yellow-100"
             : "text-yellow-200"
