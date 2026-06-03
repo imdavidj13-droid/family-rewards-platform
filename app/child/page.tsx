@@ -184,7 +184,7 @@ if (childData) {
         <section className="flex-1 p-6 md:p-8">
        {/* Adventure Hero */}
 <section
-  className="relative -mx-8 -mt-8 mb-0 min-h-[260px] overflow-hidden shadow-2xl"
+  className="relative -mx-8 -mt-8 mb-0 min-h-[260px] overflow-visible shadow-2xl"
   style={{
     backgroundImage: "url('/images/pirate/hero-bg.jpg')",
     backgroundSize: "cover",
@@ -215,7 +215,7 @@ if (childData) {
 </div>
     </div>
 
-   <div className="hidden md:flex items-center justify-end -mr-8">
+   <div className="hidden md:flex items-center justify-end -mr-32">
   <div
   className="relative h-[380px] w-[380px] bg-contain bg-center bg-no-repeat"
     style={{
