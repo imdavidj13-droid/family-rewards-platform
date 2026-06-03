@@ -68,13 +68,13 @@ export default function ChildSidebar({ child }: { child: any }) {
     <Link
       key={link.label}
       href={link.href}
-     className="relative flex h-28 w-full items-center justify-center overflow-hidden"
+     className="relative flex h-28 w-full items-center justify-center overflow-visible"
     >
       {link.active && (
         <img
           src="/images/pirate/dashboard-plank.png"
           alt=""
-          className="absolute left-1/2 top-0 h-full w-[125%] -translate-x-1/2 object-fill"
+          className="absolute left-0 top-0 h-full w-full scale-x-125 object-fill"
         />
       )}
 
