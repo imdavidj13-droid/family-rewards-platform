@@ -19,7 +19,7 @@ export default function ChildSidebar({ child }: { child: any }) {
 
   const links = [
   { href: "/child", label: "Dashboard", icon: "/images/pirate/icons/home.png", active: true },
-  { href: "/child#quests", label: "Quests", icon: "🗺️" },
+  { href: "/child#quests", label: "Quests", icon: "/images/pirate/icons/quest-map.png" },
   { href: "/child#shop", label: "Reward Shop", icon: "🎁" },
   { href: "/achievements", label: "Achievements", icon: "🏆" },
   { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
@@ -88,7 +88,7 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
 />
 
             <div className="relative z-10 flex w-12 justify-center">
-  {link.label === "Dashboard" ? (
+  {typeof link.icon === "string" && link.icon.startsWith("/") ? (
     <img
       src={link.icon}
       alt=""
@@ -100,6 +100,7 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
     </span>
   )}
 </div>
+
 
             <span
               className={`relative z-10 text-2xl font-black leading-tight drop-shadow ${
