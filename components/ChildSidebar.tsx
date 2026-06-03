@@ -87,7 +87,7 @@ className="group relative flex h-24 w-full items-center overflow-visible px-14 t
 className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
 
-            <div className="relative z-10 -ml-2 flex w-14 shrink-0 justify-center">
+            <div className="relative z-10 -ml-3 flex w-14 shrink-0 justify-center">
   <img
     src={link.icon}
     alt=""
