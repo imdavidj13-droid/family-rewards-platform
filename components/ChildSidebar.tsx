@@ -19,11 +19,11 @@ export default function ChildSidebar({ child }: { child: any }) {
 
   const links = [
   { href: "/child", label: "Dashboard", icon: "/images/pirate/icons/home.png", active: true },
-  { href: "/child#quests", label: "Quests", icon: "/images/pirate/icons/quest-map.png" },
-  { href: "/child#shop", label: "Reward Shop", icon: "🎁" },
-  { href: "/achievements", label: "Achievements", icon: "🏆" },
-  { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
-  { href: "/settings", label: "Settings", icon: "⚙️" },
+  { href: "/child#quests", label: "Quests", icon: "/images/pirate/icons/map.png" },
+  { href: "/child#shop", label: "Reward Shop", icon: "/images/pirate/icons/treasure-chest.png" },
+  { href: "/achievements", label: "Achievements", icon: "/images/pirate/icons/trophy.png" },
+  { href: "/children", label: "My Crew", icon: "👨‍👩/images/pirate/icons/quest-map.png" },
+  { href: "/settings", label: "Settings", icon: "/images/pirate/icons/settings.png" },
 ];
 
   return (
@@ -88,17 +88,11 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
 />
 
             <div className="relative z-10 flex w-12 justify-center">
-  {typeof link.icon === "string" && link.icon.startsWith("/") ? (
-    <img
-      src={link.icon}
-      alt=""
-      className="h-10 w-10 object-contain"
-    />
-  ) : (
-    <span className="text-3xl drop-shadow">
-      {link.icon}
-    </span>
-  )}
+  <img
+    src={link.icon}
+    alt=""
+    className="h-10 w-10 object-contain drop-shadow"
+  />
 </div>
 
 
