@@ -88,15 +88,11 @@ className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -transla
 />
 
             <div className="relative z-10 flex w-12 justify-center">
- <img
-  src={link.icon}
-  alt=""
-  className={`object-contain drop-shadow ${
-    link.label === "My Crew"
-      ? "h-14 w-14"
-      : "h-10 w-10"
-  }`}
-/>
+  <img
+    src={link.icon}
+    alt=""
+    className="h-10 w-10 object-contain drop-shadow"
+  />
 </div>
 
 
