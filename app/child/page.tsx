@@ -289,47 +289,61 @@ if (childData) {
             <div
               className={`rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
             >
-              <h2 className="mb-4 text-2xl font-black">📜 Quest Board</h2>
+              <h2 className="mb-4 text-2xl font-black text-amber-900">
+  📜 Quest Board
+</h2>
 
-              {tasks.length === 0 ? (
-                <div className={`rounded-2xl ${theme.softBg} p-6 text-center`}>
-                  <div className="text-5xl">🎉</div>
+{tasks.length === 0 ? (
+  <div className="rounded-2xl border-2 border-yellow-800 bg-yellow-50 p-6 text-center">
+    <div className="text-6xl">🏴‍☠️</div>
 
-                  <h3 className="mt-3 text-xl font-black">
-                    <div className="rounded-2xl border-2 border-yellow-800 bg-yellow-50 p-6 text-center">
-  <div className="text-6xl">🏴‍☠️</div>
+    <h3 className="mt-4 text-2xl font-black text-amber-900">
+      Quest Complete!
+    </h3>
 
-  <h3 className="mt-4 text-2xl font-black text-amber-900">
-    Quest Complete!
-  </h3>
+    <p className="mt-2 font-medium text-slate-700">
+      You&apos;ve finished every quest for today.
+    </p>
 
-  <p className="mt-2 font-medium text-slate-700">
-    You've finished every quest for today.
-  </p>
-
-  <div className="mt-4 inline-block rounded-full bg-green-600 px-4 py-2 font-black text-white">
-    + Adventure Bonus
+    <div className="mt-4 inline-block rounded-full bg-green-600 px-4 py-2 font-black text-white">
+      + Adventure Bonus
+    </div>
   </div>
-</div>
-                  </h3>
+) : (
+  <div className="space-y-3">
+    {tasks.map((task) => (
+      <div
+        key={task.id}
+        className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-4 shadow"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-700 text-2xl text-white">
+              {getQuestIcon(task.title)}
+            </div>
 
-                  <p className={`mt-2 ${theme.mutedText}`}>
-                    Great job. Check back later for more tasks.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {tasks.map((task) => (
-                    <TaskCard
-                      key={task.id}
-                      id={task.id}
-                      title={task.title}
-                      points={task.points}
-                      onComplete={completeTask}
-                    />
-                  ))}
-                </div>
-              )}
+            <div>
+              <h3 className="font-black text-slate-950">
+                {task.title}
+              </h3>
+
+              <p className="text-sm font-black text-amber-900">
+                ⭐ +{task.points} XP
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => completeTask(task.id, task.points)}
+            className="rounded-xl bg-green-600 px-4 py-2 text-sm font-black text-white hover:bg-green-700"
+          >
+            Complete
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
             </div>
 
 
@@ -505,6 +519,23 @@ function TaskCard({
       </div>
     </div>
   );
+}
+
+function getQuestIcon(title: string) {
+  const name = title.toLowerCase();
+
+  if (name.includes("bed")) return "🛏️";
+  if (name.includes("read")) return "📖";
+  if (name.includes("teeth") || name.includes("brush")) return "🦷";
+  if (name.includes("football")) return "⚽";
+  if (name.includes("homework")) return "📚";
+  if (name.includes("school")) return "🎒";
+  if (name.includes("room")) return "🧹";
+  if (name.includes("dish")) return "🍽️";
+  if (name.includes("kind")) return "💛";
+  if (name.includes("good")) return "⭐";
+
+  return "📜";
 }
 
 function getRewardIcon(title: string) {
