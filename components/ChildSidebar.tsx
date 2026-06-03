@@ -18,13 +18,13 @@ export default function ChildSidebar({ child }: { child: any }) {
   const rank = ranks[Math.min(level - 1, ranks.length - 1)];
 
   const links = [
-    { href: "/child", label: "Dashboard", icon: "🏠", active: true },
-    { href: "/child#quests", label: "Quests", icon: "🗺️" },
-    { href: "/child#shop", label: "Reward Shop", icon: "🎁" },
-    { href: "/achievements", label: "Achievements", icon: "🏆" },
-    { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
-    { href: "/settings", label: "Settings", icon: "⚙️" },
-  ];
+  { href: "/child", label: "Dashboard", icon: "/images/pirate/icons/home.png", active: true },
+  { href: "/child#quests", label: "Quests", icon: "🗺️" },
+  { href: "/child#shop", label: "Reward Shop", icon: "🎁" },
+  { href: "/achievements", label: "Achievements", icon: "🏆" },
+  { href: "/children", label: "My Crew", icon: "👨‍👩‍👧" },
+  { href: "/settings", label: "Settings", icon: "⚙️" },
+];
 
   return (
     <aside
@@ -87,9 +87,19 @@ className="group relative flex h-24 w-full items-center justify-center overflow-
 className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
 
-            <span className="relative z-10 w-12 text-center text-3xl drop-shadow">
-              {link.icon}
-            </span>
+            <div className="relative z-10 flex w-12 justify-center">
+  {link.label === "Dashboard" ? (
+    <img
+      src={link.icon}
+      alt=""
+      className="h-8 w-8 object-contain"
+    />
+  ) : (
+    <span className="text-3xl drop-shadow">
+      {link.icon}
+    </span>
+  )}
+</div>
 
             <span
               className={`relative z-10 text-2xl font-black leading-tight drop-shadow ${
