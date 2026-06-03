@@ -187,7 +187,7 @@ if (childData) {
   <div className="grid gap-6 p-6 md:grid-cols-[1fr_260px] md:p-8">
     <div className="rounded-3xl border-4 border-yellow-700 bg-yellow-100/95 p-6 text-slate-950 shadow-xl">
       <div className="flex items-center gap-6">
-  <div className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
+  <div className="flex h-56 w-56 items-center justify-center rounded-full border-4 border-yellow-600 bg-gradient-to-br from-sky-700 to-slate-950 text-7xl shadow-xl">
     🧒
   </div>
 
