@@ -215,17 +215,26 @@ if (childData) {
 </div>
     </div>
 
-   <div className="hidden md:flex items-center justify-center rounded-3xl border-4 border-yellow-600 bg-gradient-to-br from-sky-800 via-cyan-700 to-blue-950 p-6 text-center text-white shadow-xl">
-  <div>
-    <div className="text-8xl">⛵</div>
+   <div className="hidden md:flex items-center justify-end">
+  <div
+    className="relative h-[320px] w-[320px] bg-contain bg-center bg-no-repeat"
+    style={{
+      backgroundImage: "url('/images/pirate/treasure-sign.png')",
+    }}
+  >
+    <div className="absolute inset-0 flex flex-col items-center justify-center pt-8 text-center">
+      <p className="text-sm font-black uppercase text-yellow-100">
+        YOUR TREASURE
+      </p>
 
-    <p className="mt-3 text-lg font-black uppercase tracking-wide text-yellow-300">
-      Captain&apos;s Ship
-    </p>
+      <h2 className="mt-2 text-6xl font-black text-yellow-300">
+        {child?.points || 0}
+      </h2>
 
-    <p className="mt-1 text-xs font-black uppercase tracking-wide text-cyan-100">
-      Adventure Awaits
-    </p>
+      <p className="mt-2 text-sm font-black uppercase text-yellow-100">
+        🪙 GOLD DOUBLOONS
+      </p>
+    </div>
   </div>
 </div>
   </div>
