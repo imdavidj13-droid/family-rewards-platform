@@ -184,7 +184,7 @@ if (childData) {
         <section className="flex-1 p-6 md:p-8">
        {/* Adventure Hero */}
 <section
-  className="relative -mx-8 -mt-8 mb-6 min-h-[260px] overflow-hidden border-b-4 border-yellow-800 shadow-2xl"
+  className="relative -mx-8 -mt-8 mb-0 min-h-[260px] overflow-hidden shadow-2xl"
   style={{
     backgroundImage: "url('/images/pirate/hero-bg.jpg')",
     backgroundSize: "cover",
@@ -232,7 +232,7 @@ if (childData) {
 </section>
 
 
-          <div className="grid items-stretch gap-6 lg:grid-cols-[450px_1fr]">
+          <div className="grid items-stretch gap-6 pt-6 lg:grid-cols-[450px_1fr]">
             <div
   className={`h-full rounded-3xl border ${theme.border} ${theme.cardBg} p-6 shadow-sm`}
 >
