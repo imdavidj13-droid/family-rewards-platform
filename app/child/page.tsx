@@ -385,6 +385,37 @@ if (childData) {
     </div>
   </div>
 </div>
+<div className="mt-6 rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-6 shadow-xl">
+  <h2 className="mb-4 text-center text-2xl font-black text-amber-900">
+    🎁 Reward Shop
+  </h2>
+
+  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    {rewards.slice(0, 4).map((reward) => (
+      <div
+        key={reward.id}
+        className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-4 text-center"
+      >
+        <div className="text-5xl">🎁</div>
+
+        <h3 className="mt-3 font-black">
+          {reward.title}
+        </h3>
+
+        <p className="mt-2 text-sm font-bold text-amber-900">
+          🪙 {reward.cost}
+        </p>
+
+        <button
+          onClick={() => redeemReward(reward.id)}
+          className="mt-3 rounded-xl bg-red-600 px-4 py-2 font-black text-white"
+        >
+          Redeem
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
             </div>
           </div>
         </section>
