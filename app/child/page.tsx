@@ -231,6 +231,73 @@ if (childData) {
   </div>
 </section>
 
+{/* Adventure Stats */}
+<section className="mb-6 grid gap-5 md:grid-cols-3">
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-slate-950 shadow-xl">
+    <p className="text-center text-xs font-black uppercase tracking-wide text-amber-900">
+      Captain Level
+    </p>
+
+    <div className="mt-3 flex items-center gap-4">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-red-900 bg-red-700 text-5xl shadow">
+        ⚓
+      </div>
+
+      <div>
+        <h2 className="text-4xl font-black">Level 7</h2>
+        <p className="font-black text-slate-700">First Mate</p>
+      </div>
+    </div>
+
+    <div className="mt-5 h-3 overflow-hidden rounded-full bg-yellow-300">
+      <div
+        className="h-full rounded-full bg-red-600"
+        style={{
+          width: `${Math.min(((child?.points || 0) / 100) * 100, 100)}%`,
+        }}
+      />
+    </div>
+
+    <p className="mt-2 text-center text-xs font-black text-slate-700">
+      {100 - ((child?.points || 0) % 100)} XP until Level 8
+    </p>
+  </div>
+
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
+    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+      Your Treasure
+    </p>
+
+    <div className="mt-4 text-6xl">🪙</div>
+
+    <h2 className="mt-3 text-5xl font-black">
+      {child?.points || 0}
+    </h2>
+
+    <p className="font-black text-slate-700">Gold Doubloons</p>
+  </div>
+
+  <div className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-5 text-center text-slate-950 shadow-xl">
+    <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+      Daily Streak
+    </p>
+
+    <div className="mt-4 text-6xl">🔥</div>
+
+    <h2 className="mt-3 text-5xl font-black">3</h2>
+
+    <p className="font-black text-slate-700">Days in a row!</p>
+
+    <div className="mt-4 flex justify-center gap-2">
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-orange-500" />
+      <span className="h-4 w-4 rounded-full bg-yellow-300" />
+      <span className="h-4 w-4 rounded-full bg-yellow-300" />
+    </div>
+  </div>
+</section>
+
 
           <div className="-mt-6 grid items-stretch gap-6 lg:grid-cols-[450px_1fr]">
             <div
