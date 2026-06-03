@@ -85,9 +85,7 @@ export default function ChildSidebar({ child }: { child: any }) {
       : "/images/pirate/dashboard-plank-dark.png"
   }
   alt=""
-  className={`absolute left-1/2 top-1/2 h-[260px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill transition-opacity ${
-    link.active ? "opacity-100" : "opacity-95 group-hover:opacity-100"
-  }`}
+  className="absolute left-1/2 top-1/2 h-[260px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
 
             <span className="relative z-10 w-12 text-center text-3xl drop-shadow">
