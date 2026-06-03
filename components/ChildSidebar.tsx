@@ -64,18 +64,25 @@ export default function ChildSidebar({ child }: { child: any }) {
       </div>
 
       <nav className="space-y-2 p-3">
-        {links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="flex items-center gap-3 rounded-xl border border-yellow-900/40 bg-slate-900/70 px-3 py-3 text-sm font-black text-yellow-100 shadow hover:bg-yellow-700/30"
-          >
-            <span className="text-xl">{link.icon}</span>
-            <span>{link.label}</span>
-          </Link>
-        ))}
-      </nav>
+  {links.map((link) => (
+    <Link
+      key={link.label}
+      href={link.href}
+      className="relative flex h-14 items-center justify-center overflow-hidden rounded-xl"
+    >
+      <img
+        src="/images/pirate/dashboard-plank.png"
+        alt=""
+        className="absolute inset-0 h-full w-full object-fill"
+      />
 
+      <span className="relative z-10 flex items-center gap-2 text-sm font-black text-yellow-100 drop-shadow">
+        <span className="text-xl">{link.icon}</span>
+        <span>{link.label}</span>
+      </span>
+    </Link>
+  ))}
+</nav>
       <div className="mt-auto p-4">
         <button className="w-full rounded-xl border-2 border-yellow-700 bg-slate-900 px-3 py-3 text-xs font-black text-yellow-200 shadow hover:bg-yellow-900/40">
           🧭 CHANGE THEME
