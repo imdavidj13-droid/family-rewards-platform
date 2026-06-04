@@ -201,7 +201,7 @@ export default function ChildPage() {
               <TodaysQuests tasks={tasks} onComplete={completeTask} />
 
               <div className="space-y-4">
-                <AdventureMap />
+                <AdventureMap points={points} />
                 <RewardShopPreview
                   rewards={rewards}
                   pendingRewards={pendingRewards}
