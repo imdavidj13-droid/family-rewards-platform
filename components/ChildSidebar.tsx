@@ -28,7 +28,7 @@ export default function ChildSidebar({ child }: { child: any }) {
 
   return (
     <aside
-  className="flex min-h-screen w-80 shrink-0 flex-col overflow-hidden border-r-4 border-yellow-900 text-yellow-100 shadow-2xl"
+  className="flex min-h-screen w-[clamp(76px,13vw,320px)] shrink-0 flex-col overflow-hidden border-r-4 border-yellow-900 text-yellow-100 shadow-2xl"
       style={{
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.32)), url('/images/pirate/sidebar-bg.png')",
@@ -36,7 +36,7 @@ export default function ChildSidebar({ child }: { child: any }) {
         backgroundPosition: "center",
       }}
     >
-      <div className="px-4 py-3 text-center">
+      <div className="px-[clamp(4px,1vw,16px)] py-3 text-center">
         <div className="rounded-xl border-2 border-yellow-600 bg-red-800 px-3 py-2 shadow-xl">
           <p className="text-sm font-black leading-none text-yellow-100">
             FAMILY
@@ -48,11 +48,11 @@ export default function ChildSidebar({ child }: { child: any }) {
       </div>
 
       <div className="border-y-2 border-cyan-900/50 bg-black/20 px-4 py-5 text-center shadow-inner">
-        <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full border-4 border-yellow-500 bg-gradient-to-br from-sky-600 via-sky-900 to-slate-950 text-6xl shadow-xl">
+        <div className="mx-auto flex h-[clamp(44px,7vw,128px)] w-[clamp(44px,7vw,128px)] items-center justify-center rounded-full border-4 border-yellow-500 bg-gradient-to-br from-sky-600 via-sky-900 to-slate-950 text-[clamp(22px,3.5vw,60px)] shadow-xl">
           🧒
         </div>
 
-        <h2 className="mt-3 text-2xl font-black text-white drop-shadow">
+        <h2 className="mt-3 text-[clamp(10px,1.6vw,24px)] font-black text-white drop-shadow">
           {child?.name || "Explorer"}
         </h2>
 
@@ -76,7 +76,7 @@ export default function ChildSidebar({ child }: { child: any }) {
           <Link
             key={link.label}
             href={link.href}
-className="group relative flex h-24 w-full items-center overflow-visible px-14 transition-transform hover:scale-[1.03]"          >
+className="group relative flex h-[clamp(48px,5.6vw,96px)] w-full items-center overflow-visible px-[clamp(6px,3vw,56px)] transition-transform hover:scale-[1.03]"          >
             <img
   src={
     link.active
@@ -84,25 +84,25 @@ className="group relative flex h-24 w-full items-center overflow-visible px-14 t
       : "/images/pirate/dashboard-plank-dark.png"
   }
   alt=""
-className="absolute left-1/2 top-1/2 h-[205px] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
+className="absolute left-1/2 top-1/2 h-[clamp(80px,12vw,205px)] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
 
-            <div className="relative z-10 -ml-5 flex w-14 shrink-0 justify-center">
+            <div className="relative z-10 flex w-full shrink-0 justify-center min-[1500px]:-ml-5 min-[1500px]:w-14">
   <img
     src={link.icon}
     alt=""
-    className="h-10 w-10 object-contain drop-shadow"
+    className="h-[clamp(22px,2.4vw,40px)] w-[clamp(22px,2.4vw,40px)] object-contain drop-shadow"
   />
 </div>
 
 
             <span
-  className={`relative z-10 ml-3 text-xl font-black leading-tight drop-shadow ${
+  className={`relative z-10 ml-3 hidden whitespace-nowrap text-[clamp(10px,1.15vw,20px)] font-black leading-tight drop-shadow min-[1500px]:block ${
     link.active ? "text-white" : "text-yellow-200"
   }`}
 >
-              {link.label}
-            </span>
+  {link.label}
+</span>
           </Link>
         ))}
       </nav>

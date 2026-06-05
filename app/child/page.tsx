@@ -188,7 +188,7 @@ export default function ChildPage() {
         <ChildSidebar child={child} />
 
         <section className="flex-1 overflow-hidden">
-          <div className="w-full space-y-4 p-3 md:p-4">
+          <div className="w-full max-w-[1180px] space-y-4 p-3 md:p-4">
             <HeroBanner child={child} points={points} />
 
             <StatsRow
@@ -197,10 +197,10 @@ export default function ChildPage() {
               xpToNextLevel={xpToNextLevel}
             />
 
-            <div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-[520px_1fr]">
+            <div className="grid grid-cols-1 items-start gap-0 xl:grid-cols-[390px_1fr]">
               <TodaysQuests tasks={tasks} onComplete={completeTask} />
 
-              <div className="space-y-4">
+              <div className="w-full space-y-3">
                 <AdventureMap points={points} />
                 <RewardShopPreview
                   rewards={rewards}
@@ -466,11 +466,12 @@ function TodaysQuests({
   const visibleTasks = tasks.slice(0, 5);
 
   return (
-    <section className="relative -mt-7 w-full max-w-[520px]">
+  <section className="relative -mt-7 w-full [container-type:inline-size]">
+    <div className="relative aspect-[420/685] w-full">
       <img
         src="/images/pirate/quest-panel.png"
         alt=""
-        className="h-auto w-full object-contain drop-shadow-2xl"
+        className="absolute inset-0 h-full w-full object-fill drop-shadow-2xl"
       />
 
       <h2
@@ -479,7 +480,7 @@ function TodaysQuests({
         Today&apos;s Quests
       </h2>
 
-      <div className="absolute left-[9%] right-[9%] top-[19%] space-y-3">
+      <div className="absolute left-[11%] right-[11%] top-[19%] space-y-2">
         {visibleTasks.length === 0 ? (
           <div className="rounded-2xl border-2 border-[#c89548] bg-[#f5d99c]/90 px-4 py-8 text-center shadow-[inset_0_2px_0_rgba(255,255,255,0.35),0_3px_6px_rgba(80,35,5,0.25)]">
             <div className="text-6xl">🏴‍☠️</div>
@@ -496,10 +497,10 @@ function TodaysQuests({
           visibleTasks.map((task) => (
             <div
               key={task.id}
-              className="flex items-center justify-between rounded-2xl border-2 border-[#c89548] bg-[#f5d99c]/90 px-4 py-3 shadow-[inset_0_2px_0_rgba(255,255,255,0.35),0_3px_6px_rgba(80,35,5,0.25)]"
+              className="flex items-center justify-between rounded-2xl border-2 border-[#c89548] bg-[#f5d99c]/90 px-5 py-3 shadow-[inset_0_2px_0_rgba(255,255,255,0.35),0_4px_7px_rgba(80,35,5,0.3)]"
             >
               <div className="flex min-w-0 items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center text-4xl">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center text-3xl">
                   {getQuestIcon(task.title)}
                 </div>
 
@@ -526,10 +527,11 @@ function TodaysQuests({
       </div>
 
       <button
-        className={`${cinzel.className} absolute bottom-[12%] left-[16%] right-[16%] text-center text-2xl font-black uppercase tracking-wide text-yellow-100 drop-shadow-[0_2px_1px_rgba(60,15,0,0.9)]`}
+        className={`${cinzel.className} absolute bottom-[10%] left-[16%] right-[16%] text-center text-2xl font-black uppercase tracking-wide text-yellow-100 drop-shadow-[0_2px_1px_rgba(60,15,0,0.9)]`}
       >
         View All Quests
       </button>
+      </div>
     </section>
   );
 }
@@ -588,7 +590,7 @@ function AdventureMap({ points }: { points: number }) {
 
   return (
     <section className="relative">
-      <div className="relative mx-auto w-full max-w-[1100px]">
+      <div className="relative w-full max-w-[640px]">
         <div className="relative aspect-[16/10] w-full">
           <img
             src="/images/pirate/adventure-frame.png"
@@ -731,67 +733,78 @@ function RewardShopPreview({
   onRedeem: (id: string) => Promise<void>;
 }) {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative w-full overflow-hidden [container-type:inline-size]">
       <img
         src="/images/pirate/reward-shop-bg.png"
         alt=""
         className="absolute inset-0 h-full w-full object-fill"
       />
 
-      <div className="relative z-10 p-6">
-        <div className="mb-4 flex items-center justify-between">
+      <div className="relative z-10 px-[cqw] pb-[2.2cqw] pt-[3.8cqw]">
+        <div className="absolute left-[15cqw] top-[1.5cqw] z-20">
           <h2
-            className={`${cinzel.className} text-2xl font-black uppercase text-yellow-100`}
+            className={`${cinzel.className} text-[clamp(14px,1.9cqw,30px)] font-black uppercase text-yellow-100 drop-shadow-[0_2px_2px_rgba(0,0,0,0.9)]`}
           >
             Reward Shop
           </h2>
-
-          <button className="text-xs font-black uppercase text-yellow-100">
-            View All
-          </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <button className="absolute right-[5.2cqw] top-[1.9cqw] z-20 text-[clamp(9px,1.05cqw,15px)] font-black uppercase text-yellow-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+  View All
+</button>
+
+        <div className="grid grid-cols-4 gap-[0.8cqw]">
           {rewards.slice(0, 4).map((reward) => {
             const isPending = pendingRewards.some(
               (request) => request.reward_id === reward.id
             );
 
             return (
-              <div key={reward.id} className="relative">
+              <div
+                key={reward.id}
+                className="relative h-[27cqw]"
+              >
                 <img
                   src="/images/pirate/reward-card.png"
                   alt=""
-                  className="w-full object-contain"
+                  className="absolute inset-0 h-full w-full object-fill"
                 />
 
-                <div className="absolute inset-0 flex flex-col items-center justify-start pt-[25%] px-3 text-center">
-                  <div className="text-6xl"><img
-  src={reward.image_url}
-  alt={reward.title}
-  className="h-20 w-20 object-contain"
- /></div>
+                <img
+                  src={reward.image_url}
+                  alt={reward.title}
+                  className="absolute left-1/2 top-[2%] h-[18cqw] w-[18cqw] -translate-x-1/2 object-contain drop-shadow-xl"
+                />
 
-                  <h3 className="mt-2 truncate text-sm font-black text-[#3a1b06]">
-                    {reward.title}
-                  </h3>
+                <h3 className="absolute bottom-[7.6cqw] left-1/2 w-full -translate-x-1/2 px-[0.5cqw] text-center text-[clamp(16px,1.25cqw,18px)] font-black leading-tight text-[#2b1608]">
+                  {reward.title}
+                </h3>
 
-                  <div className="mt-1 text-xs font-black text-[#7a2d0b]">
-                    🪙 {reward.cost}
-                  </div>
+                <button
+                  onClick={() => onRedeem(reward.id)}
+                  disabled={isPending}
+                  className="absolute bottom-[0.8cqw] left-1/2 h-[8cqw] w-[15cqw] -translate-x-1/2"
+                >
+                  <img
+                    src="/images/pirate/redeem-button.png"
+                    alt=""
+                    className="h-full w-full object-fill"
+                  />
 
-                  <button
-                    onClick={() => onRedeem(reward.id)}
-                    disabled={isPending}
-                    className={`mt-2 rounded-xl px-3 py-1 text-[10px] font-black uppercase text-white ${
-                      isPending
-                        ? "cursor-not-allowed bg-gray-500"
-                        : "bg-red-700 hover:bg-red-800"
-                    }`}
-                  >
-                    {isPending ? "Requested" : "Redeem"}
-                  </button>
-                </div>
+                  <span className="absolute inset-0 flex items-center justify-center gap-[0.35cqw]">
+                    <img
+                      src="/images/pirate/doubloon.png"
+                      alt=""
+                      className="h-[3.5cqw] w-[3.5cqw] object-contain"
+                    />
+
+                    <span
+                      className={`${cinzel.className} text-[clamp(15px,1.1cqw,16px)] font-black text-yellow-100`}
+                    >
+                      {reward.cost}
+                    </span>
+                  </span>
+                </button>
               </div>
             );
           })}
