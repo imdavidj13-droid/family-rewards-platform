@@ -535,135 +535,179 @@ function TodaysQuests({
 }
 
 function AdventureMap({ points }: { points: number }) {
-  const currentLevel = Math.floor(points / 100) + 1;
-
   const mapLevels = [
-    { level: 1, left: "16%", top: "62%" },
-    { level: 2, left: "34%", top: "54%" },
-    { level: 3, left: "50%", top: "44%" },
-    { level: 4, left: "66%", top: "54%" },
-    { level: 5, left: "80%", top: "65%" },
+    {
+      level: 5,
+      name: "Level 5",
+      left: 18,
+      top: 48,
+      icon: "/images/pirate/level-icon-blue.png",
+      banner: "/images/pirate/level-banner-blue.png",
+      iconSize: "16cqw",
+      bannerSize: "12cqw",
+      bannerTop: "-7cqw",
+      textLift: "0px",
+    },
+    {
+      level: 6,
+      name: "Level 6",
+      left: 38,
+      top: 64,
+      icon: "/images/pirate/level-icon-red.png",
+      banner: "/images/pirate/level-banner-blue.png",
+      iconSize: "16cqw",
+      bannerSize: "12cqw",
+      bannerTop: "-7cqw",
+      textLift: "0px",
+    },
+    {
+      level: 7,
+      name: "Level 7",
+      left: 60,
+      top: 38,
+      icon: "/images/pirate/level-next.png",
+      banner: "/images/pirate/level-banner-red.png",
+      iconSize: "15cqw",
+      bannerSize: "12.5cqw",
+      bannerTop: "-10cqw",
+      textLift: "-0.4cqw",
+    },
+    {
+      level: 8,
+      name: "Level 8",
+      left: 78,
+      top: 62,
+      icon: "/images/pirate/level-icon-locked.png",
+      banner: "/images/pirate/level-banner-brown.png",
+      iconSize: "11cqw",
+      bannerSize: "12cqw",
+      bannerTop: "-5.5cqw",
+      textLift: "0px",
+    },
   ];
 
   return (
     <section className="relative">
-      <div className="relative mx-auto w-full">
-        <img
-          src="/images/pirate/adventure-frame.png"
-          alt=""
-          className="relative z-10 w-full object-contain"
-        />
-
-        <div className="absolute left-[6%] top-[7%] z-20 w-[88%]">
+      <div className="relative mx-auto w-full max-w-[1100px]">
+        <div className="relative aspect-[16/10] w-full">
           <img
-            src="/images/pirate/adventure-ocean.png"
+            src="/images/pirate/adventure-frame.png"
             alt=""
-            className="w-full"
+            className="absolute inset-0 z-10 h-full w-full object-fill"
           />
+          <div className="absolute left-1/2 top-[-11.5%] z-50 flex h-[36%] w-[65%] -translate-x-1/2 items-center">
+  <img
+    src="/images/pirate/map-top-banner.png"
+    alt=""
+    className="h-full w-full object-fill"
+  />
 
-          <svg
-            className="absolute inset-0 h-full w-full"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M 16 62 C 26 50, 30 65, 34 54 S 46 38, 50 44 S 58 68, 66 54 S 74 52, 80 65"
-              fill="none"
-              stroke="#f5d28a"
-              strokeWidth="1.2"
-              strokeDasharray="2 2"
-              strokeLinecap="round"
-            />
-          </svg>
+  <p
+    className={`${cinzel.className} absolute inset-0 flex items-center justify-center font-black uppercase text-yellow-100`}
+    style={{
+      fontSize: "clamp(12px, 1.5cqw, 24px)",
+      textShadow: "0 2px 4px rgba(0,0,0,0.8)",
+    }}
+  >
+    YOUR ADVENTURE
+  </p>
+</div>
 
-          {mapLevels.map((item) => {
-            const isDone = item.level < currentLevel;
-            const isActive = item.level === currentLevel;
-            const isLocked = item.level > currentLevel;
+<div className="absolute bottom-[-10.1%] left-1/2 z-50 flex h-[30%] w-[65%] -translate-x-1/2 items-center">
+  <img
+    src="/images/pirate/map-bottom-banner.png"
+    alt=""
+    className="h-full w-full object-fill"
+  />
 
-            return (
+  <p
+    className={`${cinzel.className} absolute inset-0 flex items-center justify-center font-black text-[#4a2408]`}
+    style={{
+      fontSize: "clamp(10px, 1.3cqw, 20px)",
+    }}
+  >
+    You're on a roll, Captain! 🏴‍☠️
+  </p>
+</div>
+
+         <div className="absolute left-[6%] top-[7%] z-20 h-[86%] w-[88%] overflow-hidden [container-type:inline-size]">
+  <img
+    src="/images/pirate/adventure-ocean.png"
+    alt=""
+    className="absolute inset-0 h-full w-full object-fill"
+  />
+            
+
+            <svg
+              className="absolute inset-0 z-20 h-full w-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 16 48 C 24 54, 30 66, 38 64 S 52 42, 60 42 S 74 64, 82 62"
+                fill="none"
+                stroke="#f5d28a"
+                strokeWidth="1.2"
+                strokeDasharray="2 2"
+                strokeLinecap="round"
+              />
+            </svg>
+
+            {mapLevels.map((item) => (
               <div
                 key={item.level}
-                className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: item.left, top: item.top }}
+                className="absolute z-30 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+                style={{ left: `${item.left}%`, top: `${item.top}%` }}
               >
-                <div
-                  className={`flex h-16 w-16 items-center justify-center rounded-full border-4 text-2xl font-black shadow-xl ${
-                    isActive
-                      ? "scale-125 border-yellow-300 bg-red-700 text-yellow-100 shadow-yellow-400/70"
-                      : isDone
-                        ? "border-yellow-500 bg-sky-800 text-yellow-100"
-                        : "border-slate-400 bg-slate-600 text-slate-200 opacity-70"
-                  }`}
-                >
-                  {isLocked ? "🔒" : "⚓"}
+                <div className="relative flex items-center justify-center">
+                  <img
+                    src={item.icon}
+                    alt=""
+                    className="relative z-10 object-contain drop-shadow-xl"
+                    style={{ width: item.iconSize }}
+                  />
                 </div>
 
                 <div
-                  className={`mt-2 rounded-xl border-2 px-3 py-1 text-center text-sm font-black ${
-                    isActive
-                      ? "border-yellow-300 bg-red-700 text-yellow-100"
-                      : isDone
-                        ? "border-yellow-500 bg-blue-800 text-yellow-100"
-                        : "border-slate-400 bg-slate-700 text-slate-200"
-                  }`}
+                  className="relative"
+                  style={{
+                    marginTop: item.bannerTop,
+                    width: item.bannerSize,
+                  }}
                 >
-                  Level {item.level}
-                </div>
+                  <img
+                    src={item.banner}
+                    alt=""
+                    className="w-full object-contain"
+                  />
 
-                {isDone && (
-                  <div className="absolute -right-2 top-8 flex h-7 w-7 items-center justify-center rounded-full border-2 border-green-900 bg-green-600 text-white">
-                    ✓
-                  </div>
-                )}
+                  <p
+                    className="absolute inset-0 flex items-center justify-center font-black uppercase text-yellow-100"
+                    style={{
+                      fontSize: "clamp(6px, 0.8cqw, 9px)",
+                      transform: `translateY(${item.textLift})`,
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                </div>
               </div>
-            );
-          })}
+            ))}
 
-          <img
-            src="/images/pirate/ship.png"
-            alt=""
-            className="absolute left-[43%] top-[58%] w-[14%] -translate-x-1/2 -translate-y-1/2 drop-shadow-xl"
-          />
+            <img
+              src="/images/pirate/map-boat.png"
+              alt=""
+              className="absolute left-[50%] top-[56%] z-40 w-[40%] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-xl"
+            />
 
-          <div className="pointer-events-none absolute inset-0 bg-[#d8c18d]/10 mix-blend-multiply" />
-          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_40px_rgba(70,40,15,0.25)]" />
+        
+
+            <div className="pointer-events-none absolute inset-0 z-50 bg-[#d8c18d]/10 mix-blend-multiply" />
+            <div className="pointer-events-none absolute inset-0 z-50 shadow-[inset_0_0_40px_rgba(70,40,15,0.25)]" />
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-function MapStep({
-  label,
-  icon,
-  done,
-  active,
-  locked,
-}: {
-  label: string;
-  icon: string;
-  done?: boolean;
-  active?: boolean;
-  locked?: boolean;
-}) {
-  return (
-    <div className={`relative z-10 text-center ${locked ? "opacity-60" : ""}`}>
-      <div
-        className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full border-4 text-2xl text-white shadow-xl ${
-          active
-            ? "scale-125 border-yellow-300 bg-red-700"
-            : done
-              ? "border-yellow-500 bg-sky-800"
-              : "border-slate-400 bg-gray-600"
-        }`}
-      >
-        {icon}
-      </div>
-
-      <p className="mt-3 text-xs font-black text-yellow-50 drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]">
-        {label}
-      </p>
-    </div>
   );
 }
 
@@ -687,46 +731,71 @@ function RewardShopPreview({
   onRedeem: (id: string) => Promise<void>;
 }) {
   return (
-    <section className="rounded-3xl border-4 border-yellow-800 bg-yellow-100 p-4 text-slate-950 shadow-xl">
-      <h2 className="mb-4 text-center text-2xl font-black text-amber-900">
-        🎁 Reward Shop
-      </h2>
+    <section className="relative overflow-hidden">
+      <img
+        src="/images/pirate/reward-shop-bg.png"
+        alt=""
+        className="absolute inset-0 h-full w-full object-fill"
+      />
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        {rewards.slice(0, 4).map((reward) => {
-          const isPending = pendingRewards.some(
-            (request) => request.reward_id === reward.id
-          );
+      <div className="relative z-10 p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2
+            className={`${cinzel.className} text-2xl font-black uppercase text-yellow-100`}
+          >
+            Reward Shop
+          </h2>
 
-          return (
-            <div
-              key={reward.id}
-              className="rounded-2xl border-2 border-yellow-700 bg-yellow-50 p-4 text-center shadow"
-            >
-              <div className="text-5xl">{getRewardIcon(reward.title)}</div>
+          <button className="text-xs font-black uppercase text-yellow-100">
+            View All
+          </button>
+        </div>
 
-              <h3 className="mt-3 text-lg font-black text-slate-950">
-                {reward.title}
-              </h3>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {rewards.slice(0, 4).map((reward) => {
+            const isPending = pendingRewards.some(
+              (request) => request.reward_id === reward.id
+            );
 
-              <p className="mt-1 text-sm font-black text-amber-900">
-                🪙 {reward.cost} Doubloons
-              </p>
+            return (
+              <div key={reward.id} className="relative">
+                <img
+                  src="/images/pirate/reward-card.png"
+                  alt=""
+                  className="w-full object-contain"
+                />
 
-              <button
-                onClick={() => onRedeem(reward.id)}
-                disabled={isPending}
-                className={`mt-3 rounded-xl px-4 py-2 text-sm font-black text-white ${
-                  isPending
-                    ? "cursor-not-allowed bg-gray-400"
-                    : "bg-red-600 hover:bg-red-700"
-                }`}
-              >
-                {isPending ? "Requested ⏳" : "Redeem"}
-              </button>
-            </div>
-          );
-        })}
+                <div className="absolute inset-0 flex flex-col items-center justify-start pt-[25%] px-3 text-center">
+                  <div className="text-6xl"><img
+  src={reward.image_url}
+  alt={reward.title}
+  className="h-20 w-20 object-contain"
+ /></div>
+
+                  <h3 className="mt-2 truncate text-sm font-black text-[#3a1b06]">
+                    {reward.title}
+                  </h3>
+
+                  <div className="mt-1 text-xs font-black text-[#7a2d0b]">
+                    🪙 {reward.cost}
+                  </div>
+
+                  <button
+                    onClick={() => onRedeem(reward.id)}
+                    disabled={isPending}
+                    className={`mt-2 rounded-xl px-3 py-1 text-[10px] font-black uppercase text-white ${
+                      isPending
+                        ? "cursor-not-allowed bg-gray-500"
+                        : "bg-red-700 hover:bg-red-800"
+                    }`}
+                  >
+                    {isPending ? "Requested" : "Redeem"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
