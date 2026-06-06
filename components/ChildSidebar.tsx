@@ -17,13 +17,13 @@ export default function ChildSidebar({ child }: { child: any }) {
 
   const rank = ranks[Math.min(level - 1, ranks.length - 1)];
 
-  const links = [
-  { href: "/child", label: "Dashboard", icon: "/images/pirate/icons/home.png", active: true },
-  { href: "/child#quests", label: "Quests", icon: "/images/pirate/icons/map.png" },
-  { href: "/child#shop", label: "Reward Shop", icon: "/images/pirate/icons/treasure-chest.png" },
-  { href: "/achievements", label: "Achievements", icon: "/images/pirate/icons/trophy.png" },
-  { href: "/children", label: "My Crew", icon: "/images/pirate/icons/crew.png" },
-  { href: "/settings", label: "Settings", icon: "/images/pirate/icons/settings.png" },
+ const links = [
+  { href: "/child", label: "Dashboard", icon: "/themes/pirate/sidebar-icons/home.png", active: true },
+  { href: "/child#quests", label: "Quests", icon: "/themes/pirate/sidebar-icons/map.png" },
+  { href: "/child#shop", label: "Reward Shop", icon: "/themes/pirate/sidebar-icons/treasure-chest.png" },
+  { href: "/achievements", label: "Achievements", icon: "/themes/pirate/sidebar-icons/trophy.png" },
+  { href: "/children", label: "My Crew", icon: "/themes/pirate/sidebar-icons/crew.png" },
+  { href: "/settings", label: "Settings", icon: "/themes/pirate/sidebar-icons/settings.png" },
 ];
 
   return (
@@ -31,7 +31,7 @@ export default function ChildSidebar({ child }: { child: any }) {
   className="flex min-h-screen w-[clamp(76px,13vw,320px)] shrink-0 flex-col overflow-hidden border-r-4 border-yellow-900 text-yellow-100 shadow-2xl"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.32)), url('/images/pirate/sidebar-bg.png')",
+  "linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.32)), url('/themes/pirate/sidebar/sidebar-bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -79,10 +79,10 @@ export default function ChildSidebar({ child }: { child: any }) {
 className="group relative flex h-[clamp(48px,5.6vw,96px)] w-full items-center overflow-visible px-[clamp(6px,3vw,56px)] transition-transform hover:scale-[1.03]"          >
             <img
   src={
-    link.active
-      ? "/images/pirate/dashboard-plank.png"
-      : "/images/pirate/dashboard-plank-dark.png"
-  }
+  link.active
+    ? "/themes/pirate/sidebar/dashboard-plank.png"
+    : "/themes/pirate/sidebar/dashboard-plank-dark.png"
+}
   alt=""
 className="absolute left-1/2 top-1/2 h-[clamp(80px,12vw,205px)] w-[94%] -translate-x-1/2 -translate-y-1/2 object-fill"
 />
